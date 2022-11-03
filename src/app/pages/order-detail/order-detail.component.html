@@ -1,0 +1,37 @@
+<h1 class="text-center">Sản phẩm đã mua</h1>
+<div class="container pt-5" style="padding-top: 500px">
+
+  <div class="card-table">
+    <div class="cart-product">
+
+      <table class="table table-responsive" style="padding-top: 129px">
+        <thead>
+        <tr>
+          <th>Sr.No</th>
+          <th>Product Name</th>
+          <th>Product Image</th>
+          <th>Hãng</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr *ngFor="let item of orderDetail; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{item.product.name}}</td>
+          <td><img style="width: 120px;" src="/assets/img/product/p6.jpg" alt=""></td>
+          <td>{{item.product.hang.name}}</td>
+          <th style="width: 12%;">{{item.price}}</th>
+          <td style="width: 12%;">{{item.quantity}}</td>
+          <td style="width: 12%;">{{item.quantity * item.price}}</td>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
