@@ -28,7 +28,7 @@
             <td style="width: 12%;">{{item.quantity}}</td>
             <td style="width: 12%;">{{item.total}}</td>
             <td>
-              <button (click)="removeItem(item)" class="btn btn-danger"> Xoas<i class="fas fa-trash-alt"></i></button>
+              <button (click)="removeItem(item)" class="btn btn-danger"> Delete<i class="fas fa-trash-alt"></i></button>
             </td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@
             <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
             <td><button routerLink="/pages" class="btn btn-primary">Shop More</button></td>
             <td><button (click)="checkout()" class="btn btn-success">Checkout</button></td>
-            <td><strong>Grand Total : ${{grandTotal}}</strong></td>
+            <td><strong>Grand Total : {{grandTotal}}</strong></td>
           </tr>
           </tbody>
         </table>
@@ -47,7 +47,6 @@
 
 
 <ng-container *ngIf="products.length ==0">
-  <ng-container *ngIf="orderDetail.length ==0">
     <div class="container">
       <div class="card">
         <h5 class="card-title">My Cart</h5>
@@ -59,51 +58,4 @@
         <a routerLink="/pages" class="btn btn-primary">Shop Now</a>
       </div>
     </div>
-  </ng-container>
-
-  <ng-container *ngIf="orderDetail.length != 0">
-
-    <div class="container pt-5" style="padding-top: 500px">
-      <h1 class="text-center">Sản phẩm đã mua</h1>
-      <div class="card-table">
-        <div class="cart-product">
-          <table class="table table-responsive" style="padding-top: 129px">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Product Name</th>
-              <th>Product Image</th>
-              <th>Hãng</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <tr *ngFor="let item of orderDetail; let i = index">
-              <td>{{i+1}}</td>
-              <td>{{item.product.name}}</td>
-              <td><img style="width: 120px;" src="/assets/img/product/p6.jpg" alt=""></td>
-              <td>{{item.product.hang.name}}</td>
-              <th style="width: 12%;">{{item.price}}</th>
-              <td style="width: 12%;">{{item.quantity}}</td>
-              <td style="width: 12%;">{{item.quantity * item.price}}</td>
-
-            </tr>
-            <tr>
-              <td colspan="4"></td>
-              <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
-              <td><button routerLink="/pages" class="btn btn-primary">Shop More</button></td>
-              <td><button (click)="checkout()" class="btn btn-success">Checkout</button></td>
-              <td><strong>Grand Total : ${{grandTotal}}</strong></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </ng-container>
 </ng-container>

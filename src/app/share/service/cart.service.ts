@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -7,61 +7,61 @@ import {HttpClient} from "@angular/common/http";
 })
 export class CartService {
   readonly APIUrl = "http://localhost:8080/api/order/dathang";
-  public cartItemList : any =[]
-  public productList = new BehaviorSubject<any>([]);
-  public search = new BehaviorSubject<string>("");
-
-  constructor(private http:HttpClient){}
-
-  addOrder(){
+  public cartItemList : any[] =[]
+  constructor(private http: HttpClient) {
+  }
+  addOrder() {
     return this.http.post(this.APIUrl, this.cartItemList);
   }
 
-
-  getProducts(){
-    return this.productList.asObservable();
+  getProducts(): Observable<any[]> {
+    return of(this.getCartData());
   }
 
-  setProduct(product : any){
-    this.cartItemList.push(...product);
-    this.productList.next(product);
-  }
-  addtoCart(product : any){
-    if(this.cartItemList.length == 0){
-      this.cartItemList.push(product);
-    }else{
-      let temp = this.cartItemList.filter((a:any)=>a.id == product.id)[0];
-      if(temp){
-        let index = this.cartItemList.indexOf(temp);
-        this.cartItemList[index].quantity ++;
-        this.cartItemList[index].total += product.total;
-      }else{
-        this.cartItemList.push(product);
-      }
-    }
 
-    this.productList.next(this.cartItemList);
-    this.getTotalPrice();
-    console.log(this.cartItemList)
-  }
-
-  getTotalPrice() : number{
+  getTotalPrice(): number {
     let grandTotal = 0;
-    this.cartItemList.map((a:any)=>{
+    this.getCartData().map((a: any) => {
       grandTotal += a.total;
     })
     return grandTotal;
   }
-  removeCartItem(product: any){
-    this.cartItemList.map((a:any, index:any)=>{
-      if(product.id=== a.id){
-        this.cartItemList.splice(index,1);
-      }
-    })
-    this.productList.next(this.cartItemList);
+
+  removeCartItem(product: any) {
+    const index = this.cartItemList.findIndex((x: any) => x.id === product.id);
+
+    if (index > -1) {
+      this.cartItemList.splice(index, 1);
+      this.setCartData();
+    }
   }
-  removeAllCart(){
-    this.cartItemList = []
-    this.productList.next(this.cartItemList);
+
+  removeAllCart() {
+    localStorage.removeItem('cart');
+  }
+
+
+  addtoCart(product: any) {
+    if (this.cartItemList.length == 0) {
+      this.cartItemList.push(product);
+    }else {
+      let temp = this.cartItemList.filter((a: any) => a.id == product.id)[0];
+      if (temp) {
+        let index = this.cartItemList.indexOf(temp);
+        this.cartItemList[index].quantity++;
+        this.cartItemList[index].total += product.total;
+      } else {
+        this.cartItemList.push(product);
+      }
+    }
+    this.setCartData();
+  }
+
+  setCartData() {
+    localStorage.setItem('cart', JSON.stringify(this.cartItemList));
+  }
+
+  getCartData(): any {
+    return JSON.parse(localStorage.getItem('cart') as any) || [];
   }
 }
