@@ -10,7 +10,8 @@ import {FindQuantity, ProductAdd} from "../../@core/models/FindQuantity";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {TokenStorageService} from "../../share/service/token-storage.service";
-import {Cart, Product} from "../../@core/models/Cart";
+import {Brand, Cart, Category, Product} from "../../@core/models/Cart";
+import {ProductDTO} from "../../@core/models/ProductSortDTO";
 
 @Component({
   selector: 'app-product',
@@ -19,13 +20,21 @@ import {Cart, Product} from "../../@core/models/Cart";
 })
 export class ProductComponent implements OnInit {
   formAdd!: FormGroup;
+  formSearch!: FormGroup;
   dataSize: Size[] = [];
   dataColor: Color[] = [];
+  dataCate: Category[] = [];
+  dataBrand: Brand[] = [];
   product: Product ={};
-  public productList: any = [];
+  productDTO: ProductDTO = {};
+  public productList: Product[] = [];
   message!: any;
   findQuantity :FindQuantity ={};
   productAdd: Cart={};
+  indexPage = 0;
+  Page: any;
+  size = 10;
+
 
   constructor(
     private fb: FormBuilder,
@@ -39,9 +48,24 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.prepareData()
+    this.productDTO.sortByValues = [];
+    this.pagination();
     this.initFormAdd();
+    this.initFormSearch();
   }
+
+
+  initFormSearch() {
+    this.formSearch = this.fb.group({
+      id: '',
+      name: '',
+      inportprice: '',
+      outputprice: '',
+      category: '',
+      hang: '',
+    });
+  }
+
 
   public prepareData(): void {
     this.getProduct()
@@ -162,6 +186,86 @@ this.productAdd.userName = this.tokenService.getUser();
    );
    this.modalService.dismissAll();
  }
+  }
+
+
+  fillValueSearch() {
+    const formSearchValue = this.formSearch.value;
+    this.productDTO.name = formSearchValue.name;
+    this.productDTO.outputprice = formSearchValue.outputprice;
+    let categoryId = formSearchValue.category;
+    this.productDTO.category = this.dataCate.find(category => {
+      return category.id == categoryId;
+    });
+    let brandId = formSearchValue.hang;
+    this.productDTO.hang = this.dataBrand.find(brand => {
+      return brand.id == brandId;
+    });
+
+  }
+
+  pagination() {
+    this.indexPage = this.indexPage < 0 ? 0 : this.indexPage;
+    this.productService.getPageProduct(this.indexPage, this.size, this.productDTO)
+      .subscribe({
+        next: res => {
+          this.productList = res.object.content;
+          this.Page = res.object;
+        }, error: error => {
+          this.toastr.error(error.error.message);
+        }
+      });
+  }
+
+  pageItem(value: string) {
+    const valueNumber = parseInt(value);
+    if (valueNumber > this.size) {
+      let ratioSize = Math.ceil(valueNumber / this.size);
+      this.indexPage = Math.floor(this.indexPage / ratioSize);
+    }
+    if (valueNumber < this.size) {
+      let ratioSize = Math.floor(this.size / valueNumber);
+      this.indexPage = Math.floor(this.indexPage * ratioSize);
+    }
+    this.size = valueNumber;
+    this.pagination();
+  }
+
+  countStt(): number {
+    let totalItemofPage = this.size * (this.indexPage + 1);
+    let totalElements = this.Page["totalElements"];
+    let endItem: number = totalItemofPage < totalElements ? totalItemofPage : totalElements;
+    return endItem;
+  }
+  preNextPage(type: string) {
+    type == 'pre' ? --this.indexPage
+      : type == 'next' ? ++this.indexPage
+        : type == 'end' ? this.indexPage = (this.Page['totalPages'] - 1) : this.indexPage = 0;
+    this.pagination();
+
+  }
+
+  getAllCategory() {
+    this.productService.getAllCate().subscribe(
+      (res: any) => {
+        this.dataCate = res;
+      }
+    );
+  }
+
+  getAllBrand() {
+    this.productService.getAllBrand().subscribe(
+      (res: any) => {
+        this.dataBrand = res;
+      }
+    );
+  }
+
+  onSubmitSearch() {
+    this.fillValueSearch();
+    console.log(this.productDTO)
+    this.pagination();
+    this.initFormSearch();
   }
 
 

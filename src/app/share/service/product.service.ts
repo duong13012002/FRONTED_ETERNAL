@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {FindQuantity} from "../../@core/models/FindQuantity";
+import {ProductDTO} from "../../@core/models/ProductSortDTO";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,19 @@ export class ProductService{
       .pipe(map((res:any)=>{
         return res;
       }))
+  }
+
+
+  getPageProduct(indexPage: any, size:any,dto:ProductDTO): Observable<any>{
+    return this.http.put<any>(this.API_URL +"rest/products/sortByKey?page="+indexPage +"&size="+size,dto) ;
+  }
+
+  public getAllCate():Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}public/rest/products/getAllCategory`);
+  }
+
+  public getAllBrand():Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}public/rest/products/getAllBrand`);
   }
 
   public getAllColor():Observable<any>{

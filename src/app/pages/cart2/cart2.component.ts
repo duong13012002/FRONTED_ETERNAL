@@ -138,6 +138,8 @@ export class Cart2Component implements OnInit {
         this.cartService.checkOut(this.formI4.value.cusI4,this.tokenStorageService.getUser()).subscribe(
           res =>{
             this.toastr.success(res.message)
+            this.modalService.dismissAll();
+            this.router.navigate(['/order-detail'])
           },error => {
             this.toastr.error(error.error.message)
           }

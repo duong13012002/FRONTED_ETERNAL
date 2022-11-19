@@ -1,21 +1,21 @@
 
 <ng-container *ngIf="data.length !=0">
-  <div class="container pt-5" style="padding-top: 500px">
+  <div class="container pt-5">
     <div class="card-table">
       <div class="cart-product">
-        <table class="table table-responsive" style="padding-top: 129px">
+        <table class="table table-responsive">
           <thead>
           <tr>
-            <th>Sr.No</th>
-            <th>Product Name</th>
-            <th>Product Image</th>
+            <th>STT</th>
+            <th>Tên sản phảm</th>
+            <th>Ảnh</th>
             <th>Hãng</th>
             <th>Size</th>
             <th>Màu</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
-            <th>Action</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng tiền</th>
+            <th>Thao tác</th>
           </tr>
           </thead>
           <tbody>
@@ -32,14 +32,14 @@
             <td style="width: 12%;">{{item.quantity}}</td>
             <td *ngIf="item.product!.outputprice && item!.quantity" style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND</td>
             <td>
-              <button (click)="removeItem(item.id)" class="btn btn-danger"> Delete<i class="fas fa-trash-alt"></i></button>
+              <button (click)="removeItem(item.id)" class="btn btn-danger">Xóa<i class="fas fa-trash-alt"></i></button>
             </td>
           </tr>
           <tr>
             <td colspan="4"></td>
-            <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
-            <td><button routerLink="/pages" class="btn btn-primary">Shop More</button></td>
-            <td><button (click)="checkout(content)" class="btn btn-success">Checkout</button></td>
+            <td><button (click)="emptycart()" class="btn btn-danger">Làm mới giỏ hàng</button></td>
+            <td><button routerLink="/pages" class="btn btn-primary">Mua thêm</button></td>
+            <td><button (click)="checkout(content)" class="btn btn-success">Thanh toán</button></td>
             <td><strong>Grand Total : {{grandTotal}} VND</strong></td>
           </tr>
           </tbody>
@@ -75,18 +75,15 @@
           <div class="form-group row">
             <label class="col-md-4 col-form-label">Địa chỉ của bạn: </label>
             <div class="col-md-10 mt-2">
-              <div>
+              <div style="display: flex;">
                 <select class="form-control" formControlName="cusI4" style="border: solid 1px gray;">
                   <option *ngFor="let item of dataCusI4" [value]="item.id">{{item.name}} - {{item.sdt}} - {{item.address}}
                   </option>
 
                 </select>
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
-                  Địa chỉ không được bỏ trống !
-                </small>
+
                    <!--        btn thêm mới        -->
-                <button class='btn btn-primary' (click)="create()">
+                <button class='btn btn-primary ms-2' (click)="create()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                        class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
                     <path
@@ -94,12 +91,16 @@
                   </svg>
                 </button>
               </div>
+              <small class="col alert text-danger" role="alert"
+                       *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
+                  Địa chỉ không được bỏ trống !
+                </small>
             </div>
           </div>
 
       </div>
       <div class="modal-footer">
-        <div>
+        <div style="text-align: center;">
           <button  type="button" class="btn btn-success" type="submit" (click)="(choiseIn4())"  [disabled]="!formI4.valid" >Chọn địa chỉ liên hệ</button>
         </div>
       </div>

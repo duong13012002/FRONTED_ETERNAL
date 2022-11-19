@@ -21,17 +21,17 @@
               <ul class="dropdown-menu">
                 <li class="nav-item"><a class="nav-link" routerLink="/pages/cate">Shop Category</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/pages/home">Product Details</a></li>
-                <li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
-                <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Shopping Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Blog</a>
               <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Blog Details</a></li>
               </ul>
             </li>
             <li class="nav-item submenu dropdown">
@@ -39,11 +39,17 @@
                 aria-expanded="false">Pages</a>
               <ul class="dropdown-menu">
                 <li class="nav-item"><a class="nav-link" routerLink = "/login">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-                <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Tracking</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Elements</a></li>
               </ul>
             </li>
-            <li class="nav-item"><a class="nav-link" href="contact.html"> Xin Chào{{user}}</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" > Xin Chào {{user}}</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item" role="button">Your info</li>
+                <li class="dropdown-item" role="button">Log out</li>
+              </ul>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a routerLink="/cart" class="cart"><span class="ti-bag"></span></a></li>
