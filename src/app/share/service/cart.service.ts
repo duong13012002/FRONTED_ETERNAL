@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
+import {ProductAdd} from "../../@core/models/FindQuantity";
+import {Cart} from "../../@core/models/Cart";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,38 @@ export class CartService {
   public cartItemList : any[] =[]
   constructor(private http: HttpClient) {
   }
+
+  findAllByUserName(userName:string):Observable<any>{
+    return this.http.get<any>("http://localhost:8080/api/public/cart/byUserName/"+userName);
+  }
+
+  create(cart:Cart):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/cart",cart);
+  }
+
+  delete(id:any):Observable<any>{
+    return this.http.delete<any>("http://localhost:8080/api/public/cart/"+id);
+  }
+
+  deleteAll(userName:any):Observable<any>{
+    return this.http.get<any>("http://localhost:8080/api/public/cart/deleteAll/"+userName);
+  }
+
+  findAllCustommerIn4(userName:string):Observable<any>{
+    return this.http.get<any>("http://localhost:8080/api/public/cusI4/"+userName);
+  }
+
+  checkOut(id:any,userName:any):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?id="+id+"&userName="+userName,null);
+  }
+
+
+
+
+
+
+
+
   addOrder() {
     return this.http.post(this.APIUrl, this.cartItemList);
   }
@@ -41,24 +75,12 @@ export class CartService {
   }
 
 
-  addtoCart(product: any) {
-    if (this.cartItemList.length == 0) {
-      this.cartItemList.push(product);
-    }else {
-      let temp = this.cartItemList.filter((a: any) => a.id == product.id)[0];
-      if (temp) {
-        let index = this.cartItemList.indexOf(temp);
-        this.cartItemList[index].quantity++;
-        this.cartItemList[index].total += product.total;
-      } else {
-        this.cartItemList.push(product);
-      }
-    }
-    this.setCartData();
-  }
-
   setCartData() {
     localStorage.setItem('cart', JSON.stringify(this.cartItemList));
+  }
+
+  setCartDatad(cartItemList:any) {
+    localStorage.setItem('cart', JSON.stringify(cartItemList));
   }
 
   getCartData(): any {
