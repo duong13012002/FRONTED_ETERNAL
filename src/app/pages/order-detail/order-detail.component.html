@@ -1,10 +1,9 @@
-<h1 class="text-center">Lịch sử đặt hàng</h1>
-<div  *ngIf ="listOrdderDetails" class="container pt-5" style="padding-top: 500px">
-
+<h1 class="text-center" style="margin-top: 150px;">Lịch sử đặt hàng</h1>
+<div  *ngIf ="listOrdderDetails" class="container">
   <div class="card-table">
     <div class="cart-product">
 
-      <table class="table table-responsive" style="padding-top: 129px">
+      <table class="table table-responsive p-3">
         <thead>
         <tr>
           <th>Sr.No</th>
@@ -33,9 +32,6 @@
           <td *ngIf="item.order!.status==1" style="width: 12%;">Đang giao hàng</td>
           <td *ngIf="item.order!.status==2" style="width: 12%;">Hoàn thành</td>
           <td *ngIf="item.order!.status==3" style="width: 12%;">Đã hủy</td>
-
-
-
         </tbody>
       </table>
     </div>
