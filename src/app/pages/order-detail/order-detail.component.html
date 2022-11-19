@@ -1,5 +1,5 @@
-<h1 class="text-center">Sản phẩm đã mua</h1>
-<div class="container pt-5" style="padding-top: 500px">
+<h1 class="text-center">Lịch sử đặt hàng</h1>
+<div  *ngIf ="listOrdderDetails" class="container pt-5" style="padding-top: 500px">
 
   <div class="card-table">
     <div class="cart-product">
@@ -14,20 +14,27 @@
           <th>Price</th>
           <th>Quantity</th>
           <th>Total</th>
+          <th>Trạng thái</th>
 
         </tr>
         </thead>
         <tbody>
 
 
-        <tr *ngFor="let item of orderDetail; let i = index">
+        <tr *ngFor="let item of listOrdderDetails; let i = index">
           <td>{{i+1}}</td>
-          <td>{{item.product.name}}</td>
+          <td>{{item.product!.name}}</td>
           <td><img style="width: 120px;" src="/assets/img/product/p6.jpg" alt=""></td>
-          <td>{{item.product.hang.name}}</td>
+          <td>{{item.product!.hang!.name}}</td>
           <th style="width: 12%;">{{item.price}}</th>
           <td style="width: 12%;">{{item.quantity}}</td>
-          <td style="width: 12%;">{{item.quantity * item.price}}</td>
+          <td *ngIf="item.quantity && item.price" style="width: 12%;">{{item.quantity * item.price}}</td>
+          <td *ngIf="item.order!.status==0" style="width: 12%;">Chờ xác nhận</td>
+          <td *ngIf="item.order!.status==1" style="width: 12%;">Đang giao hàng</td>
+          <td *ngIf="item.order!.status==2" style="width: 12%;">Hoàn thành</td>
+          <td *ngIf="item.order!.status==3" style="width: 12%;">Đã hủy</td>
+
+
 
         </tbody>
       </table>

@@ -3,29 +3,67 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/share/service/cart.service';
 import Swal from "sweetalert2";
 import {OrderDetailService} from "../../share/service/order-detail.service";
+import {TokenStorageService} from "../../share/service/token-storage.service";
+import {Cart} from "../../@core/models/Cart";
+import {ToastrService} from "ngx-toastr";
+import {CustommerInfo} from "../../@core/models/CustommIn4";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'app-cart2',
   templateUrl: './cart2.component.html',
   styleUrls: ['./cart2.component.scss']
 })
 export class Cart2Component implements OnInit {
-  public products : any = [];
-  public grandTotal !: number;
-  constructor(private cartService : CartService,private router: Router) { }
+  data : Cart[]=[];
+  grandTotal!:number;
+  dataCusI4:CustommerInfo[]=[];
+  formI4!:FormGroup;
+
+  constructor(private cartService : CartService,
+              private fb: FormBuilder,
+              private router: Router,
+              private modalService :NgbModal,
+              private tokenStorageService: TokenStorageService,
+              private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
-    this.cartService.getProducts()
-      .subscribe((res:any)=>{
-        this.products = res;
-        console.log('grandTotalbefore',this.grandTotal)
-        this.grandTotal = this.cartService.getTotalPrice();
-        console.log('grandTotalafter',this.grandTotal)
-
-      })
+ this.getItembyUser();
+ this.initForI4();
   }
-  removeItem(item: any){
+  getItembyUser() {
+    if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {
+      this.cartService.findAllByUserName(this.tokenStorageService.getUser()).subscribe(
+        res => {
+          this.data = res.object;
+          this.getTotalPrice();
+        }
+      )
+    }
+  }
+
+
+  initForI4() {
+    this.formI4 = this.fb.group({
+      cusI4: ['', Validators.required],
+    })
+  }
+
+
+  getTotalPrice() {
+    this.grandTotal = 0;
+    this.data.map((a: Cart) => {
+      console.log(a.product?.outputprice,a.quantity)
+        this.grandTotal += (a.product?.outputprice! * a.quantity!);
+    })
+  }
+
+
+  removeItem(id:any){
+
     Swal.fire({
-      title: 'Do you want to delete?',
+      title: 'Bạn muốn xóa sản phẩm khỏi giỏ hàng?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -33,20 +71,24 @@ export class Cart2Component implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.cartService.removeCartItem(item);
-        this.cartService.getProducts().subscribe((res:any)=>{
-          this.products = res;
-          this.grandTotal = this.cartService.getTotalPrice();
-        });
+     this.cartService.delete(id).subscribe(
+       res => {
+         this.toastr.success("Xóa thành công")
+         this.ngOnInit();
+       },error => {
+         this.toastr.error("Xóa thất bại")
+       }
+     )
       } else if (result.isDenied) {
-        Swal.fire('Delete are not saved', '', 'info')
+        Swal.close();
       }
     })
   }
+
+
   emptycart(){
     Swal.fire({
-      title: 'Do you want to delete?',
+      title: 'Bạn muốn xóa giỏ hàng?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -54,38 +96,58 @@ export class Cart2Component implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.cartService.removeAllCart();
-        this.cartService.getProducts().subscribe((res:any)=>{
-          this.products = res;
-          this.grandTotal = this.cartService.getTotalPrice();
-        });
+        this.cartService.deleteAll(this.tokenStorageService.getUser()).subscribe(
+          res => {
+            this.toastr.success(res.message)
+            this.ngOnInit();
+          },error => {
+            this.toastr.error(error.error.message)
+          }
+        )
       } else if (result.isDenied) {
-        Swal.fire('Delete are not saved', '', 'info')
+        Swal.close();
       }
     })
   }
 
-  checkout() {
+
+  checkout(content:any){
+      this.getAllCusI4();
+      this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
+  }
+
+  getAllCusI4(){
+    this.cartService.findAllCustommerIn4(this.tokenStorageService.getUser()).subscribe(
+      res =>{
+        this.dataCusI4 =res;
+      }
+    )
+  }
+
+  choiseIn4(){
     Swal.fire({
-      title: 'Do you want to checkout?',
+      title: 'Xác nhận đặt hàng?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
       denyButtonText: `No`,
     }).then((result) => {
-
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.cartService.addOrder().subscribe((res: any) => {
-          // console.log('idOrder',this.idOrder)
-          this.cartService.removeAllCart();
-          this.router.navigate(['/order-detail/'+res.id]);
-        });
-        Swal.fire('Checkout Success!', '', 'success')
+
+        this.cartService.checkOut(this.formI4.value.cusI4,this.tokenStorageService.getUser()).subscribe(
+          res =>{
+            this.toastr.success(res.message)
+          },error => {
+            this.toastr.error(error.error.message)
+          }
+        )
+
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.close();
       }
     })
   }
+
+  create(){}
 }
