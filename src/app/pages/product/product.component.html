@@ -1,8 +1,7 @@
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div class="row">
 
-  <form (ngSubmit)="onSubmitSearch()" [formGroup]="formSearch">
+  <form novalidate  (ngSubmit)="onSubmitSearch()" [formGroup]="formSearch">
     <!--      <ng-template #content1 let-modal>-->
     <div class="row">
       <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Tìm kiếm sản phẩm</h2>
@@ -15,17 +14,19 @@
           <input class="form-control" type="text" formControlName="name" placeholder="Nhập tên sản phẩm" style="border: solid 1px gray;height: 42px;">
         </div>
         <div class="col-3">
-          <input class="form-control " type="text" formControlName="inportprice" placeholder="Nhập giá sản phẩm" style="border: solid 1px gray;height: 42px;">
+          <input class="form-control " type="text" formControlName="outputprice" placeholder="Nhập giá sản phẩm" style="border: solid 1px gray;height: 42px;">
         </div>
         <div class="col-3">
-          <select class="form-control " formControlName="category" style="border: solid 1px gray;">
+          <select *ngIf="dataCate" class="form-control" formControlName="category" style="border: solid 1px gray;">
+            <option value="" >Nhập danh mục</option>
             <option *ngFor="let item of dataCate" [value]="item.id">{{item.name}}
             </option>
 
           </select>
         </div>
         <div class="col-3">
-          <select class="form-control " formControlName="hang" style="border: solid 1px gray;">
+          <select *ngIf="dataBrand" class="form-control " formControlName="hang" style="border: solid 1px gray;">
+            <option value="" >Nhập hãng</option>
             <option *ngFor="let item of dataBrand" [value]="item.id">{{item.name}}
             </option>
 

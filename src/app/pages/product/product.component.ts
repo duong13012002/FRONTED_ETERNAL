@@ -23,8 +23,8 @@ export class ProductComponent implements OnInit {
   formSearch!: FormGroup;
   dataSize: Size[] = [];
   dataColor: Color[] = [];
-  dataCate: Category[] = [];
-  dataBrand: Brand[] = [];
+  dataCate!: Category[];
+  dataBrand!: Brand[];
   product: Product ={};
   productDTO: ProductDTO = {};
   public productList: Product[] = [];
@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   productAdd: Cart={};
   indexPage = 0;
   Page: any;
-  size = 10;
+  size = 3;
 
 
   constructor(
@@ -52,14 +52,14 @@ export class ProductComponent implements OnInit {
     this.pagination();
     this.initFormAdd();
     this.initFormSearch();
+    this.getAllBrand();
+    this.getAllCategory();
   }
 
 
   initFormSearch() {
     this.formSearch = this.fb.group({
-      id: '',
       name: '',
-      inportprice: '',
       outputprice: '',
       category: '',
       hang: '',
@@ -249,6 +249,7 @@ this.productAdd.userName = this.tokenService.getUser();
     this.productService.getAllCate().subscribe(
       (res: any) => {
         this.dataCate = res;
+        console.log(this.dataCate);
       }
     );
   }
