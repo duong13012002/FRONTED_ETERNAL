@@ -15,4 +15,12 @@ export class OrderDetailService {
   getOrderDetail(userName : any):Observable<any>{
     return this.http.get<any>(`${this.APIUrl}/showHistory?userName=`+userName);
   }
+
+  chiTiet(id :any):Observable<any>{
+    return this.http.get<any>(`${this.APIUrl}/orderDeails/`+id);
+  }
+
+  huydon(id:number, note:string){
+    return this.http.post<any>(`${this.APIUrl}/huyDon/`+id,note);
+  }
 }

@@ -15,7 +15,7 @@ export class ProductService{
   constructor(private http:HttpClient){}
 
   getProduct():Observable<any>{
-    return this.http.get<any>(this.API_URL+"rest/products")
+    return this.http.get<any>(this.API_URL+"products")
       .pipe(map((res:any)=>{
         return res;
       }))
@@ -23,27 +23,27 @@ export class ProductService{
 
 
   getPageProduct(indexPage: any, size:any,dto:ProductDTO): Observable<any>{
-    return this.http.put<any>(this.API_URL +"rest/products/sortByKey?page="+indexPage +"&size="+size,dto) ;
+    return this.http.put<any>(this.API_URL +"products/sortByKey?page="+indexPage +"&size="+size,dto) ;
   }
 
   public getAllCate():Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}public/rest/products/getAllCategory`);
+    return this.http.get<any>(`${environment.apiUrl}public/products/getAllCategory`);
   }
 
   public getAllBrand():Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}public/rest/products/getAllBrand`);
+    return this.http.get<any>(`${environment.apiUrl}public/products/getAllBrand`);
   }
 
   public getAllColor():Observable<any>{
-    return this.http.get<any>(this.API_URL+"rest/products/getColor");
+    return this.http.get<any>(this.API_URL+"products/getColor");
   }
 
   public getAllSize():Observable<any>{
-    return this.http.get<any>(this.API_URL+"rest/products/getAllSize");
+    return this.http.get<any>(this.API_URL+"products/getAllSize");
   }
 
   findQuantity(search:FindQuantity): Observable<any>{
-    return this.http.put<any>("http://localhost:8080/api/public/rest/s_c_details/findQuantity",search) ;
+    return this.http.put<any>("http://localhost:8080/api/public/s_c_details/findQuantity",search) ;
   }
 
 }

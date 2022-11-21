@@ -63,6 +63,7 @@ export class UserLoginComponent implements OnInit {
               this.cartService.create(this.productAdd).subscribe(
                 res =>{
                   this.toastr.success("Thêm vào giỏ hàng thành công")
+                  localStorage.setItem('cart','');
                   this.router.navigate(['/cart']);
                 },error => {
                   this.toastr.error("Thêm vào giỏ hàng thất bại");
