@@ -1582,7 +1582,7 @@ h1, h2, h3, h4, h5, h6 {
         .single-product .product-details .prd-bottom .social-info:hover .hover-text {
           opacity: 1;
           visibility: visible;
-          left: 40px; }
+          left: 35px; }
 
 /* end product area css
 ============================================================================================ */
@@ -5783,10 +5783,10 @@ label {
   font-weight: 300; }
 
 .footer-text {
-  padding-top: 80px; }
+  padding-top: 1px; }
   @media (max-width: 991px) {
     .footer-text {
-      padding-top: 40px; } }
+      padding-top: 1px; } }
   .footer-text a,
   .footer-text i {
     color: #ffba00; }

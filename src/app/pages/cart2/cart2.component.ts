@@ -120,6 +120,7 @@ export class Cart2Component implements OnInit {
     this.cartService.findAllCustommerIn4(this.tokenStorageService.getUser()).subscribe(
       res =>{
         this.dataCusI4 =res;
+
       }
     )
   }

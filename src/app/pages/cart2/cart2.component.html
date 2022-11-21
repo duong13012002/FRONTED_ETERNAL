@@ -1,4 +1,4 @@
-
+<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Giỏ hàng của bạn!</h1>
 <ng-container *ngIf="data.length !=0">
   <div class="container pt-5">
     <div class="card-table">
@@ -51,59 +51,61 @@
 
 
 <ng-container *ngIf="data.length ==0">
-    <div class="container">
-      <div class="card">
-        <h5 class="card-title">My Cart</h5>
-      </div>
-      <div class="center">
-        <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="">
-        <h4>Giỏ hàng của bạn đang trống!</h4>
-        <h6>Hãy thêm sản phẩm vào giỏ hàng ngay nào!</h6>
+    <div style="text-align: center;">
+      <div>
+        <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="" class="img-fluid" style="width: 30%;height: auto;">
+        <h4 style="font-family: 'Times New Roman', Times, serif;">Giỏ hàng của bạn đang trống!</h4>
+        <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy thêm sản phẩm vào giỏ hàng ngay nào!</h5>
         <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
       </div>
     </div>
 </ng-container>
 
-<form novalidate  [formGroup]="formI4">
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chọn địa chỉ liên hệ</h2>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-          <div class="form-group row">
-            <label class="col-md-4 col-form-label">Địa chỉ của bạn: </label>
-            <div class="col-md-10 mt-2">
-              <div style="display: flex;">
-                <select class="form-control" formControlName="cusI4" style="border: solid 1px gray;">
-                  <option *ngFor="let item of dataCusI4" [value]="item.id">{{item.name}} - {{item.sdt}} - {{item.address}}
-                  </option>
 
-                </select>
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form novalidate  [formGroup]="formI4">
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chọn địa chỉ liên hệ</h2>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label" >Địa chỉ của bạn: </label>
+                  <div class="col-md-10 mt-2">
+                    <div style="display: flex;">
+                      <select class="form-control" formControlName="cusI4" style="border: solid 1px gray;">
+                        <option *ngFor="let item of dataCusI4" [value]="item.id">{{item.name}} - {{item.sdt}} - {{item.address}}
+                        </option>
 
-                   <!--        btn thêm mới        -->
-                <button class='btn btn-primary ms-2' (click)="create()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                       class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
-                    <path
-                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                  </svg>
-                </button>
-              </div>
-              <small class="col alert text-danger" role="alert"
-                       *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
-                  Địa chỉ không được bỏ trống !
-                </small>
+                      </select>
+
+                         <!--        btn thêm mới        -->
+                      <button class='btn btn-primary ms-2' (click)="create()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
+                          <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <small class="col alert text-danger" role="alert"
+                             *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
+                        Địa chỉ không được bỏ trống !
+                      </small>
+                  </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" style="margin-right: 70px;">
+                <button  type="button" class="btn btn-success" type="submit" (click)="(choiseIn4())"  [disabled]="!formI4.valid" >Chọn địa chỉ liên hệ</button>
             </div>
           </div>
-
-      </div>
-      <div class="modal-footer">
-        <div style="text-align: center;">
-          <button  type="button" class="btn btn-success" type="submit" (click)="(choiseIn4())"  [disabled]="!formI4.valid" >Chọn địa chỉ liên hệ</button>
-        </div>
-      </div>
+        </ng-template>
+      </form>
     </div>
-  </ng-template>
-</form>
+  </div>
+</div>

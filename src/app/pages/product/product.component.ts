@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   productAdd: Cart={};
   indexPage = 0;
   Page: any;
-  size = 3;
+  size = 5;
 
 
   constructor(

@@ -1,9 +1,9 @@
-<h1 class="text-center" style="margin-top: 150px;">Lịch sử đặt hàng</h1>
+<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Lịch sử đặt hàng</h1>
 <div class="container">
   <div class="card-table">
     <div class="cart-product">
 
-      <table *ngIf ="listOrdderDetails"  class="table table-responsive table-hover p-3">
+      <table *ngIf="listOrdderDetails.length !=0"  class="table table-responsive table-hover p-3">
         <thead>
         <tr>
           <th>Sr.No</th>
@@ -31,6 +31,16 @@
     </div>
   </div>
 </div>
+<ng-container *ngIf="listOrdderDetails.length ==0">
+  <div class="container">
+    <div class="center" style="text-align: center;">
+      <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+      <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
+      <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
+      <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
+    </div>
+  </div>
+</ng-container>
 
 
   <ng-template #content let-modal>

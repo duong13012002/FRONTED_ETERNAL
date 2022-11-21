@@ -14,6 +14,7 @@ import {NgModule} from "@angular/core";
 import {CookieModule} from "ngx-cookie";
 import {ToastrModule} from "ngx-toastr";
 import { CustommerIn4Component } from './pages/custommer-in4/custommer-in4.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 
 
@@ -24,6 +25,7 @@ import { CustommerIn4Component } from './pages/custommer-in4/custommer-in4.compo
         CategoryComponent,
         ProductComponent,
         CustommerIn4Component,
+        NotFoundPageComponent,
     ],
   imports: [
     BrowserModule,
