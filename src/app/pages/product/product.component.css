@@ -1,3 +1,25 @@
 ::ng-deep ngb-modal-backdrop {
   z-index: 25 !important;
 }
+.card {
+  box-shadow: 3px 3px 20px gray;
+  overflow: hidden;
+  padding: 10px;
+}
+.img {
+  border-radius: 5px;
+}
+.product-name{
+  margin: 10px;
+  font-size: 15px;
+}
+.card:hover {
+ border: 2px solid rgb(237, 38, 38);
+}
+.card:hover {
+  transform: scale(1.1);
+}
+.cate-brand{
+  font-size: 17px;
+  font-family: 'Times New Roman', Times, serif;
+}
