@@ -27,10 +27,10 @@ const routes: Routes = [
     path: 'login',
     component: UserLoginComponent,
   },
-  {
-    path: '**',
-    component: NotFoundPageComponent
-  },
+  // {
+  //   path: '**',
+  //   component: NotFoundPageComponent
+  // },
   { path: 'cart', loadChildren: () => import('./pages/cart2/cart2.module').then(m => m.Cart2Module) },
   { path: 'product', loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule) },
   { path: 'order-detail', loadChildren: () => import('./pages/order-detail/order-detail.module').then(m => m.OrderDetailModule) },
