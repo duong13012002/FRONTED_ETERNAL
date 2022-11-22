@@ -17,6 +17,7 @@ export class AppComponent {
 
   constructor(
     private tokenService: TokenStorageService,
+    private toastService: ToastrService,
   ) { }
   ngOnInit(): void {
     this.getUserLogin();
@@ -24,5 +25,10 @@ export class AppComponent {
 
   getUserLogin(){
     this.user =localStorage.getItem('auth-user');
+  }
+  logOut(){
+    localStorage.clear();
+    this.toastService.success("Đăng xuất thành công");
+    this.ngOnInit();
   }
 }

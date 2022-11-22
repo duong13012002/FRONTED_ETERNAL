@@ -30,7 +30,7 @@ export class CartService {
   }
 
   findAllCustommerIn4(userName:string):Observable<any>{
-    return this.http.get<any>("http://localhost:8080/api/public/cusI4/"+userName);
+    return this.http.get<any>("http://localhost:8080/api/public/cusI4/active/"+userName);
   }
 
   checkOut(id:any,userName:any):Observable<any>{

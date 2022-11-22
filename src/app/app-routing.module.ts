@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./pages/user-login/user-login.module').then(m => m.LoginModule)},
   { path: 'forgot-pass', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)},
   { path: 'new-pass', loadChildren: () => import('./pages/new-password/new-password.module').then(m => m.NewPasswordModule)},
+  { path: 'cusI4', loadChildren: () => import('./pages/custommer-in4/custommer-in4.module').then(m => m.CustommerIn4Module)},
 ];
 
 
