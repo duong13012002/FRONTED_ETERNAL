@@ -1,25 +1,25 @@
 
-<div class="card">
+<div class="card card-find">
   <div class="row mx-2">
     <form (ngSubmit)="onSubmitSearch()" [formGroup]="formSearch">
       <!--      <ng-template #content1 let-modal>-->
       <div class="row">
-        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Tìm kiếm địa chỉ liên hệ</h2>
+        <h2 class="container-fluid text-center lead fw-normal card-find-text" >Tìm kiếm địa chỉ liên hệ</h2>
         <!--          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>-->
       </div>
       <div class="row">
 
         <div class="row ml-3">
-          <div class="col-6">
+          <div class="col-12" style="display: flex;">
             <div class="form-group row">
-              <label class="col-md-4 col-form-label">Tên người nhận: </label>
+              <label class="col-md-5 col-form-label">Tên người nhận: </label>
               <div class="col-md-10">
                 <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-md-4 col-form-label">Số điện thoại:</label>
+              <label class="col-md-5 col-form-label">Số điện thoại:</label>
               <div class="col-md-10">
                 <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">
               </div>
@@ -32,29 +32,30 @@
               </div>
             </div>
 
-
+            <div class="row ml-3" style="margin-top: 35px;" >
+              <div>
+                <button type="button" class="btn btn-success me-2" type="submit" > Tìm kiếm</button>
+                <button class="btn btn-primary  ml-1 " (click)="openLg(content)">Thêm mới</button>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
-      <div class="row ml-3" >
-        <div>
-          <button type="button" class="btn btn-success me-2" type="submit" > Tìm kiếm</button>
-          <button class="btn btn-primary  ml-1 " (click)="openLg(content)">Thêm mới</button>
-        </div>
-      </div>
+
       <!--      </ng-template>-->
 
     </form>
   </div>
 </div>
-<div class="card mt-3">
-  <table *ngIf="dataCusIn4" class="table table-hover table-responsive table-bordered">
+<div class="card mt-3 table-in4">
+  <table *ngIf="dataCusIn4" class="table table-bordered mb-5">
     <thead>
     <tr>
       <th class="text-center" scope="col">Mã liên hệ</th>
       <th class="text-center" scope="col">Tên người liên hệ</th>
-      <th class="text-center" scope="col">số điện thoại</th>
+      <th class="text-center" scope="col">Số điện thoại</th>
       <th class="text-center" scope="col">Địa chỉ</th>
     </tr>
     </thead>
@@ -68,69 +69,68 @@
     </tbody>
   </table>
 
-  <div>
-
-
+  </div>
+  <div style="padding-bottom: 70px;">
     <!-------------       phan trang        ------------>
-    <div *ngIf="Page" class='row justify-content-end justify-content-sm-end'>
-      <select #selectSize (change)="pageItem(selectSize.value)"   class="page-items mr-1" style='height: 30px' >
-        <option selected >2</option>
-        <option >3</option>
-        <option >4</option>
-      </select>
-      <p class='mt-1 mr-3'>dòng/trang. Tổng số {{Page["totalElements"]}}. Hiển thị {{this.size*this.indexPage + 1}}-{{countStt()}}.  </p>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination mr-3 mr-sm-3 mr-md-0">
+    <div *ngIf="Page" class='row justify-content-end justify-content-sm-end' style="float: right;">
+      <div style="display: flex;">
+        <select #selectSize (change)="pageItem(selectSize.value)"   class="page-items mr-1" style='height: 30px;margin-top: 18px;' >
+          <option selected >2</option>
+          <option >3</option>
+          <option >4</option>
+        </select>
+        <p style="padding-top: 14px;" class='mt-1 mr-3'>dòng/trang. Tổng số {{Page["totalElements"]}}. Hiển thị {{this.size*this.indexPage + 1}}-{{countStt()}}.  </p>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination mr-3 mr-sm-3 mr-md-0">
 
-          <!--  to start-->
-          <li style="border-color: white" >
-            <a  [ngClass]="indexPage == 0?'dis-a':''" (click)="preNextPage('start')" > <svg xmlns="http://www.w3.org/2000/svg" width="20"  height="20" style="font-size: 20px" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-              <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-            </svg>
-            </a>
-          </li>
+            <!--  to start-->
+            <li style="border-color: white" >
+              <a  [ngClass]="indexPage == 0?'dis-a':''" (click)="preNextPage('start')" > <svg xmlns="http://www.w3.org/2000/svg" width="20"  height="20" style="font-size: 20px" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+              </svg>
+              </a>
+            </li>
 
-          <!--   to pre -->
-          <li style="border-color: white" class="mr-3 " >
-            <a  [ngClass]="indexPage == 0?'dis-a':''" (click)="preNextPage('pre')" >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            <!--   to pre -->
+            <li style="border-color: white" class="mr-3 " >
+              <a  [ngClass]="indexPage == 0?'dis-a':''" (click)="preNextPage('pre')" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"  fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg></a>
+            </li>
+
+            <!--   to next -->
+            <li  >
+              <a  [ngClass]="(Page['totalPages'] - 1) == indexPage?'dis-a':''"  (click)="preNextPage('next')"><svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
               </svg></a>
-          </li>
+            </li>
 
-          <!--   to next -->
-          <li  >
-            <a  [ngClass]="(Page['totalPages'] - 1) == indexPage?'dis-a':''"  (click)="preNextPage('next')"><svg xmlns="http://www.w3.org/2000/svg"  width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg></a>
-          </li>
-
-          <!--   to end -->
-          <li style="border-color:  white" >
-            <a [ngClass]="(Page['totalPages'] - 1) == indexPage?'dis-a':''"  (click)="preNextPage('end')"><svg xmlns="http://www.w3.org/2000/svg" width="20" font-weight="bold" height="20" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
-              <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg></a>
-          </li>
-        </ul>
-      </nav>
+            <!--   to end -->
+            <li style="border-color:  white" >
+              <a [ngClass]="(Page['totalPages'] - 1) == indexPage?'dis-a':''"  (click)="preNextPage('end')"><svg xmlns="http://www.w3.org/2000/svg" width="20" font-weight="bold" height="20" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+              </svg></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
   <!-------------       phan trang        ------------>
-  </div>
-
 <form novalidate  [formGroup]="formAdd">
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">{{message}} địa chỉ liên hệ</h2>
+      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d;font-family: 'Times New Roman', Times, serif;font-size: 24px;">{{message}} địa chỉ liên hệ</h2>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <div class="form-group row">
-            <label class="col-md-4 col-form-label">Tên người nhận: </label>
+            <label class="col-md-5 col-form-label">Tên người nhận: </label>
             <div class="col-md-10">
               <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
               <small class="col alert text-danger" role="alert"
@@ -172,7 +172,7 @@
     </div>
     <div class="modal-footer">
       <div>
-        <button [hidden]="!hidden" type="button" class="btn btn-success" type="submit" (click)="create()" [disabled]="!formAdd.valid">Thêm mới</button>
+        <button [hidden]="!hidden" type="button" class="btn btn-success me-5" type="submit" (click)="create()" [disabled]="!formAdd.valid">Thêm mới</button>
       </div>
       <div >
         <button [hidden]="hidden" type="button" class="btn btn-success" type="submit" (click)="create()" [disabled]="!formAdd.valid"> Cập nhật</button>
