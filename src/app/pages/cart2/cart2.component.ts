@@ -151,5 +151,8 @@ export class Cart2Component implements OnInit {
     })
   }
 
-  create(){}
+  create(){
+    this.modalService.dismissAll();
+    this.router.navigate(['/cusI4']);
+  }
 }

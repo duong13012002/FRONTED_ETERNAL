@@ -41,14 +41,15 @@ export class TokenStorageService {
   public saveUser(user: any): void {
     const data = this.userService.getDecodedAccessToken();
     localStorage.removeItem(USER_KEY);
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    // localStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.setItem(USER_KEY, user);
   }
 
   public getUser(): any {
     const user = localStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
+    // if (user) {
+    //   return JSON.parse(user);
+    // }
 
     return user;
   }
