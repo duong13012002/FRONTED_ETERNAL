@@ -15,6 +15,10 @@ import {CookieModule} from "ngx-cookie";
 import {ToastrModule} from "ngx-toastr";
 import { CustommerIn4Component } from './pages/custommer-in4/custommer-in4.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 
@@ -26,6 +30,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
         ProductComponent,
         CustommerIn4Component,
         NotFoundPageComponent,
+        ProductDetailComponent,
     ],
   imports: [
     BrowserModule,
@@ -36,6 +41,8 @@ ReactiveFormsModule,
     NgbModule,
     CookieModule.forRoot(),
     ToastrModule.forRoot(),
+    MatTabsModule,
+    BrowserAnimationsModule,
   ],
     providers: [],
     exports: [

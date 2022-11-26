@@ -1,114 +1,474 @@
-<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Lịch sử đặt hàng</h1>
-<div class="container">
-  <div class="card-table">
-    <div class="cart-product">
+<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Đơn hàng của bạn</h1>
 
-      <table *ngIf="listOrdderDetails.length !=0"  class="table table-responsive table-hover p-3">
-        <thead>
-        <tr>
-          <th>Sr.No</th>
-          <th>Mã đơn</th>
-          <th>Ngày mua</th>
-          <th>Tổng tiền</th>
-          <th>Trạng thái</th>
+<mat-tab-group style="margin-bottom: 300px">
+  <mat-tab label="Chờ xác nhận">
 
-        </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+      <div class="card-table">
+        <div class="cart-product">
 
+          <table *ngIf="listChoXacNhan.length!=0"  class="table table-responsive table-hover p-3">
+            <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Mã đơn</th>
+              <th>Ngày mua</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
 
-        <tr *ngFor="let item of listOrdderDetails; let i = index;" (click)="info(item.id!,content)">
-          <td>{{i+1}}</td>
-          <td>{{item.id}}</td>
-          <td>{{item.create_date}}</td>
-          <th style="width: 12%;">{{item.price}}</th>
-          <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
-          <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
-          <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
-          <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-<ng-container *ngIf="listOrdderDetails.length ==0">
-  <div class="container">
-    <div class="center" style="text-align: center;">
-      <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
-      <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
-      <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
-      <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
-    </div>
-  </div>
-</ng-container>
+            </tr>
+            </thead>
+            <tbody>
 
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-
-        <table class="table table-hover table-responsive table-bordered">
-          <thead>
-          <tr>
-            <th>STT</th>
-            <th class="text-center" scope="col">Tên sản phẩm</th>
-            <th class="text-center" scope="col">Danh mục</th>
-            <th class="text-center" scope="col">Hãng</th>
-            <th class="text-center" scope="col">Giá</th>
-            <th class="text-center" scope="col">Số lượng</th>
-            <th class="text-center" scope="col">Tổng tiền</th>
-          </tr>
-          </thead>
-          <tbody *ngIf="listChiTiet">
-          <tr  *ngFor="let item of listChiTiet; let i = index;">
-            <td>{{i+1}}</td>
-            <td>{{item.product!.name}}</td>
-            <td>{{item.product!.category!.name}}</td>
-            <td>{{item.product!.hang!.name}}</td>
-            <td>{{item.price}}</td>
-            <td>{{item.quantity}}</td>
-            <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
-          </tr>
-          </tbody>
-        </table>
+            <tr *ngFor="let item of listChoXacNhan; let i = index;" (click)="info(item.id!,content)">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.create_date}}</td>
+              <th style="width: 12%;">{{item.price}}</th>
+              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
+              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
+              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
+              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <div>
-        <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+    <ng-container *ngIf="listChoXacNhan.length==0">
+      <div class="container">
+        <div class="center" style="text-align: center;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
+          <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
+          <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-container>
 
-<form novalidate  [formGroup]="formHuy">
-  <ng-template #content1 let-modal>
-    <div class="modal-header">
-      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
-          <div class="col-md-10">
-            <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
-            <small class="col alert text-danger" role="alert"
-                   *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
-             Lí do dủy đơn không được để trống !
-            </small>
-          </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th class="text-center" scope="col">Tên sản phẩm</th>
+              <th class="text-center" scope="col">Danh mục</th>
+              <th class="text-center" scope="col">Hãng</th>
+              <th class="text-center" scope="col">Giá</th>
+              <th class="text-center" scope="col">Số lượng</th>
+              <th class="text-center" scope="col">Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="listChiTiet">
+            <tr  *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{item.product!.name}}</td>
+              <td>{{item.product!.category!.name}}</td>
+              <td>{{item.product!.hang!.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="modal-footer">
         <div>
-          <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <form novalidate  [formGroup]="formHuy">
+      <ng-template #content1 let-modal>
+        <div class="modal-header">
+          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
+                <small class="col alert text-danger" role="alert"
+                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
+                  Lí do dủy đơn không được để trống !
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+
+
+  </mat-tab>
+  <mat-tab label="Đang giao">
+
+    <div class="container">
+      <div class="card-table">
+        <div class="cart-product">
+
+          <table *ngIf="listDangGiao.length!=0"  class="table table-responsive table-hover p-3">
+            <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Mã đơn</th>
+              <th>Ngày mua</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr *ngFor="let item of listDangGiao; let i = index;" (click)="info(item.id!,content)">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.create_date}}</td>
+              <th style="width: 12%;">{{item.price}}</th>
+              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
+              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
+              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
+              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </ng-template>
-</form>
+    <ng-container *ngIf="listDangGiao.length==0">
+      <div class="container">
+        <div class="center" style="text-align: center;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
+          <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
+          <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th class="text-center" scope="col">Tên sản phẩm</th>
+              <th class="text-center" scope="col">Danh mục</th>
+              <th class="text-center" scope="col">Hãng</th>
+              <th class="text-center" scope="col">Giá</th>
+              <th class="text-center" scope="col">Số lượng</th>
+              <th class="text-center" scope="col">Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="listChiTiet">
+            <tr  *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{item.product!.name}}</td>
+              <td>{{item.product!.category!.name}}</td>
+              <td>{{item.product!.hang!.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <form novalidate  [formGroup]="formHuy">
+      <ng-template #content1 let-modal>
+        <div class="modal-header">
+          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
+                <small class="col alert text-danger" role="alert"
+                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
+                  Lí do dủy đơn không được để trống !
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+
+
+  </mat-tab>
+  <mat-tab label="Đã giao hàng">
+
+    <div class="container">
+      <div class="card-table">
+        <div class="cart-product">
+
+          <table *ngIf="listHoanThanh.length!=0"  class="table table-responsive table-hover p-3">
+            <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Mã đơn</th>
+              <th>Ngày mua</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr *ngFor="let item of listHoanThanh; let i = index;" (click)="info(item.id!,content)">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.create_date}}</td>
+              <th style="width: 12%;">{{item.price}}</th>
+              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
+              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
+              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
+              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="listHoanThanh.length==0">
+      <div class="container">
+        <div class="center" style="text-align: center;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
+          <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
+          <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th class="text-center" scope="col">Tên sản phẩm</th>
+              <th class="text-center" scope="col">Danh mục</th>
+              <th class="text-center" scope="col">Hãng</th>
+              <th class="text-center" scope="col">Giá</th>
+              <th class="text-center" scope="col">Số lượng</th>
+              <th class="text-center" scope="col">Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="listChiTiet">
+            <tr  *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{item.product!.name}}</td>
+              <td>{{item.product!.category!.name}}</td>
+              <td>{{item.product!.hang!.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <form novalidate  [formGroup]="formHuy">
+      <ng-template #content1 let-modal>
+        <div class="modal-header">
+          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
+                <small class="col alert text-danger" role="alert"
+                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
+                  Lí do dủy đơn không được để trống !
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+
+
+  </mat-tab>
+  <mat-tab label="Đã hủy">
+    <div class="container">
+      <div class="card-table">
+        <div class="cart-product">
+
+          <table *ngIf="listDaHuy.length!=0"  class="table table-responsive table-hover p-3">
+            <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Mã đơn</th>
+              <th>Ngày mua</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr *ngFor="let item of listDaHuy ; let i = index;" (click)="info(item.id!,content)">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.create_date}}</td>
+              <th style="width: 12%;">{{item.price}}</th>
+              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
+              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
+              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
+              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="listDaHuy.length==0">
+      <div class="container">
+        <div class="center" style="text-align: center;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
+          <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
+          <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th class="text-center" scope="col">Tên sản phẩm</th>
+              <th class="text-center" scope="col">Danh mục</th>
+              <th class="text-center" scope="col">Hãng</th>
+              <th class="text-center" scope="col">Giá</th>
+              <th class="text-center" scope="col">Số lượng</th>
+              <th class="text-center" scope="col">Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="listChiTiet">
+            <tr  *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{item.product!.name}}</td>
+              <td>{{item.product!.category!.name}}</td>
+              <td>{{item.product!.hang!.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+        </div>
+      </div>
+    </ng-template>
+
+    <form novalidate  [formGroup]="formHuy">
+      <ng-template #content1 let-modal>
+        <div class="modal-header">
+          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
+              <div class="col-md-10">
+                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
+                <small class="col alert text-danger" role="alert"
+                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
+                  Lí do dủy đơn không được để trống !
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div>
+              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+
+
+  </mat-tab>
+</mat-tab-group>
+
+
 

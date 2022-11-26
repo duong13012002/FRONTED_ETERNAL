@@ -269,6 +269,10 @@ this.productAdd.userName = this.tokenService.getUser();
     this.initFormSearch();
   }
 
+  infoProducts(id: any) {
+    const url = "productDetails/" + id;
+    this.router.navigate([url]);
+  }
 
 
 }

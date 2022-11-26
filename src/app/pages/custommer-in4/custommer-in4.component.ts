@@ -60,7 +60,7 @@ export class CustommerIn4Component implements OnInit {
     this.customemerInfo={};
     this.message="Thêm mới";
     this.initFormAdd();
-    this.hidden = true;
+    this.hidden = true;+
     this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
   }
 

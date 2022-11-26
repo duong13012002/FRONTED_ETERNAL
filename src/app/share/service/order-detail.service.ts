@@ -16,6 +16,10 @@ export class OrderDetailService {
     return this.http.get<any>(`${this.APIUrl}/showHistory?userName=`+userName);
   }
 
+  getOrderByStatus(userName:any,status : number):Observable<any>{
+    return this.http.get<any>(`${this.APIUrl}/getByStatus?userName=`+userName +"&status="+status);
+  }
+
   chiTiet(id :any):Observable<any>{
     return this.http.get<any>(`${this.APIUrl}/orderDeails/`+id);
   }
