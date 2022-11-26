@@ -18,6 +18,11 @@ export class OrderDetailComponent implements OnInit {
   id:any;
   formHuy!: FormGroup;
   hidden!:boolean;
+  listChoXacNhan! : Order[];
+  listDangGiao! : Order[];
+  listHoanThanh! : Order[];
+  listDaHuy! : Order[];
+
 
 
   constructor(private orderDetailService: OrderDetailService,
@@ -31,6 +36,10 @@ export class OrderDetailComponent implements OnInit {
     this.showHistory();
     this.initFormHuy();
     this.hidden=true;
+    this.choXacNhan();
+    this.dangGiao();
+    this.hoanThanh();
+    this.daHuy();
   }
 
   initFormHuy() {
@@ -86,5 +95,44 @@ export class OrderDetailComponent implements OnInit {
   openlg(conten1:any){
     this.modalServie.open(conten1, {size: 'lg', centered: true, scrollable: true});
   }
+
+  choXacNhan(){
+    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),0).subscribe(
+      res =>{
+        this.listChoXacNhan = res;
+        console.log(this.listChoXacNhan);
+      }
+    )
+  }
+
+  dangGiao(){
+    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),1).subscribe(
+      res =>{
+        this.listDangGiao = res;
+        console.log(this.listChoXacNhan);
+      }
+    )
+  }
+
+  hoanThanh(){
+    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),2).subscribe(
+      res =>{
+        this.listHoanThanh = res;
+        console.log(this.listChoXacNhan);
+      }
+    )
+  }
+
+
+  daHuy(){
+    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),3).subscribe(
+      res =>{
+        this.listDaHuy = res;
+        console.log(this.listChoXacNhan);
+      }
+    )
+  }
+
+
 
 }

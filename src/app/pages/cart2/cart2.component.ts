@@ -19,6 +19,8 @@ export class Cart2Component implements OnInit {
   grandTotal!:number;
   dataCusI4:CustommerInfo[]=[];
   formI4!:FormGroup;
+  loading!:boolean;
+
 
   constructor(private cartService : CartService,
               private fb: FormBuilder,
@@ -31,6 +33,7 @@ export class Cart2Component implements OnInit {
   ngOnInit(): void {
  this.getItembyUser();
  this.initForI4();
+ this.loading=false;
   }
   getItembyUser() {
     if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {
@@ -111,9 +114,9 @@ export class Cart2Component implements OnInit {
   }
 
 
-  checkout(content:any){
-      this.getAllCusI4();
-      this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
+  checkout(){
+    console.log("aaaa")
+    this.router.navigate(['/order']);
   }
 
   getAllCusI4(){
@@ -155,5 +158,14 @@ export class Cart2Component implements OnInit {
   create(){
     this.modalService.dismissAll();
     this.router.navigate(['/cusI4']);
+  }
+
+  changeQuantity(quantity: any,item:Cart){
+    item.quantity= quantity;
+    this.cartService.update(item).subscribe(
+      res =>{
+        this.getItembyUser();
+      }
+    )
   }
 }

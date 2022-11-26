@@ -46,4 +46,9 @@ export class ProductService{
     return this.http.put<any>("http://localhost:8080/api/public/s_c_details/findQuantity",search) ;
   }
 
+  findProductById(id:any):Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}public/products/`+id);
+  }
+
+
 }

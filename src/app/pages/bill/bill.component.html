@@ -1,0 +1,161 @@
+<div  *ngIf="loading">
+  <div class="loader" >
+    <div class="loader-inner">
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Đặt hàng!</h1>
+<ng-container *ngIf="data.length !=0">
+  <div class="container">
+    <div class="card-table">
+      <div class="cart-product">
+        <table class="table table-responsive">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên sản phảm</th>
+            <th>Ảnh</th>
+            <th>Hãng</th>
+            <th>Size</th>
+            <th>Màu</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng tiền</th>
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <tr *ngFor="let item of data; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.product!.name}}</td>
+            <td><img style="width: 120px;" src="/assets/img/product/p6.jpg" alt=""></td>
+            <td>{{item.product!.hang!.name}}</td>
+            <td>{{item.size!.value}}</td>
+            <td>{{item.mau!.name}}</td>
+            <th style="width: 12%;">{{item.product!.outputprice}}</th>
+            <th style="width: 12%;">{{item.quantity}}</th>
+            <td *ngIf="item.product!.outputprice && item!.quantity" style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="card">
+  <div class="col-5">
+    <form *ngIf="!hidden"  [formGroup]="formI4">
+    <label>Địa chỉ của bạn: </label>
+    <select class="form-control" formControlName="cusI4" style="border: solid 1px gray;">
+      <option *ngFor="let item of dataCusI4" [value]="item.id">{{item.name}} - {{item.sdt}} - {{item.address}}
+
+        <button class='btn btn-primary ms-2' (click)="openLg()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+               class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+          </svg>
+        </button>
+
+      </option>
+    </select>
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
+        Địa chỉ nhận hàng không được để trống !
+      </small>
+
+    <!--        btn thêm mới        -->
+    <button class='btn btn-primary ms-2' (click)="openLg()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+           class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
+        <path
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg>
+    </button>
+    </form>
+
+    <form *ngIf="hidden" [formGroup]="formAdd">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row">
+                <label class="col-md-5 col-form-label">Tên người nhận: </label>
+                <div class="col-md-10">
+                  <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formAdd.get('name')?.errors?.required && formAdd.get('name')?.touched">
+                    Tên người nhận không được để trống !
+                  </small>
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-md-4 col-form-label">Số điện thoại: </label>
+                <div class="col-md-10">
+                  <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formAdd.get('sdt')?.errors?.required && formAdd.get('sdt')?.touched">
+                    Số điện thoại không được để trống !
+                  </small>
+
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formAdd.get('sdt')?.errors?.pattern && formAdd.get('sdt')?.touched">
+                    Định dạng số điện thoại chưa đúng !
+                  </small>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4 col-form-label">Địa chỉ: </label>
+                <div class="col-md-10">
+                  <input class="form-control" type="text" formControlName="address" style="border: solid 1px gray;">
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formAdd.get('address')?.errors?.required && formAdd.get('address')?.touched">
+                    Địa chỉ không được để trống !
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="footer">
+          <div>
+            <button [hidden]="!hidden" type="button" class="btn btn-success me-5" type="submit" (click)="create()" [disabled]="!formAdd.valid">Thêm mới</button>
+          </div>
+          <div >
+            <button [hidden]="hidden" type="button" class="btn btn-success" type="submit" (click)="create()" [disabled]="!formAdd.valid"> Cập nhật</button>
+          </div>
+          <div >
+            <button [hidden]="!hidden" type="button" class="btn btn-success" type="submit" (click)="rollBack()">Quay lại</button>
+          </div>
+        </div>
+    </form>
+
+
+
+  </div>
+  <div class="col-7">
+    <h1>Thông tin thanh toán </h1>
+    <label>Tiền hàng:  {{grandTotal}}  </label>
+  </div>
+  <td><button [disabled]="!formI4.valid"(click)="checkout()" class="btn btn-success">Mua hàng</button></td>
+</div>
+
+
+

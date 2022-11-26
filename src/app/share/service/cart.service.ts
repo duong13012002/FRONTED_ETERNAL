@@ -21,6 +21,10 @@ export class CartService {
     return this.http.post<any>("http://localhost:8080/api/public/cart",cart);
   }
 
+  update(cart:Cart):Observable<any>{
+    return this.http.put<any>("http://localhost:8080/api/public/cart",cart);
+  }
+
   delete(id:any):Observable<any>{
     return this.http.delete<any>("http://localhost:8080/api/public/cart/"+id);
   }
@@ -35,6 +39,10 @@ export class CartService {
 
   checkOut(id:any,userName:any):Observable<any>{
     return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?id="+id+"&userName="+userName,null);
+  }
+
+  buyNow(id:any,userName:any,cart:Cart):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/buyNow?id="+id+"&userName="+userName,cart);
   }
 
 
