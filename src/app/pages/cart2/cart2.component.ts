@@ -115,7 +115,6 @@ export class Cart2Component implements OnInit {
 
 
   checkout(){
-    console.log("aaaa")
     this.router.navigate(['/order']);
   }
 

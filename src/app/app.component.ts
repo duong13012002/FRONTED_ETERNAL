@@ -1,3 +1,5 @@
+import { Cart } from './@core/models/Cart';
+import { CartService } from './share/service/cart.service';
 import { Component } from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {UserService} from "./share/service/UserService";
@@ -13,14 +15,18 @@ import {ToastrService} from "ngx-toastr";
 })
 export class AppComponent {
   title = 'Eternal_01';
+  data: Cart[] = [];
   user!: any;
 
   constructor(
     private tokenService: TokenStorageService,
     private toastService: ToastrService,
+    private cartService: CartService,
+    private tokenStorageService: TokenStorageService
   ) { }
   ngOnInit(): void {
     this.getUserLogin();
+    this.getItembyUser();
   }
 
   getUserLogin(){
@@ -30,5 +36,14 @@ export class AppComponent {
     localStorage.clear();
     this.toastService.success("Đăng xuất thành công");
     this.ngOnInit();
+  }
+  getItembyUser() {
+    if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {
+      this.cartService.findAllByUserName(this.tokenStorageService.getUser()).subscribe(
+        res => {
+          this.data = res.object;
+        }
+      )
+    }
   }
 }

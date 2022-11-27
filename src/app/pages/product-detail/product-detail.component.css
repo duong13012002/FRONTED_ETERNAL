@@ -92,4 +92,19 @@
     transform: rotate(360deg);
   }
 }
+.img-prd-detail{
+  margin-top: 0px;
+  margin-left: 120px;
+
+
+}
+.img{
+  display: block;
+  width: 100%;
+  height:100%;
+
+}
+.validate-txt{
+  margin-left: 110px;
+}
 

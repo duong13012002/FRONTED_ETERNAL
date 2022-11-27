@@ -8,7 +8,7 @@ import {BuyNowRouting} from "./BuyNow-routing";
 
 @NgModule({
   declarations: [
-    BuyNowComponent
+
   ],
   imports: [
     CommonModule,
