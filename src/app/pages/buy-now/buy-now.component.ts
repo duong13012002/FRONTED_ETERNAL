@@ -26,6 +26,7 @@ export class BuyNowComponent implements OnInit {
   hidden!:boolean;
   message!: String;
   customemerInfo :CustommerInfo ={};
+  user!:any;
 
 
   constructor(private cartService : CartService,
@@ -36,6 +37,7 @@ export class BuyNowComponent implements OnInit {
               private toastr: ToastrService,
               private custommerService:CustommerInfoService,
               private tokenService: TokenStorageService,
+
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,10 @@ export class BuyNowComponent implements OnInit {
     this.loading=false;
     this.getAllCusI4();
     this.hidden=false;
+    this.getUserLogin();
+  }
+  getUserLogin(){
+    this.user =localStorage.getItem('auth-user');
   }
 
 

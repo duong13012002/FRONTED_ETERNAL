@@ -1,8 +1,11 @@
+import { ProductDetailComponent } from './product-detail.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { FormsModule } from '@angular/forms';
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {ProductRoutingModule} from "../product/product-routing.module";
 import {ProductDetailRoutingModule} from "./product-detail-routing.module";
-import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -13,7 +16,9 @@ import {MatTabsModule} from "@angular/material/tabs";
   ],
   imports: [
     CommonModule,
-    ProductDetailRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    ProductDetailRoutingModule,
   ]
 })
 export class ProductModule { }

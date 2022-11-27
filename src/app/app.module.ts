@@ -1,3 +1,5 @@
+import { BuyNowComponent } from './pages/buy-now/buy-now.component';
+import { Cart2Component } from './pages/cart2/cart2.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -26,17 +28,18 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     declarations: [
         AppComponent,
         Home2Component,
+        Cart2Component,
         CategoryComponent,
         ProductComponent,
-        CustommerIn4Component,
         NotFoundPageComponent,
         ProductDetailComponent,
+        BuyNowComponent
     ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-ReactiveFormsModule,
+    ReactiveFormsModule,
     FormsModule,
     NgbModule,
     CookieModule.forRoot(),

@@ -1,10 +1,12 @@
-.card {
-  height: 60vh;
-  margin: 25px;
-  padding: 25px;
-  margin-top: 150px;
+.tbl-order{
+  margin-left: 200px;
+  margin-bottom: 50px;
 }
-
+.order-payment{
+  margin-left: 200px;
+  width: 1084px;
+  margin-bottom: 50px;
+}
 .center img {
   text-decoration: none;
   color: inherit;
@@ -31,7 +33,7 @@ h6 {
 }
 
 .card-table {
-  position: relative;
+  /* position: relative;
   display: flex;
   flex-direction: column;
   min-width: none;
@@ -39,7 +41,7 @@ h6 {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: .25rem;
+  border-radius: .25rem; */
 }
 
 .center .btn {

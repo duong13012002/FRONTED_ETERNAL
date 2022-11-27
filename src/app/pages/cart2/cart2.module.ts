@@ -8,7 +8,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    Cart2Component
   ],
   imports: [
     CommonModule,

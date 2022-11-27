@@ -25,6 +25,7 @@ export class BillComponent implements OnInit {
   hidden!:boolean;
   message!: String;
   customemerInfo :CustommerInfo ={};
+  user!:any;
 
 
   constructor(private cartService : CartService,
@@ -44,6 +45,10 @@ export class BillComponent implements OnInit {
     this.loading=false;
     this.getAllCusI4();
     this.hidden=false;
+    this.getUserLogin();
+  }
+  getUserLogin(){
+    this.user =localStorage.getItem('auth-user');
   }
   getItembyUser() {
     if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {

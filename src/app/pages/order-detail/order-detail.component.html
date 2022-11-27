@@ -1,13 +1,13 @@
 <h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Đơn hàng của bạn</h1>
 
-<mat-tab-group style="margin-bottom: 300px">
+<mat-tab-group style="margin-bottom: 200px;">
   <mat-tab label="Chờ xác nhận">
 
     <div class="container">
-      <div class="card-table">
+      <div class="card-table text-center">
         <div class="cart-product">
 
-          <table *ngIf="listChoXacNhan.length!=0"  class="table table-responsive table-hover p-3">
+          <table *ngIf="listChoXacNhan.length!=0"  class="table table-striped table-responsive p-3">
             <thead>
             <tr>
               <th>Sr.No</th>
@@ -25,7 +25,7 @@
               <td>{{i+1}}</td>
               <td>{{item.id}}</td>
               <td>{{item.create_date}}</td>
-              <th style="width: 12%;">{{item.price}}</th>
+              <th style="width: 12%;">{{item.price}}đ</th>
               <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
               <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
               <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
@@ -38,7 +38,7 @@
     <ng-container *ngIf="listChoXacNhan.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -124,7 +124,7 @@
       <div class="card-table">
         <div class="cart-product">
 
-          <table *ngIf="listDangGiao.length!=0"  class="table table-responsive table-hover p-3">
+          <table *ngIf="listDangGiao.length!=0"  class="table table-striped table-responsive p-3">
             <thead>
             <tr>
               <th>Sr.No</th>
@@ -155,7 +155,7 @@
     <ng-container *ngIf="listDangGiao.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -241,7 +241,7 @@
       <div class="card-table">
         <div class="cart-product">
 
-          <table *ngIf="listHoanThanh.length!=0"  class="table table-responsive table-hover p-3">
+          <table *ngIf="listHoanThanh.length!=0"  class="table table-striped table-responsive p-3">
             <thead>
             <tr>
               <th>Sr.No</th>
@@ -272,7 +272,7 @@
     <ng-container *ngIf="listHoanThanh.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -357,7 +357,7 @@
       <div class="card-table">
         <div class="cart-product">
 
-          <table *ngIf="listDaHuy.length!=0"  class="table table-responsive table-hover p-3">
+          <table *ngIf="listDaHuy.length!=0"  class="table table-striped table-responsive p-3">
             <thead>
             <tr>
               <th>Sr.No</th>
@@ -388,7 +388,7 @@
     <ng-container *ngIf="listDaHuy.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;">
+          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -405,7 +405,7 @@
       <div class="modal-body">
         <div class="row">
 
-          <table class="table table-hover table-responsive table-bordered">
+          <table class="table table-striped table-responsive p-3">
             <thead>
             <tr>
               <th>STT</th>

@@ -1,5 +1,5 @@
-<div  *ngIf="loading">
-  <div class="loader" >
+<div *ngIf="loading">
+  <div class="loader">
     <div class="loader-inner">
       <div class="loader-line-wrap">
         <div class="loader-line"></div>
@@ -20,83 +20,93 @@
   </div>
 </div>
 
-<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Chi tiết sản phẩm</h1>
-<div *ngIf="item" class="row">
-  <div class="col-5">
-    <img class="img-fluid img" src="/assets/img/product/p3.jpg" alt="">
+
+<div *ngIf="item" class="row" style="margin-top: 180px; margin-bottom: 70px;">
+  <div class="col-6">
+    <div class="col-8 img-prd-detail bg-light p-4 shadow"
+      style="position:absolute; width:100%; height:100%;margin-bottom: 50px;">
+      <img class="img-fluid img" src="/assets/img/product/p3.jpg" alt="">
+    </div>
   </div>
-  <div class="col-7">
-    <p>{{item.outputprice}}</p>
-    <p>{{item.category!.name}}</p>
-    <p>{{item.hang!.name}}</p>
+  <div class="col-6">
+    <h2 style="font-family:Arial, Helvetica, sans-serif;font-weight: bold;">{{item.name}}</h2>
+    <div class="d-flex">
+      <p>Danh Mục: </p>
+      <h5 style="padding-left: 45px;">{{item.category!.name}}</h5>
+    </div>
+    <div class="d-flex">
+      <p>Thương hiệu:</p>
+      <h5 style="padding-left: 30px;">{{item.hang!.name}}</h5>
+    </div>
+    <div>
+      <h3 style="color: red;">{{item.outputprice}} <p style="color: red;text-decoration: underline;display: inline;">đ</p></h3>
+    </div>
 
     <form novalidate [formGroup]="formAdd">
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Size: </label>
-              <div class="col-md-10 mt-2">
-                <div>
-                  <select #selectSize (change)="changeSC(selectSize.value,selectColor.value)" class="form-control"
-                          formControlName="size">
-                    <option *ngFor="let item of dataSize" [value]="item.id">{{item.value}}
-                    </option>
-
-                  </select>
-
-                  <small class="col alert text-danger" role="alert"
-                         *ngIf="formAdd.get('size')?.errors?.required && formAdd.get('size')?.touched">
-                    Size chưa được chọn !
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Màu: </label>
-              <div class="col-md-10 mt-2">
-                <div>
-                  <select #selectColor (change)="changeSC(selectSize.value,selectColor.value)" class="form-control"
-                          formControlName="mau">
-                    <option *ngFor="let item of dataColor" [value]="item.id">{{item.name}}
-                    </option>
-
-                  </select>
-
-                  <small class="col alert text-danger" role="alert"
-                         *ngIf="formAdd.get('mau')?.errors?.required && formAdd.get('mau')?.touched">
-                    Màu chưa được chọn !
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Số lượng: </label>
-              <div class="col-md-10 mt-2">
-                <input #selectquantity (change)="checkChange(selectquantity.value)" class="form-control" type="number" min="1"
-                       formControlName="quantity">
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formAdd.get('quantity')?.errors?.required && formAdd.get('quantity')?.touched">
-                  Số lượng không được để trống !
-                </small>
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formAdd.get('quantity')?.errors?.pattern && formAdd.get('quantity')?.touched">
-                  Định dạng số lượng chưa đúng !
-                </small>
-              </div>
-            </div>
-
-            <h6 *ngIf="message != null" class="col alert text-danger mt-3" role="alert"> {{message }} sản phẩm có sẵn
-            </h6>
-        <div class="footer">
+      <div class="form-group row">
+        <label for="size" class="col-md-2 col-form-label">Size: </label>
+        <div class="col-md-2 mt-2">
           <div>
-            <button type="button" class="btn btn-success" type="submit" (click)="checklogin()"
-                    [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">Thêm vào giỏ hàng</button>
-          <button type="button" class="btn btn-success ml-2" type="submit" (click)="buyNow()"
-                  [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">Mua ngay</button>
+            <select #selectSize (change)="changeSC(selectSize.value,selectColor.value)" class="form-control" id="size"
+              formControlName="size">
+              <option *ngFor="let item of dataSize" [value]="item.id">{{item.value}}
+              </option>
+            </select>
+          </div>
         </div>
+      </div>
+
+      <small class="col alert text-danger validate-txt" role="alert"
+        *ngIf="formAdd.get('size')?.errors?.required && formAdd.get('size')?.touched">
+        Size chưa được chọn !
+      </small>
+
+      <div class="form-group row">
+        <label for="color" class="col-md-2 col-form-label">Màu: </label>
+        <div class="col-md-2 mt-2">
+          <div>
+            <select #selectColor (change)="changeSC(selectSize.value,selectColor.value)" class="form-control" id="color"
+              formControlName="mau">
+              <option *ngFor="let item of dataColor" [value]="item.id">{{item.name}}
+              </option>
+            </select>
+          </div>
         </div>
+      </div>
+
+      <small class="col alert text-danger validate-txt" role="alert"
+        *ngIf="formAdd.get('mau')?.errors?.required && formAdd.get('mau')?.touched">
+        Màu chưa được chọn !
+      </small>
+
+      <div class="form-group row">
+        <label for="quantity" class="col-md-2 col-form-label">Số lượng: </label>
+        <div class="col-md-2 mt-2">
+          <input #selectquantity (change)="checkChange(selectquantity.value)" class="form-control" type="number" min="1"
+            formControlName="quantity" id="quantity">
+        </div>
+      </div>
+
+      <small class="col alert text-danger validate-txt" role="alert"
+        *ngIf="formAdd.get('quantity')?.errors?.required && formAdd.get('quantity')?.touched">
+        Số lượng không được để trống !
+      </small>
+
+      <small class="col alert text-danger validate-txt" role="alert"
+        *ngIf="formAdd.get('quantity')?.errors?.pattern && formAdd.get('quantity')?.touched">
+        Định dạng số lượng chưa đúng !
+      </small>
+
+      <h6 *ngIf="message != null" class="col alert text-danger mt-3" role="alert"> {{message }} sản phẩm có sẵn
+      </h6>
+      <div class="footer">
+        <div>
+          <button type="button" class="btn btn-dark" type="submit" (click)="checklogin()"
+            [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">THÊM VÀO GIỎ</button>
+          <button type="button" class="btn btn-dark ml-2" type="submit" (click)="buyNow()"
+            [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">MUA NGAY</button>
+        </div>
+      </div>
     </form>
+  </div>
 </div>
-</div>
-
-
