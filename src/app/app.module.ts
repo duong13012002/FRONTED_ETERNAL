@@ -20,6 +20,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 
 
@@ -33,7 +34,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         ProductComponent,
         NotFoundPageComponent,
         ProductDetailComponent,
-        BuyNowComponent
+        BuyNowComponent,
+        NavbarComponent
     ],
   imports: [
     BrowserModule,
