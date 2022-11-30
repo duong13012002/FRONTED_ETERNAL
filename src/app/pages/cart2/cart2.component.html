@@ -45,7 +45,7 @@
             <tr *ngFor="let item of data; let i = index">
               <td>{{i+1}}</td>
               <td>{{item.product!.name}}</td>
-              <td><img style="width: 120px;" src="/assets/img/product/p6.jpg" alt=""></td>
+              <td><img style="width: 120px;" src="https://res.cloudinary.com/productenternal/image/upload/v1668928871/IMAGE/image/{{item.product!.photo}}"></td>
               <td>{{item.product!.hang!.name}}</td>
               <td>{{item.size!.value}}</td>
               <td>{{item.mau!.name}}</td>
