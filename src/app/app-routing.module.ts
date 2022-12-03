@@ -49,7 +49,11 @@ const routes: Routes = [
     path:'buyNow',
     component:BuyNowComponent
   },
-  { path: 'cart', loadChildren: () => import('./pages/cart2/cart2.module').then(m => m.Cart2Module) },
+  {
+    path:'cart',
+    component: Cart2Component
+  },
+  // { path: 'cart', loadChildren: () => import('./pages/cart2/cart2.module').then(m => m.Cart2Module) },
   { path: 'product', loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule) },
   { path: 'order-detail', loadChildren: () => import('./pages/order-detail/order-detail.module').then(m => m.OrderDetailModule) },
   { path: 'login', loadChildren: () => import('./pages/user-login/user-login.module').then(m => m.LoginModule)},

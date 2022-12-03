@@ -1,3 +1,4 @@
+
 <div *ngIf="loading">
   <div class="loader">
     <div class="loader-inner">
@@ -44,30 +45,47 @@
 
     <form novalidate [formGroup]="formAdd">
       <div class="form-group row">
-        <label  class="col-md-2 col-form-label">Size: </label>
-        <div class="col-md-2 mt-2">
+        <label  class="col-md-2 col-form-label ms-2">Size: </label>
+        <!-- <div class="col-md-2 mt-2">
 
           <div style="display: flex">
             <button *ngFor="let item1 of dataSize " (click)="size(item1.id)"  class="btn">{{item1.value}}</button>
           </div>
-        </div>
-      </div>
+        </div> -->
+        <div class="btn-group">
+          <div *ngFor="let item1 of dataSize" class="mx-2">
+            <input
+            mdbRadio
+            type="radio"
+            class="btn-check"
+            name="options1"
+            id={{item1.id}
+            autocomplete="off"
 
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label">Màu: </label>
-        <div class="col-md-2 mt-2">
-          <!--          <div>-->
-          <!--            <select #selectColor class="form-control" id="color"-->
-          <!--              formControlName="mau">-->
-          <!--              <option *ngFor="let item of dataColor" [value]="item.id">{{item.name}}-->
-          <!--              </option>-->
-          <!--            </select>-->
-          <!--          </div>-->
-          <div style="display: flex">
-            <button *ngFor="let item2 of dataColor " (click)="color(item2.id)" class="btn">{{item2.name}}</button>
+          />
+          <label class="btn btn-success"for={{item1.id} (click)="size(item1.id)" >{{item1.id}}</label>
           </div>
         </div>
       </div>
+
+
+      <label class="col-md-2">Màu: </label>
+      <br>
+      <div class="btn-group">
+        <div *ngFor="let item2 of dataColor " class="mx-2">
+          <input
+          mdbRadio
+          type="radio"
+          class="btn-check"
+          name="options"
+          id={{item2.name}}
+          autocomplete="off"
+
+        />
+        <label class="btn btn-outline-primary" for={{item2.name}} (click)="color(item2.id)">{{item2.name}}</label>
+        </div>
+      </div>
+
 
 
       <div class="form-group row">
