@@ -25,4 +25,12 @@ export class CustommerInfoService{
     return this.http.get<any>(this.APIUrl +"delete/" +id) ;
   }
 
+  findBySdt(sdt:any): Observable<any>{
+    return this.http.get<any>(this.APIUrl+"findBySdt/"+sdt);
+  }
+
+  findAccountLogin(userName:string):Observable<any>{
+    return this.http.get<any>(this.APIUrl+"accountLogin?userName="+userName);
+  }
+
 }

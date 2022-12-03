@@ -52,7 +52,7 @@
               <th style="width: 6%;">{{item.product!.outputprice}}</th>
               <td style="width: 6%;">
                 <input #selectquantity (change)="changeQuantity(selectquantity.value,item)" class="form-control"
-                  type="number" min="1" formControlName="quantity" value="{{item.quantity}}">
+                  type="number" min="1" value="{{item.quantity}}">
               <td *ngIf="item.product!.outputprice && item!.quantity" style="width: 12%;">{{item.product!.outputprice *
                 item.quantity}} VND</td>
               <td>

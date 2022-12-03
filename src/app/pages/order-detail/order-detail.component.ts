@@ -14,14 +14,14 @@ import {ToastrService} from "ngx-toastr";
 })
 export class OrderDetailComponent implements OnInit {
   public listOrdderDetails! : Order[];
-  listChiTiet!:OrderDetails[];
+  listChiTiet:OrderDetails[]=[];
   id:any;
   formHuy!: FormGroup;
   hidden!:boolean;
-  listChoXacNhan! : Order[];
-  listDangGiao! : Order[];
-  listHoanThanh! : Order[];
-  listDaHuy! : Order[];
+  listChoXacNhan : Order[]=[];
+  listDangGiao: Order[]=[];
+  listHoanThanh: Order[] = [];
+  listDaHuy : Order[]=[];
 
 
 

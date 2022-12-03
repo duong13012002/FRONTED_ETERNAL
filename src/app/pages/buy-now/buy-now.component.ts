@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Cart} from "../../@core/models/Cart";
+import {BuyNow, Cart} from "../../@core/models/Cart";
 import {CustommerInfo} from "../../@core/models/CustommIn4";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CartService} from "../../share/service/cart.service";
@@ -9,6 +9,7 @@ import {TokenStorageService} from "../../share/service/token-storage.service";
 import {ToastrService} from "ngx-toastr";
 import {CustommerInfoService} from "../../share/service/custommerInfo.service";
 import Swal from "sweetalert2";
+import {Account} from "../../@core/models/Account";
 
 @Component({
   selector: 'app-buy-now',
@@ -27,7 +28,10 @@ export class BuyNowComponent implements OnInit {
   message!: String;
   customemerInfo :CustommerInfo ={};
   user!:any;
-
+  custommerdefault: CustommerInfo = {};
+  accountLogin: Account = {};
+  hienthi!: number;
+  buyNow!: BuyNow;
 
   constructor(private cartService : CartService,
               private fb: FormBuilder,
@@ -45,9 +49,10 @@ export class BuyNowComponent implements OnInit {
     this.initForI4();
     this.initFormAdd();
     this.loading=false;
-    this.getAllCusI4();
     this.hidden=false;
     this.getUserLogin();
+    this.findCustommerDefault()
+    this.hienthi = 1;
   }
   getUserLogin(){
     this.user =localStorage.getItem('auth-user');
@@ -75,15 +80,6 @@ export class BuyNowComponent implements OnInit {
     })
   }
 
-  getAllCusI4(){
-    this.cartService.findAllCustommerIn4(this.tokenStorageService.getUser()).subscribe(
-      res =>{
-        this.dataCusI4 =res;
-
-      }
-    )
-  }
-
 
   create(){
     this.addValueFrom();
@@ -108,9 +104,9 @@ export class BuyNowComponent implements OnInit {
   }
 
   openLg() {
-    this.customemerInfo={};
     this.initFormAdd();
     this.hidden = true;
+    this.hienthi==0;
   }
 
   checkout(){
@@ -123,17 +119,29 @@ export class BuyNowComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        console.log(this.formI4.value.cusI4)
-        this.cartService.buyNow(this.formI4.value.cusI4,this.tokenStorageService.getUser(),this.data).subscribe(
-          res =>{
-            this.toastr.success(res.message)
-            this.modalService.dismissAll();
-            this.router.navigate(['/order-detail'])
-          },error => {
-            this.toastr.error(error.error.message)
-          }
-        )
-
+        console.log("aaaa")
+        if (this.hienthi == 1) {
+          this.addValueBuyNow();
+          console.log("ddax baof")
+          this.cartService.buyNow(this.tokenStorageService.getUser(),this.buyNow).subscribe(
+            res => {
+              this.toastr.success(res.message);
+              this.router.navigate(['/order-detail'])
+            }, error => {
+              this.toastr.error(error.error.message)
+            }
+          )
+        } else if (this.hienthi == 0) {
+          this.addValueBuyNow();
+          this.cartService.buyNow(this.tokenStorageService.getUser(),this.buyNow).subscribe(
+            res => {
+              this.toastr.success(res.message);
+              this.router.navigate(['/order-detail'])
+            }, error => {
+              this.toastr.error(error.error.message)
+            }
+          )
+        }
       } else if (result.isDenied) {
         Swal.close();
       }
@@ -148,5 +156,29 @@ export class BuyNowComponent implements OnInit {
     data.quantity= quantity;
     localStorage.setItem("cart",JSON.stringify(this.data));
     this.getItembyUser();
+  }
+  findCustommerDefault() {
+    this.custommerService.findAccountLogin(this.tokenService.getUser()).subscribe(
+      res => {
+        this.accountLogin = res;
+        this.addValueCustommerDefault();
+      }
+    )
+  }
+
+  addValueCustommerDefault() {
+    this.custommerdefault.name = this.accountLogin.fullname;
+    this.custommerdefault.sdt = this.accountLogin.sdt;
+    this.custommerdefault.address = this.accountLogin.address;
+  }
+
+  addValueBuyNow(){
+    this.buyNow.cart = this.data;
+    if(this.hienthi==1){
+      this.buyNow!.custommerInfo= this.custommerdefault;
+    }else if(this.hienthi==0){
+      this.addValueFrom();
+      this.buyNow!.custommerInfo= this.customemerInfo
+    }
   }
 }
