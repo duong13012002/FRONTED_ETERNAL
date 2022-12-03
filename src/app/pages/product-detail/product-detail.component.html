@@ -44,56 +44,49 @@
 
     <form novalidate [formGroup]="formAdd">
       <div class="form-group row">
-        <label for="size" class="col-md-2 col-form-label">Size: </label>
+        <label  class="col-md-2 col-form-label">Size: </label>
         <div class="col-md-2 mt-2">
-          <div>
-            <select #selectSize (change)="changeSC(selectSize.value,selectColor.value)" class="form-control" id="size"
-              formControlName="size">
-              <option *ngFor="let item of dataSize" [value]="item.id">{{item.value}}
-              </option>
-            </select>
+
+          <div style="display: flex">
+            <button *ngFor="let item1 of dataSize " (click)="size(item1.id)"  class="btn">{{item1.value}}</button>
           </div>
         </div>
       </div>
-
-      <small class="col alert text-danger validate-txt" role="alert"
-        *ngIf="formAdd.get('size')?.errors?.required && formAdd.get('size')?.touched">
-        Size chưa được chọn !
-      </small>
 
       <div class="form-group row">
-        <label for="color" class="col-md-2 col-form-label">Màu: </label>
+        <label class="col-md-2 col-form-label">Màu: </label>
         <div class="col-md-2 mt-2">
-          <div>
-            <select #selectColor (change)="changeSC(selectSize.value,selectColor.value)" class="form-control" id="color"
-              formControlName="mau">
-              <option *ngFor="let item of dataColor" [value]="item.id">{{item.name}}
-              </option>
-            </select>
+          <!--          <div>-->
+          <!--            <select #selectColor class="form-control" id="color"-->
+          <!--              formControlName="mau">-->
+          <!--              <option *ngFor="let item of dataColor" [value]="item.id">{{item.name}}-->
+          <!--              </option>-->
+          <!--            </select>-->
+          <!--          </div>-->
+          <div style="display: flex">
+            <button *ngFor="let item2 of dataColor " (click)="color(item2.id)" class="btn">{{item2.name}}</button>
           </div>
         </div>
       </div>
 
-      <small class="col alert text-danger validate-txt" role="alert"
-        *ngIf="formAdd.get('mau')?.errors?.required && formAdd.get('mau')?.touched">
-        Màu chưa được chọn !
-      </small>
 
       <div class="form-group row">
         <label for="quantity" class="col-md-2 col-form-label">Số lượng: </label>
         <div class="col-md-2 mt-2">
-          <input #selectquantity (change)="checkChange(selectquantity.value)" class="form-control" type="number" min="1"
-            formControlName="quantity" id="quantity">
+          <input #selectquantity (change)="checkChange(selectquantity.value)"
+                 class="form-control" type="number"
+                 min="1" [defaultValue]="1"
+                 formControlName="quantity" id="quantity">
         </div>
       </div>
 
       <small class="col alert text-danger validate-txt" role="alert"
-        *ngIf="formAdd.get('quantity')?.errors?.required && formAdd.get('quantity')?.touched">
+             *ngIf="formAdd.get('quantity')?.errors?.required && formAdd.get('quantity')?.touched">
         Số lượng không được để trống !
       </small>
 
       <small class="col alert text-danger validate-txt" role="alert"
-        *ngIf="formAdd.get('quantity')?.errors?.pattern && formAdd.get('quantity')?.touched">
+             *ngIf="formAdd.get('quantity')?.errors?.pattern && formAdd.get('quantity')?.touched">
         Định dạng số lượng chưa đúng !
       </small>
 
@@ -102,9 +95,9 @@
       <div class="footer">
         <div>
           <button type="button" class="btn btn-dark" type="submit" (click)="checklogin()"
-            [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">THÊM VÀO GIỎ</button>
+                  [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">THÊM VÀO GIỎ</button>
           <button type="button" class="btn btn-dark ml-2" type="submit" (click)="buyNow()"
-            [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">MUA NGAY</button>
+                  [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">MUA NGAY</button>
         </div>
       </div>
     </form>

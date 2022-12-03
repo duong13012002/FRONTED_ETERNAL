@@ -1,3 +1,10 @@
+import {CustommerInfo} from "./CustommIn4";
+
+export interface BuyNow{
+  cart?: Cart,
+  custommerInfo?:CustommerInfo;
+}
+
 export interface Cart{
   id?:number;
   product?: Product;
@@ -42,4 +49,6 @@ export interface Color{
   value?:number;
   name?:string;
 }
+
+
 

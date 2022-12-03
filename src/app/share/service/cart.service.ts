@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {HttpClient} from "@angular/common/http";
 import {ProductAdd} from "../../@core/models/FindQuantity";
-import {Cart} from "../../@core/models/Cart";
+import {BuyNow, Cart} from "../../@core/models/Cart";
+import {CustommerInfo} from "../../@core/models/CustommIn4";
 
 @Injectable({
   providedIn: 'root'
@@ -37,18 +38,13 @@ export class CartService {
     return this.http.get<any>("http://localhost:8080/api/public/cusI4/active/"+userName);
   }
 
-  checkOut(id:any,userName:any):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?id="+id+"&userName="+userName,null);
+  checkOut(custommerInfo:CustommerInfo,userName:any):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?userName="+userName, custommerInfo);
   }
 
-  buyNow(id:any,userName:any,cart:Cart):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/public/order/buyNow?id="+id+"&userName="+userName,cart);
+  buyNow(userName:any,buyNow:BuyNow):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/buyNow?userName="+userName, buyNow);
   }
-
-
-
-
-
 
 
 

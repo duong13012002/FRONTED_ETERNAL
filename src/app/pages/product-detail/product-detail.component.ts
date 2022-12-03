@@ -24,6 +24,8 @@ export class ProductDetailComponent implements OnInit {
   dataColor: Color[] = [];
   productAdd: Cart={};
   loading!:boolean;
+  sizeid!:number;
+  colorid!:number
 
   constructor(
     private fb:FormBuilder,
@@ -51,6 +53,8 @@ export class ProductDetailComponent implements OnInit {
           this.productService.findProductById(idProduct).subscribe(
             res => {
               this.item = res;
+              this.findQuantity.product= this.item;
+              this.finQuantityBySC();
             }
           )
         }
@@ -60,9 +64,9 @@ export class ProductDetailComponent implements OnInit {
 
   initFormAdd() {
     this.formAdd = this.fb.group({
-      size: ['', Validators.required],
-      mau: ['', Validators.required],
-      quantity: ['', [Validators.required, Validators.pattern('[0-9]{1,10}')]],
+      // size: ['', Validators.required],
+      // mau: ['', Validators.required],
+      quantity: ['1', [Validators.required, Validators.pattern('[0-9]{1,10}')]],
     })
   }
 
@@ -100,6 +104,19 @@ export class ProductDetailComponent implements OnInit {
 
 
   checklogin(){
+    console.log(this.findQuantity);
+    if(this.sizeid==null){
+      this.toastr.error("Bạn cần chọn size cho sản phẩm")
+      return;
+    }
+    if(this.colorid==null){
+      this.toastr.error("Bạn cần chọn màu cho sản phẩm")
+      return;
+    }
+    if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
+      this.toastr.error("Nhập lại số lượng")
+      return;
+    }
     this.addToCart();
     if(localStorage.getItem('auth-token')==null || localStorage.getItem('auth-user')==null){
       this.toastr.error("Bạn cần đăng nhập để sử dụng chức năng này")
@@ -121,11 +138,11 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(){
     this.productAdd.product =this.item;
-    let sizeId = this.formAdd.value.size;
+    let sizeId = this.sizeid;
     this.productAdd.size = this.dataSize.find(size => {
       return size.id == sizeId;
     });
-    let colorID = this.formAdd.value.mau;
+    let colorID = this.colorid;
     this.productAdd.mau = this.dataColor.find(mau => {
       return mau.id == colorID;
     });
@@ -151,6 +168,18 @@ export class ProductDetailComponent implements OnInit {
   }
 
   buyNow(){
+    if(this.sizeid==null){
+      this.toastr.error("Bạn cần chọn size cho sản phẩm")
+      return;
+    }
+    if(this.colorid==null){
+      this.toastr.error("Bạn cần chọn màu cho sản phẩm")
+      return;
+    }
+    if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
+      this.toastr.error("Nhập lại số lượng")
+      return;
+    }
     this.addToCart();
     if(localStorage.getItem('auth-token')==null || localStorage.getItem('auth-user')==null){
       this.toastr.error("Bạn cần đăng nhập để sử dụng chức năng này")
@@ -163,6 +192,21 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  size(size:any){
+    this.sizeid = size;
+    let sizeId = this.sizeid;
+    this.findQuantity.size = this.dataSize.find(size => {
+      return size.id == sizeId;
+    });
+    this.finQuantityBySC();
+  }
 
-
+  color(color:any){
+    this.colorid =color;
+    let colorID = this.colorid;
+    this.findQuantity.mau = this.dataColor.find(mau => {
+      return mau.id == colorID;
+    });
+    this.finQuantityBySC();
+  }
 }

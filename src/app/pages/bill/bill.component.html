@@ -66,33 +66,18 @@
       <hr>
     </div>
     <div class="col-8">
-      <h5 style="text-transform: uppercase;">{{user}}</h5>
-      <form *ngIf="!hidden"  [formGroup]="formI4">
-        <label>Địa chỉ của bạn: </label>
-        <select class="form-control" formControlName="cusI4" style="border: solid 1px gray;width: 400px;">
-          <option *ngFor="let item of dataCusI4" [value]="item.id">{{item.name}} - {{item.sdt}} - {{item.address}}
-
-            <button class='btn btn-primary ms-2' (click)="openLg()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                   class="bi bi-plus-circle-fill " viewBox="0 0 16 16">
-                <path
-                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-              </svg>
-            </button>
-
-          </option>
-        </select>
-          <small class="col alert text-danger" role="alert"
-                 *ngIf="formI4.get('cusI4')?.errors?.required && formI4.get('cusI4')?.touched">
-            Địa chỉ nhận hàng không được để trống !
-          </small>
+      <form *ngIf="hienthi==1"  [formGroup]="formI4">
+        <label>Địa chỉ của bạn(Mặc định): </label>
+        <p>Người nhận: {{custommerdefault.name}}</p>
+        <p>Số điện thoại: {{custommerdefault.sdt}}</p>
+        <p>Địa chỉ: {{custommerdefault.address}}</p>
          <!-- btn them moi -->
         <button class='btn d-block mt-3 mb-3' (click)="openLg()" style="border: solid 1px gray;color: rgb(229, 72, 60);font-weight: bold;">
           Thêm mới
         </button>
         </form>
 
-        <form *ngIf="hidden" [formGroup]="formAdd">
+        <form *ngIf="hienthi==0" [formGroup]="formAdd">
               <div class="row">
                 <div class="col-12">
                   <div class="form-group row">
@@ -137,13 +122,13 @@
               </div>
             <div class="footer d-flex">
               <div>
-                <button [hidden]="!hidden" type="button" class="btn me-5" type="submit" (click)="create()" [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(217, 83, 73);font-weight: bold;">Thêm mới</button>
+                <button [hidden]="hidden" type="button" class="btn me-5" type="submit" (click)="create()" [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(217, 83, 73);font-weight: bold;">Thêm mới</button>
               </div>
+<!--              <div >-->
+<!--                <button [hidden]="hidden" type="button" class="btn" type="submit" (click)="create()" [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(239, 222, 62);font-weight: bold;"> Cập nhật</button>-->
+<!--              </div>-->
               <div >
-                <button [hidden]="hidden" type="button" class="btn" type="submit" (click)="create()" [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(239, 222, 62);font-weight: bold;"> Cập nhật</button>
-              </div>
-              <div >
-                <button [hidden]="!hidden" type="button" class="btn" type="submit" (click)="rollBack()"style="border: solid 1px gray; color:rgb(30, 195, 173);font-weight: bold;">Quay lại</button>
+                <button [hidden]="!hidden" type="button" class="btn" type="submit" (click)="rollBack()"style="border: solid 1px gray; color:rgb(30, 195, 173);font-weight: bold;">Chọn tài khoản mặc định</button>
               </div>
             </div>
         </form>
@@ -166,7 +151,7 @@
         <p>Phí vận chuyển: </p>
       </div>
       <div class="col-6">
-        0đ
+        30.000đ
       </div>
      </div>
      <div class="row">
@@ -182,11 +167,11 @@
         <h5>Tổng tiền</h5>
       </div>
       <div class="col-6">
-        <h5 style="color: red;">{{grandTotal}}đ</h5>
+        <h5 style="color: red;">{{grandTotal + 30000}}đ</h5>
       </div>
      </div>
      <div class="mb-5">
-      <button [disabled]="!formI4.valid"(click)="checkout()" style="background-color: black; color: white;" class="btn">XÁC NHẬN MUA HÀNG</button>
+      <button [disabled]="!formAdd.valid && hienthi==0"(click)="checkout()" style="background-color: black; color: white;" class="btn">XÁC NHẬN MUA HÀNG</button>
      </div>
     </div>
   </div>

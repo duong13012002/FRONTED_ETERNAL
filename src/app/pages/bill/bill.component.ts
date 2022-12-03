@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Cart} from "../../@core/models/Cart";
 import {CustommerInfo} from "../../@core/models/CustommIn4";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -9,6 +9,7 @@ import {TokenStorageService} from "../../share/service/token-storage.service";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 import {CustommerInfoService} from "../../share/service/custommerInfo.service";
+import {Account} from "../../@core/models/Account";
 
 @Component({
   selector: 'app-bill',
@@ -16,42 +17,48 @@ import {CustommerInfoService} from "../../share/service/custommerInfo.service";
   styleUrls: ['./bill.component.css']
 })
 export class BillComponent implements OnInit {
-  data : Cart[]=[];
-  grandTotal!:number;
-  dataCusI4:CustommerInfo[]=[];
-  formI4!:FormGroup;
-  formAdd!:FormGroup;
-  loading!:boolean;
-  hidden!:boolean;
+  data: Cart[] = [];
+  grandTotal!: number;
+  dataCusI4: CustommerInfo[] = [];
+  formI4!: FormGroup;
+  formAdd!: FormGroup;
+  loading!: boolean;
+  hidden!: boolean;
   message!: String;
-  customemerInfo :CustommerInfo ={};
-  user!:any;
+  customemerInfo: CustommerInfo = {};
+  user!: any;
+  custommerdefault: CustommerInfo = {};
+  accountLogin: Account = {};
+  hienthi!: number;
 
 
-  constructor(private cartService : CartService,
+  constructor(private cartService: CartService,
               private fb: FormBuilder,
               private router: Router,
-              private modalService :NgbModal,
+              private modalService: NgbModal,
               private tokenStorageService: TokenStorageService,
               private toastr: ToastrService,
-              private custommerService:CustommerInfoService,
+              private custommerService: CustommerInfoService,
               private tokenService: TokenStorageService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getItembyUser();
-    this.initForI4();
     this.initFormAdd();
-    this.loading=false;
-    this.getAllCusI4();
-    this.hidden=false;
+    this.loading = false;
+    this.hidden = false;
     this.getUserLogin();
+    this.findCustommerDefault()
+    this.hienthi = 1;
   }
-  getUserLogin(){
-    this.user =localStorage.getItem('auth-user');
+
+  getUserLogin() {
+    this.user = localStorage.getItem('auth-user');
   }
+
   getItembyUser() {
-    if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {
+    if (this.tokenStorageService.getUser() != null && this.tokenStorageService.getToken() != null) {
       this.cartService.findAllByUserName(this.tokenStorageService.getUser()).subscribe(
         res => {
           this.data = res.object;
@@ -64,50 +71,36 @@ export class BillComponent implements OnInit {
   initFormAdd() {
     this.formAdd = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(20)]],
-      sdt:  ['', [Validators.required, Validators.pattern('(84|0[3|5|7|8|9])+([0-9]{8})')]],
+      sdt: ['', [Validators.required, Validators.pattern('(84|0[3|5|7|8|9])+([0-9]{8})')]],
       address: ['', Validators.required],
     })
   }
 
-  initForI4() {
-    this.formI4 = this.fb.group({
-      cusI4: ['', Validators.required],
-    })
-  }
 
 
   getTotalPrice() {
     this.grandTotal = 0;
     this.data.map((a: Cart) => {
-      console.log(a.product?.outputprice,a.quantity)
+      console.log(a.product?.outputprice, a.quantity)
       this.grandTotal += (a.product?.outputprice! * a.quantity!);
     })
   }
 
-  getAllCusI4(){
-    this.cartService.findAllCustommerIn4(this.tokenStorageService.getUser()).subscribe(
-      res =>{
-        this.dataCusI4 =res;
 
-      }
-    )
-  }
-
-
-  create(){
-    this.addValueFrom();
-    console.log(this.customemerInfo.id);
-    this.custommerService.create(this.tokenService.getUser(),this.customemerInfo).subscribe(
-      res =>{
-        this.toastr.success(res.message);
-        this.ngOnInit();
-        this.customemerInfo={};
-        this.modalService.dismissAll();
-      }, error => {
-        this.toastr.error(error.error.message);
-      }
-    )
-    this.hidden=false;
+  create() {
+    // this.addValueFrom();
+    // console.log(this.customemerInfo.id);
+    // this.custommerService.create(this.tokenService.getUser(), this.customemerInfo).subscribe(
+    //   res => {
+    //     this.toastr.success(res.message);
+    //     this.ngOnInit();
+    //     this.customemerInfo = {};
+    //     this.modalService.dismissAll();
+    //   }, error => {
+    //     this.toastr.error(error.error.message);
+    //   }
+    // )
+    // this.hidden = true;
   }
 
   addValueFrom() {
@@ -117,12 +110,12 @@ export class BillComponent implements OnInit {
   }
 
   openLg() {
-    this.customemerInfo={};
     this.initFormAdd();
     this.hidden = true;
+    this.hienthi = 0;
   }
 
-  checkout(){
+  checkout() {
     Swal.fire({
       title: 'Xác nhận đặt hàng?',
       showDenyButton: true,
@@ -132,24 +125,49 @@ export class BillComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        console.log(this.formI4.value.cusI4)
-        this.cartService.checkOut(this.formI4.value.cusI4,this.tokenStorageService.getUser()).subscribe(
-          res =>{
-            this.toastr.success(res.message)
-            this.modalService.dismissAll();
-            this.router.navigate(['/order-detail'])
-          },error => {
-            this.toastr.error(error.error.message)
-          }
-        )
-
+        if (this.hienthi == 1) {
+          this.cartService.checkOut(this.custommerdefault, this.tokenStorageService.getUser()).subscribe(
+            res => {
+              this.toastr.success(res.message)
+              this.router.navigate(['/order-detail'])
+            }, error => {
+              this.toastr.error(error.error.message)
+            }
+          )
+        } else if (this.hienthi == 0) {
+          this.addValueFrom();
+          this.cartService.checkOut(this.customemerInfo, this.tokenStorageService.getUser()).subscribe(
+            res => {
+              this.toastr.success(res.message)
+              this.router.navigate(['/order-detail'])
+            }, error => {
+              this.toastr.error(error.error.message)
+            }
+          )
+        }
       } else if (result.isDenied) {
         Swal.close();
       }
     })
   }
 
-  rollBack(){
-    this.hidden=false;
+  rollBack() {
+    this.hidden = false;
   }
+
+  findCustommerDefault() {
+    this.custommerService.findAccountLogin(this.tokenService.getUser()).subscribe(
+      res => {
+        this.accountLogin = res;
+        this.addValueCustommerDefault();
+      }
+    )
+  }
+
+  addValueCustommerDefault() {
+    this.custommerdefault.name = this.accountLogin.fullname;
+    this.custommerdefault.sdt = this.accountLogin.sdt;
+    this.custommerdefault.address = this.accountLogin.address;
+  }
+
 }
