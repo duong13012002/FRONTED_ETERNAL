@@ -1,9 +1,10 @@
-import {Color, Product, size} from "./Cart";
+import {Color, Product, size, Sole} from "./Cart";
 
 export interface FindQuantity{
   product?: Product;
   size?:size;
   mau?:Color;
+  sole?:Sole;
 }
 
 export interface ProductAdd{

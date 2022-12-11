@@ -25,12 +25,17 @@ export class CustommerInfoService{
     return this.http.get<any>(this.APIUrl +"delete/" +id) ;
   }
 
-  findBySdt(sdt:any): Observable<any>{
-    return this.http.get<any>(this.APIUrl+"findBySdt/"+sdt);
+  findCustommerByUserName(userName:any): Observable<any>{
+    return this.http.get<any>(this.APIUrl+"active/"+userName);
   }
 
-  findAccountLogin(userName:string):Observable<any>{
-    return this.http.get<any>(this.APIUrl+"accountLogin?userName="+userName);
+  findCustommerDefault(userName:string):Observable<any>{
+    return this.http.get<any>(this.APIUrl+"custommerDefault?userName="+userName);
   }
+
+  findCustommerById(id:number):Observable<any>{
+    return this.http.get<any>(this.APIUrl+"findById?id="+id);
+  }
+
 
 }

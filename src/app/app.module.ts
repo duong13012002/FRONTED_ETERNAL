@@ -21,6 +21,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import {MatTabsModule} from "@angular/material/tabs";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { FindNewProductComponent } from './pages/find-new-product/find-new-product.component';
 
 
 
@@ -35,7 +36,7 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
         NotFoundPageComponent,
         ProductDetailComponent,
         BuyNowComponent,
-        NavbarComponent
+        NavbarComponent,
     ],
   imports: [
     BrowserModule,

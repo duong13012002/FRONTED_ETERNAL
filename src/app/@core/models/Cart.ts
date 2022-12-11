@@ -10,6 +10,7 @@ export interface Cart{
   product?: Product;
   size?: size;
   mau?:Color;
+  sole?:Sole;
   quantity?: number;
   userName?: string;
 }
@@ -47,6 +48,11 @@ export interface size{
 export interface Color{
   id?:number;
   value?:number;
+  name?:string;
+}
+
+export interface Sole{
+  id?:number;
   name?:string;
 }
 

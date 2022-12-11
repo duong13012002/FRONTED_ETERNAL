@@ -62,6 +62,9 @@ export class TokenStorageService {
 
     return cart;
   }
+  public clearCart() {
+    localStorage.setItem("CART_KEY","")
+  }
 
 
 }

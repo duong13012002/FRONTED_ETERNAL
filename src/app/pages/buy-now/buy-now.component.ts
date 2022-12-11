@@ -29,9 +29,10 @@ export class BuyNowComponent implements OnInit {
   customemerInfo :CustommerInfo ={};
   user!:any;
   custommerdefault: CustommerInfo = {};
-  accountLogin: Account = {};
   hienthi!: number;
   buyNow!: BuyNow;
+  custommerToanCuc: CustommerInfo = {};
+  custommerId:any;
 
   constructor(private cartService : CartService,
               private fb: FormBuilder,
@@ -51,8 +52,10 @@ export class BuyNowComponent implements OnInit {
     this.loading=false;
     this.hidden=false;
     this.getUserLogin();
-    this.findCustommerDefault()
-    this.hienthi = 1;
+    this.findCustommerDefault();
+    this.findCustommerByUserName();
+    this.message = "Thêm mới ";
+    this.hienthi=0;
   }
   getUserLogin(){
     this.user =localStorage.getItem('auth-user');
@@ -81,7 +84,7 @@ export class BuyNowComponent implements OnInit {
   }
 
 
-  create(){
+  create(content:any){
     this.addValueFrom();
     console.log(this.customemerInfo.id);
     this.custommerService.create(this.tokenService.getUser(),this.customemerInfo).subscribe(
@@ -90,6 +93,8 @@ export class BuyNowComponent implements OnInit {
         this.ngOnInit();
         this.customemerInfo={};
         this.modalService.dismissAll();
+        this.findCustommerByUserName();
+        this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
       }, error => {
         this.toastr.error(error.error.message);
       }
@@ -103,10 +108,10 @@ export class BuyNowComponent implements OnInit {
     this.customemerInfo.address = this.formAdd.value.address;
   }
 
-  openLg() {
-    this.initFormAdd();
-    this.hidden = true;
-    this.hienthi==0;
+  openLg(content:any) {
+    this.modalService.dismissAll();
+    this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
+    console.log(this.custommerId)
   }
 
   checkout(){
@@ -119,36 +124,17 @@ export class BuyNowComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        console.log("aaaa")
-        if (this.hienthi == 1) {
-          this.addValueBuyNow();
-          console.log("ddax baof")
-          this.cartService.buyNow(this.tokenStorageService.getUser(),this.buyNow).subscribe(
-            res => {
-              this.toastr.success(res.message);
-              this.router.navigate(['/order-detail'])
-            }, error => {
-              this.toastr.error(error.error.message)
-            }
+        this.cartService.buyNow(this.custommerId,this.tokenStorageService.getUser(),this.data).subscribe(
+          res => {
+            this.toastr.success(res.message);
+            this.tokenService.clearCart();
+            this.router.navigate(['/order-detail']);
+          }
           )
-        } else if (this.hienthi == 0) {
-          this.addValueBuyNow();
-          this.cartService.buyNow(this.tokenStorageService.getUser(),this.buyNow).subscribe(
-            res => {
-              this.toastr.success(res.message);
-              this.router.navigate(['/order-detail'])
-            }, error => {
-              this.toastr.error(error.error.message)
-            }
-          )
-        }
       } else if (result.isDenied) {
         Swal.close();
       }
     })
-  }
-  rollBack(){
-    this.hidden=false;
   }
 
 
@@ -158,27 +144,62 @@ export class BuyNowComponent implements OnInit {
     this.getItembyUser();
   }
   findCustommerDefault() {
-    this.custommerService.findAccountLogin(this.tokenService.getUser()).subscribe(
+    this.custommerService.findCustommerDefault(this.tokenService.getUser()).subscribe(
       res => {
-        this.accountLogin = res;
-        this.addValueCustommerDefault();
+        this.custommerdefault = res;
+        this.custommerToanCuc = res;
+        this.custommerId = this.custommerToanCuc.id;
       }
     )
   }
 
-  addValueCustommerDefault() {
-    this.custommerdefault.name = this.accountLogin.fullname;
-    this.custommerdefault.sdt = this.accountLogin.sdt;
-    this.custommerdefault.address = this.accountLogin.address;
+  findCustommerByUserName(){
+    this.custommerService.findCustommerByUserName(this.tokenService.getUser()).subscribe(
+      res => {
+        this.dataCusI4 = res;
+      }
+    )
   }
 
-  addValueBuyNow(){
-    this.buyNow.cart = this.data;
-    if(this.hienthi==1){
-      this.buyNow!.custommerInfo= this.custommerdefault;
-    }else if(this.hienthi==0){
-      this.addValueFrom();
-      this.buyNow!.custommerInfo= this.customemerInfo
-    }
+  custommer(value:any){
+    this.custommerId = value;
+    console.log(this.custommerId)
+  }
+
+  xacnhan(){
+    // this.hienthi=1;
+    this.custommerService.findCustommerById(this.custommerId).subscribe(
+      res =>{
+        this.custommerdefault = res;
+        if(this.custommerdefault.id == this.custommerToanCuc.id){
+          this.hienthi=0;
+        }else {
+          this.hienthi =1;
+        }
+        this.toastr.success("Thay đổi địa chỉ thành công");
+        this.modalService.dismissAll();
+      }
+    )
+  }
+
+  capnhat(content:any,id:any){
+    this.modalService.dismissAll();
+    this.message="Cập nhật"
+    this.custommerService.findCustommerById(id).subscribe(
+      (res) => {
+        this.customemerInfo = res;
+        console.log(this.customemerInfo)
+        this.fillValueForm();
+      }
+    )
+    this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
+  }
+
+  fillValueForm(){
+    this.formAdd.patchValue({
+      name: this.customemerInfo.name,
+      sdt: this.customemerInfo.sdt,
+      address: this.customemerInfo.address,
+    })
   }
 }

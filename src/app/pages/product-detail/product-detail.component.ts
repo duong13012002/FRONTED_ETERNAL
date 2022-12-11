@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Cart, Product} from "../../@core/models/Cart";
+import {Component, OnInit} from '@angular/core';
+import {Cart, Product, Sole} from "../../@core/models/Cart";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FindQuantity} from "../../@core/models/FindQuantity";
 import {Size} from "../../@core/models/Size";
@@ -16,36 +16,40 @@ import {CartService} from "../../share/service/cart.service";
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  item!:Product;
-  formAdd!:FormGroup;
+  item!: Product;
+  formAdd!: FormGroup;
   message!: any;
-  findQuantity :FindQuantity ={};
+  findQuantity: FindQuantity = {};
   dataSize: Size[] = [];
   dataColor: Color[] = [];
-  productAdd: Cart={};
-  loading!:boolean;
-  sizeid!:number;
-  colorid!:number
+  dataSole: Sole[] = [];
+  productAdd: Cart = {};
+  loading!: boolean;
+  sizeid!: number;
+  colorid!: number
+  soleid!: number;
 
   constructor(
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private productService: ProductService,
-    private toastr :ToastrService,
+    private toastr: ToastrService,
     private router: Router,
     private activceRoute: ActivatedRoute,
     private tokenService: TokenStorageService,
     private cartService: CartService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.initFormAdd();
     this.movingProduct();
     this.getAllColor();
     this.getAllSize();
-    this.loading= false;
+    this.getAllSole();
+    this.loading = false;
   }
 
-  movingProduct(){
+  movingProduct() {
     this.activceRoute.paramMap.subscribe(
       params => {
         const idProduct = params.get('id');
@@ -53,7 +57,7 @@ export class ProductDetailComponent implements OnInit {
           this.productService.findProductById(idProduct).subscribe(
             res => {
               this.item = res;
-              this.findQuantity.product= this.item;
+              this.findQuantity.product = this.item;
               this.finQuantityBySC();
             }
           )
@@ -70,8 +74,8 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  changeSC(size:any,color:any){
-    this.findQuantity.product =this.item;
+  changeSC(size: any, color: any) {
+    this.findQuantity.product = this.item;
     let sizeId = this.formAdd.value.size;
     this.findQuantity.size = this.dataSize.find(size => {
       return size.id == sizeId;
@@ -83,51 +87,55 @@ export class ProductDetailComponent implements OnInit {
     this.finQuantityBySC();
   }
 
-  finQuantityBySC(){
+  finQuantityBySC() {
     console.log(this.findQuantity);
     this.productService.findQuantity(this.findQuantity).subscribe(
       (res) => {
-        this.message=res.object;
+        this.message = res.object;
       }, error => {
         console.log(error.error.message)
       }
     );
   }
 
-  checkChange(quantity:any){
-    if(quantity <= this.message ){
+  checkChange(quantity: any) {
+    if (quantity <= this.message) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
 
 
-  checklogin(){
+  checklogin() {
     console.log(this.findQuantity);
-    if(this.sizeid==null){
+    if (this.sizeid == null) {
       this.toastr.error("Bạn cần chọn size cho sản phẩm")
       return;
     }
-    if(this.colorid==null){
+    if (this.colorid == null) {
       this.toastr.error("Bạn cần chọn màu cho sản phẩm")
       return;
     }
-    if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
-      this.toastr.error("Nhập lại số lượng")
+    if (this.soleid == null) {
+      this.toastr.error("Bạn cần chọn mẫu đế giày cho sản phẩm")
       return;
     }
+    // if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
+    //   this.toastr.error("Nhập lại số lượng")
+    //   return;
+    // }
     this.addToCart();
-    if(localStorage.getItem('auth-token')==null || localStorage.getItem('auth-user')==null){
+    if (localStorage.getItem('auth-token') == null || localStorage.getItem('auth-user') == null) {
       this.toastr.error("Bạn cần đăng nhập để sử dụng chức năng này")
-      localStorage.setItem("cart",JSON.stringify(this.productAdd));
+      localStorage.setItem("cart", JSON.stringify(this.productAdd));
       this.router.navigate((['/login']));
     } else {
       console.log(this.productAdd);
-      this.loading=true;
+      this.loading = true;
       this.cartService.create(this.productAdd).subscribe(
         res => {
-          this.loading=false;
+          this.loading = false;
           this.toastr.success(res.message);
           const url = "cart/" + this.tokenService.getUser();
           this.router.navigate([url]);
@@ -136,8 +144,8 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  addToCart(){
-    this.productAdd.product =this.item;
+  addToCart() {
+    this.productAdd.product = this.item;
     let sizeId = this.sizeid;
     this.productAdd.size = this.dataSize.find(size => {
       return size.id == sizeId;
@@ -145,6 +153,10 @@ export class ProductDetailComponent implements OnInit {
     let colorID = this.colorid;
     this.productAdd.mau = this.dataColor.find(mau => {
       return mau.id == colorID;
+    });
+    let soleID = this.soleid;
+    this.productAdd.sole = this.dataSole.find(sole => {
+      return sole.id == soleID;
     });
 
     this.productAdd.quantity = this.formAdd.value.quantity;
@@ -167,32 +179,42 @@ export class ProductDetailComponent implements OnInit {
     )
   }
 
-  buyNow(){
-    if(this.sizeid==null){
+  getAllSole() {
+    this.productService.getAllSole().subscribe(
+      (res: any) => {
+        this.dataSole = res;
+        console.log(this.dataSole)
+      }
+    )
+  }
+
+
+  buyNow() {
+    if (this.sizeid == null) {
       this.toastr.error("Bạn cần chọn size cho sản phẩm")
       return;
     }
-    if(this.colorid==null){
+    if (this.colorid == null) {
       this.toastr.error("Bạn cần chọn màu cho sản phẩm")
       return;
     }
-    if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
+    if (!this.formAdd.valid && this.checkChange(this.finQuantityBySC())) {
       this.toastr.error("Nhập lại số lượng")
       return;
     }
     this.addToCart();
-    if(localStorage.getItem('auth-token')==null || localStorage.getItem('auth-user')==null){
+    if (localStorage.getItem('auth-token') == null || localStorage.getItem('auth-user') == null) {
       this.toastr.error("Bạn cần đăng nhập để sử dụng chức năng này")
-      localStorage.setItem("cart",JSON.stringify(this.productAdd));
+      localStorage.setItem("cart", JSON.stringify(this.productAdd));
       this.router.navigate((['/login']));
     } else {
-      localStorage.setItem("cart",JSON.stringify(this.productAdd));
+      localStorage.setItem("cart", JSON.stringify(this.productAdd));
       console.log(this.productAdd);
       this.router.navigate((['/buyNow']));
     }
   }
 
-  size(size:any){
+  size(size: any) {
     this.sizeid = size;
     let sizeId = this.sizeid;
     this.findQuantity.size = this.dataSize.find(size => {
@@ -201,12 +223,22 @@ export class ProductDetailComponent implements OnInit {
     this.finQuantityBySC();
   }
 
-  color(color:any){
-    this.colorid =color;
+  color(color: any) {
+    this.colorid = color;
     let colorID = this.colorid;
     this.findQuantity.mau = this.dataColor.find(mau => {
       return mau.id == colorID;
     });
+    this.finQuantityBySC();
+  }
+
+  sole(sole: any) {
+    this.soleid = sole;
+    let soleID = this.soleid;
+    this.findQuantity.sole = this.dataSole.find(sole => {
+        return sole.id == soleID;
+      }
+    );
     this.finQuantityBySC();
   }
 }

@@ -1,0 +1,25 @@
+<div *ngIf="productList" class="row justify-content-center m-2 mt-3 ms-5">
+  <div class="col-lg-2 col-md-6 product" style="padding-left: 10px;margin-left: 10px;" *ngFor="let data of productList">
+    <div class="single-product card" (click)=infoProducts(data.id)>
+      <img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{data.photo}}">
+      <div class="product-details">
+        <h1 class="text-center product-name">{{data.name}}</h1>
+        <p class="cate-brand">Loại: {{data!.category!.name}}</p>
+        <p class="cate-brand">Hãng: {{data!.hang!.name}}</p>
+        <div class="price">
+          <h5 class="text-danger">{{data.outputprice}} VND</h5>
+        </div>
+        <div class="prd-bottom card-footer">
+          <a class="social-info" (click)=infoProducts(data.id)>
+            <span class="ti-bag"></span>
+            <p class="hover-text">Add to Cart</p>
+          </a>
+          <a href="" class="social-info">
+            <span class="lnr lnr-heart"></span>
+            <p class="hover-text">Wishlist</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

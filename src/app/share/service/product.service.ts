@@ -38,6 +38,10 @@ export class ProductService{
     return this.http.get<any>(this.API_URL+"products/getColor");
   }
 
+  public getAllSole():Observable<any>{
+    return this.http.get<any>(this.API_URL+"products/getAllSole");
+  }
+
   public getAllSize():Observable<any>{
     return this.http.get<any>(this.API_URL+"products/getAllSize");
   }
@@ -48,6 +52,10 @@ export class ProductService{
 
   findProductById(id:any):Observable<any>{
     return this.http.get<any>(`${environment.apiUrl}public/products/`+id);
+  }
+
+  findNewProductTop(top:any):Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}public/products/top/`+top);
   }
 
 
