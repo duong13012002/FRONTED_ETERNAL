@@ -93,6 +93,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   openlg(conten1:any){
+    this.modalServie.dismissAll();
     this.modalServie.open(conten1, {size: 'lg', centered: true, scrollable: true});
   }
 
@@ -125,7 +126,7 @@ export class OrderDetailComponent implements OnInit {
 
 
   daHuy(){
-    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),3).subscribe(
+    this.orderDetailService.getOrderByStatus(this.tokenService.getUser(),4).subscribe(
       res =>{
         this.listDaHuy = res;
         console.log(this.listChoXacNhan);

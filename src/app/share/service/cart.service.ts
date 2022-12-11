@@ -38,12 +38,12 @@ export class CartService {
     return this.http.get<any>("http://localhost:8080/api/public/cusI4/active/"+userName);
   }
 
-  checkOut(custommerInfo:CustommerInfo,userName:any):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?userName="+userName, custommerInfo);
+  checkOut(idCustommer:number,userName:any):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?userName="+userName+"&idCustommer="+idCustommer,null);
   }
 
-  buyNow(userName:any,buyNow:BuyNow):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/public/order/buyNow?userName="+userName, buyNow);
+  buyNow(idCustommer:number,userName:any,cart:Cart):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/buyNow?userName="+userName+"&idCustommer="+idCustommer, cart);
   }
 
 

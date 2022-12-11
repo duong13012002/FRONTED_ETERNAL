@@ -26,7 +26,7 @@
   <div class="col-6">
     <div class="col-8 img-prd-detail bg-light p-4 shadow"
       style="position:absolute; width:100%; height:100%;margin-bottom: 50px;">
-      <img class="img-fluid img"  src="https://res.cloudinary.com/productenternal/image/upload/v1668928871/IMAGE/image/{{item.photo}}">
+      <img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.photo}}">
     </div>
   </div>
   <div class="col-6">
@@ -86,9 +86,27 @@
         </div>
       </div>
 
+      <div class="row"></div>
+      <label class="col-md-2 mt-3">Đế giày: </label>
+      <br>
+      <div class="btn-group">
+        <div *ngFor="let item3 of dataSole " class="mx-2">
+          <input
+            mdbRadio
+            type="radio"
+            class="btn-check"
+            name="options2"
+            id="{{item3.name}}"
+            autocomplete="off"
+
+          />
+          <label class="btn btn-outline-primary" for="{{item3.name}}" (click)="sole(item3.id)">{{item3.name}}</label>
+        </div>
+      </div>
 
 
-      <div class="form-group row">
+
+      <div class="form-group row mt-2">
         <label for="quantity" class="col-md-2 col-form-label">Số lượng: </label>
         <div class="col-md-2 mt-2">
           <input #selectquantity (change)="checkChange(selectquantity.value)"

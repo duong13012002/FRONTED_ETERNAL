@@ -8,6 +8,7 @@ import {CategoryComponent} from './pages/category/category.component';
 import {Home2Component} from "./pages/home2/home2.component";
 import {UserLoginComponent} from "./pages/user-login/user-login.component";
 import { Cart2Component } from './pages/cart2/cart2.component';
+import {FindNewProductComponent} from "./pages/find-new-product/find-new-product.component";
 
 
 
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path:'cart',
     component: Cart2Component
+  },
+  {
+    path:'home',
+    component: FindNewProductComponent
   },
   // { path: 'cart', loadChildren: () => import('./pages/cart2/cart2.module').then(m => m.Cart2Module) },
   { path: 'product', loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule) },

@@ -33,6 +33,7 @@
               <th>Hãng</th>
               <th>Size</th>
               <th>Màu</th>
+              <th>Kiểu dáng đế giày</th>
               <th>Giá</th>
               <th>Số lượng</th>
               <th>Tổng tiền</th>
@@ -45,10 +46,11 @@
             <tr *ngFor="let item of data; let i = index">
               <td>{{i+1}}</td>
               <td>{{item.product!.name}}</td>
-              <td><img style="width: 120px;" src="https://res.cloudinary.com/productenternal/image/upload/v1668928871/IMAGE/image/{{item.product!.photo}}"></td>
+              <td><img style="width: 120px;" src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.product!.photo}}"></td>
               <td>{{item.product!.hang!.name}}</td>
               <td>{{item.size!.value}}</td>
               <td>{{item.mau!.name}}</td>
+              <td>{{item.sole!.name}}</td>
               <th style="width: 6%;">{{item.product!.outputprice}}</th>
               <td style="width: 6%;">
                 <input #selectquantity (change)="changeQuantity(selectquantity.value,item)" class="form-control"
