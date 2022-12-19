@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Product} from "../../@core/models/Cart";
 import {FormBuilder} from "@angular/forms";
 import {ProductService} from "../../share/service/product.service";
-import {CartService} from "../../share/service/cart.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {TokenStorageService} from "../../share/service/token-storage.service";
 
 @Component({
   selector: 'app-find-new-product',
@@ -15,13 +11,11 @@ import {TokenStorageService} from "../../share/service/token-storage.service";
 })
 export class FindNewProductComponent implements OnInit {
 
-   productList: Product[] =[];
+   productList!: Product[];
+   index: number =3;
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
-    private cartService: CartService,
-    private modalService :NgbModal,
-    private toastr :ToastrService,
     private router: Router,
   ) { }
 
@@ -35,11 +29,17 @@ export class FindNewProductComponent implements OnInit {
   }
 
   getProduct(){
-    this.productService.findNewProductTop(3).subscribe(
+    this.productService.findNewProductTop(this.index).subscribe(
       res =>{
         this.productList = res
         console.log(this.productList)
       }
     )
+  }
+
+  pageItem(selectSize:any){
+  this.index = selectSize;
+    console.log('kk')
+  this.getProduct();
   }
 }

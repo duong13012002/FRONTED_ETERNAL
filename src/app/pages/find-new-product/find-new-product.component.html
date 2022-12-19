@@ -1,4 +1,4 @@
-<div *ngIf="productList" class="row justify-content-center m-2 mt-3 ms-5">
+<div  class="row justify-content-center m-2 mt-3 ms-5">
   <div class="col-lg-2 col-md-6 product" style="padding-left: 10px;margin-left: 10px;" *ngFor="let data of productList">
     <div class="single-product card" (click)=infoProducts(data.id)>
       <img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{data.photo}}">
@@ -22,4 +22,12 @@
       </div>
     </div>
   </div>
+  <p>Hiện thị sản phẩm mới nhất</p>
+  <select #selectSize (change)="pageItem(selectSize.value)"   class="page-items mr-1 me-3" >
+    <option  >1</option>
+    <option >3</option>
+    <option >5</option>
+  </select>
 </div>
+
+
