@@ -54,10 +54,7 @@ const routes: Routes = [
     path:'cart',
     component: Cart2Component
   },
-  {
-    path:'home',
-    component: FindNewProductComponent
-  },
+
   // { path: 'cart', loadChildren: () => import('./pages/cart2/cart2.module').then(m => m.Cart2Module) },
   { path: 'product', loadChildren: () => import('./pages/product/product.module').then(m => m.ProductModule) },
   { path: 'order-detail', loadChildren: () => import('./pages/order-detail/order-detail.module').then(m => m.OrderDetailModule) },
@@ -67,7 +64,7 @@ const routes: Routes = [
   { path: 'cusI4', loadChildren: () => import('./pages/custommer-in4/custommer-in4.module').then(m => m.CustommerIn4Module)},
   // { path: 'productDetails/:id', loadChildren: () => import('./pages/product-detail/product-detail.module').then(m => m.ProductModule)},
   { path: 'order', loadChildren: () => import('./pages/bill/bill.module').then(m => m.BillModule)},
-  // { path: 'buyNow', loadChildren: () => import('./pages/buy-now/BuyNow.module').then(m => m.BuyNowModule)},
+  {path: 'home', loadChildren:() => import('./pages/find-new-product/findNewProduct.module').then(m => m.FindNewProductModule)}
 ];
 
 
