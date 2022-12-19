@@ -33,6 +33,7 @@ import { FindNewProductComponent } from './pages/find-new-product/find-new-produ
         Cart2Component,
         CategoryComponent,
         ProductComponent,
+        FindNewProductComponent,
         NotFoundPageComponent,
         ProductDetailComponent,
         BuyNowComponent,

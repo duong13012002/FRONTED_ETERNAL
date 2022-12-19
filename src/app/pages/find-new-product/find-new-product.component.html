@@ -1,7 +1,8 @@
-<div  class="row justify-content-center m-2 mt-3 ms-5">
+<div class="row justify-content-center m-2 ms-5" >
+  <h1 style="font-family: 'Times New Roman', Times, serif;text-align: center;margin-bottom: 30px;">Top sản phẩm mới nhập</h1>
   <div class="col-lg-2 col-md-6 product" style="padding-left: 10px;margin-left: 10px;" *ngFor="let data of productList">
     <div class="single-product card" (click)=infoProducts(data.id)>
-      <img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{data.photo}}">
+      <img class="img-fluid img" src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{data.photo}}">
       <div class="product-details">
         <h1 class="text-center product-name">{{data.name}}</h1>
         <p class="cate-brand">Loại: {{data!.category!.name}}</p>
@@ -22,12 +23,18 @@
       </div>
     </div>
   </div>
-  <p>Hiện thị sản phẩm mới nhất</p>
-  <select #selectSize (change)="pageItem(selectSize.value)"   class="page-items mr-1 me-3" >
-    <option  >1</option>
-    <option >3</option>
-    <option >5</option>
-  </select>
+  <div>
+    <div>
+      <h6 style="margin-left: 1100px;">Top sản phẩm mới nhất muốn tìm</h6>
+    </div>
+    <br>
+   <div style="float: right;">
+    <select #selectSize (change)="pageItem(selectSize.value)" class="page-items mr-1 me-3">
+      <option>1</option>
+      <option>3</option>
+      <option>5</option>
+    </select>
+   </div>
+  </div>
+
 </div>
-
-

@@ -8,7 +8,6 @@ import {FindNewProductRoutingModule} from "./findNewProduct-routing.module";
 
 @NgModule({
   declarations: [
-    FindNewProductComponent
   ],
   imports: [
     CommonModule,
