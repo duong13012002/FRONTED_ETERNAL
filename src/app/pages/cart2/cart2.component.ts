@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CartService } from 'src/app/share/service/cart.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {CartService} from 'src/app/share/service/cart.service';
 import Swal from "sweetalert2";
 import {OrderDetailService} from "../../share/service/order-detail.service";
 import {TokenStorageService} from "../../share/service/token-storage.service";
@@ -9,34 +9,42 @@ import {ToastrService} from "ngx-toastr";
 import {CustommerInfo} from "../../@core/models/CustommIn4";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FindQuantity} from "../../@core/models/FindQuantity";
+import {ProductService} from "../../share/service/product.service";
+
 @Component({
   selector: 'app-cart2',
   templateUrl: './cart2.component.html',
   styleUrls: ['./cart2.component.scss']
 })
 export class Cart2Component implements OnInit {
-  data : Cart[]=[];
-  grandTotal!:number;
-  dataCusI4:CustommerInfo[]=[];
-  formI4!:FormGroup;
-  loading!:boolean;
-
-
-  constructor(private cartService : CartService,
+  formAdd!: FormGroup;
+  data: Cart[] = [];
+  grandTotal!: number;
+  dataCusI4: CustommerInfo[] = [];
+  formI4!: FormGroup;
+  loading!: boolean;
+  findQuantity: FindQuantity = {};
+  message!: any;
+  constructor(private cartService: CartService,
               private fb: FormBuilder,
               private router: Router,
-              private modalService :NgbModal,
+              private modalService: NgbModal,
               private tokenStorageService: TokenStorageService,
               private toastr: ToastrService,
-  ) { }
+              private productService: ProductService,
+  ) {
+  }
 
   ngOnInit(): void {
- this.getItembyUser();
- this.initForI4();
- this.loading=false;
+    this.getItembyUser();
+    this.initForI4();
+    this.loading = false;
+    this.initFormAdd();
   }
+
   getItembyUser() {
-    if (this.tokenStorageService.getUser() !=null && this.tokenStorageService.getToken()!=null) {
+    if (this.tokenStorageService.getUser() != null && this.tokenStorageService.getToken() != null) {
       this.cartService.findAllByUserName(this.tokenStorageService.getUser()).subscribe(
         res => {
           this.data = res.object;
@@ -46,6 +54,11 @@ export class Cart2Component implements OnInit {
     }
   }
 
+  initFormAdd() {
+    this.formAdd = this.fb.group({
+      quantity: ['', [Validators.required, Validators.pattern('[0-9]{1,10}')]],
+    })
+  }
 
   initForI4() {
     this.formI4 = this.fb.group({
@@ -57,13 +70,13 @@ export class Cart2Component implements OnInit {
   getTotalPrice() {
     this.grandTotal = 0;
     this.data.map((a: Cart) => {
-      console.log(a.product?.outputprice,a.quantity)
-        this.grandTotal += (a.product?.outputprice! * a.quantity!);
+      console.log(a.product?.outputprice, a.quantity)
+      this.grandTotal += (a.product?.outputprice! * a.quantity!);
     })
   }
 
 
-  removeItem(id:any){
+  removeItem(id: any) {
 
     Swal.fire({
       title: 'Bạn muốn xóa sản phẩm khỏi giỏ hàng?',
@@ -74,14 +87,14 @@ export class Cart2Component implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-     this.cartService.delete(id).subscribe(
-       res => {
-         this.toastr.success("Xóa thành công")
-         this.ngOnInit();
-       },error => {
-         this.toastr.error("Xóa thất bại")
-       }
-     )
+        this.cartService.delete(id).subscribe(
+          res => {
+            this.toastr.success("Xóa thành công")
+            this.ngOnInit();
+          }, error => {
+            this.toastr.error("Xóa thất bại")
+          }
+        )
       } else if (result.isDenied) {
         Swal.close();
       }
@@ -89,7 +102,7 @@ export class Cart2Component implements OnInit {
   }
 
 
-  emptycart(){
+  emptycart() {
     Swal.fire({
       title: 'Bạn muốn xóa giỏ hàng?',
       showDenyButton: true,
@@ -103,7 +116,7 @@ export class Cart2Component implements OnInit {
           res => {
             this.toastr.success(res.message)
             this.ngOnInit();
-          },error => {
+          }, error => {
             this.toastr.error(error.error.message)
           }
         )
@@ -114,20 +127,20 @@ export class Cart2Component implements OnInit {
   }
 
 
-  checkout(){
+  checkout() {
     this.router.navigate(['/order']);
   }
 
-  getAllCusI4(){
+  getAllCusI4() {
     this.cartService.findAllCustommerIn4(this.tokenStorageService.getUser()).subscribe(
-      res =>{
-        this.dataCusI4 =res;
+      res => {
+        this.dataCusI4 = res;
 
       }
     )
   }
 
-  choiseIn4(){
+  choiseIn4() {
     Swal.fire({
       title: 'Xác nhận đặt hàng?',
       showDenyButton: true,
@@ -138,12 +151,12 @@ export class Cart2Component implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
 
-        this.cartService.checkOut(this.formI4.value.cusI4,this.tokenStorageService.getUser()).subscribe(
-          res =>{
+        this.cartService.checkOut(this.formI4.value.cusI4, this.tokenStorageService.getUser()).subscribe(
+          res => {
             this.toastr.success(res.message)
             this.modalService.dismissAll();
             this.router.navigate(['/order-detail'])
-          },error => {
+          }, error => {
             this.toastr.error(error.error.message)
           }
         )
@@ -154,17 +167,51 @@ export class Cart2Component implements OnInit {
     })
   }
 
-  create(){
+  create() {
     this.modalService.dismissAll();
     this.router.navigate(['/cusI4']);
   }
 
-  changeQuantity(quantity: any,item:Cart){
-    item.quantity= quantity;
-    this.cartService.update(item).subscribe(
-      res =>{
-        this.getItembyUser();
+  changeQuantity(quantity: any, item: Cart) {
+    this.findQuantity.product = item.product;
+    this.findQuantity.size = item.size;
+    this.findQuantity.mau = item.mau;
+    this.productService.findQuantity(this.findQuantity).subscribe(
+      (res) => {
+        this.message = res.object;
+      }, error => {
+        console.log(error.error.message)
       }
-    )
+    );
+    console.log(quantity,item)
+    if (quantity <= 0) {
+      item.quantity = 1;
+      this.cartService.update(item).subscribe(
+        res => {
+          this.getItembyUser();
+        }
+      )
+    }
+
+    if(quantity>this.message) {
+      item.quantity = this.message;
+      this.cartService.update(item).subscribe(
+        res => {
+          this.getItembyUser();
+        }
+      )
+    }
+
+    if(quantity <=this.message) {
+      item.quantity = quantity;
+      this.cartService.update(item).subscribe(
+        res => {
+          this.getItembyUser();
+        }
+      )
+    }
+
   }
+
+
 }

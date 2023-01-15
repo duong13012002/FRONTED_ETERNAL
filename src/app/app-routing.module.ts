@@ -18,10 +18,10 @@ const routes: Routes = [
     redirectTo: 'pages',
     pathMatch: 'full'
   },
-  // {
-  //   path:'404',
-  //   component: NotFoundPageComponent
-  // },
+  {
+    path:'404',
+    component: NotFoundPageComponent
+  },
   // {
   //   path:'***',
   //   redirectTo: '/404'
@@ -64,7 +64,8 @@ const routes: Routes = [
   { path: 'cusI4', loadChildren: () => import('./pages/custommer-in4/custommer-in4.module').then(m => m.CustommerIn4Module)},
   // { path: 'productDetails/:id', loadChildren: () => import('./pages/product-detail/product-detail.module').then(m => m.ProductModule)},
   { path: 'order', loadChildren: () => import('./pages/bill/bill.module').then(m => m.BillModule)},
-  {path: 'home', loadChildren:() => import('./pages/find-new-product/findNewProduct.module').then(m => m.FindNewProductModule)}
+  {path: 'home', loadChildren:() => import('./pages/find-new-product/findNewProduct.module').then(m => m.FindNewProductModule)},
+  {path: 'updateOder', loadChildren:() => import('./pages/update-order/updateOder.module').then(m => m.UpdateOderModule)}
 ];
 
 

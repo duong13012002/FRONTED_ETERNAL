@@ -90,6 +90,7 @@
               <th class="text-center" scope="col">Giá</th>
               <th class="text-center" scope="col">Số lượng</th>
               <th class="text-center" scope="col">Tổng tiền</th>
+              <th class="text-center" scope="col">Ảnh</th>
             </tr>
             </thead>
             <tbody *ngIf="listChiTiet">
@@ -101,6 +102,7 @@
               <td>{{item.price}}</td>
               <td>{{item.quantity}}</td>
               <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
+              <td><img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.product!.photo}}"></td>
             </tr>
             </tbody>
           </table>
