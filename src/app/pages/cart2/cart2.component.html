@@ -33,7 +33,6 @@
               <th>Hãng</th>
               <th>Size</th>
               <th>Màu</th>
-              <th>Kiểu dáng đế giày</th>
               <th>Giá</th>
               <th>Số lượng</th>
               <th>Tổng tiền</th>
@@ -50,11 +49,13 @@
               <td>{{item.product!.hang!.name}}</td>
               <td>{{item.size!.value}}</td>
               <td>{{item.mau!.name}}</td>
-              <td>{{item.sole!.name}}</td>
               <th style="width: 6%;">{{item.product!.outputprice}}</th>
+
               <td style="width: 6%;">
                 <input #selectquantity (change)="changeQuantity(selectquantity.value,item)" class="form-control"
                   type="number" min="1" value="{{item.quantity}}">
+              </td>
+
               <td *ngIf="item.product!.outputprice && item!.quantity" style="width: 12%;">{{item.product!.outputprice *
                 item.quantity}} VND</td>
               <td>

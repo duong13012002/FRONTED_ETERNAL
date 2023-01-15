@@ -22,6 +22,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FindNewProductComponent } from './pages/find-new-product/find-new-product.component';
+import { UpdateOrderComponent } from './pages/update-order/update-order.component';
 
 
 
@@ -38,6 +39,7 @@ import { FindNewProductComponent } from './pages/find-new-product/find-new-produ
         ProductDetailComponent,
         BuyNowComponent,
         NavbarComponent,
+        UpdateOrderComponent,
     ],
   imports: [
     BrowserModule,

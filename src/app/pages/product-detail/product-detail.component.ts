@@ -99,6 +99,16 @@ export class ProductDetailComponent implements OnInit {
   }
 
   checkChange(quantity: any) {
+    if(quantity <=0){
+      this.formAdd.patchValue({
+        quantity: 1,
+      })
+    }
+    if(quantity >this.message){
+      this.formAdd.patchValue({
+        quantity: this.message,
+      })
+    }
     if (quantity <= this.message) {
       return true;
     } else {
@@ -117,10 +127,10 @@ export class ProductDetailComponent implements OnInit {
       this.toastr.error("Bạn cần chọn màu cho sản phẩm")
       return;
     }
-    if (this.soleid == null) {
-      this.toastr.error("Bạn cần chọn mẫu đế giày cho sản phẩm")
-      return;
-    }
+    // if (this.soleid == null) {
+    //   this.toastr.error("Bạn cần chọn mẫu đế giày cho sản phẩm")
+    //   return;
+    // }
     // if(!this.formAdd.valid && this.checkChange(this.finQuantityBySC())){
     //   this.toastr.error("Nhập lại số lượng")
     //   return;
@@ -154,11 +164,6 @@ export class ProductDetailComponent implements OnInit {
     this.productAdd.mau = this.dataColor.find(mau => {
       return mau.id == colorID;
     });
-    let soleID = this.soleid;
-    this.productAdd.sole = this.dataSole.find(sole => {
-      return sole.id == soleID;
-    });
-
     this.productAdd.quantity = this.formAdd.value.quantity;
     this.productAdd.userName = this.tokenService.getUser();
   }
@@ -232,13 +237,4 @@ export class ProductDetailComponent implements OnInit {
     this.finQuantityBySC();
   }
 
-  sole(sole: any) {
-    this.soleid = sole;
-    let soleID = this.soleid;
-    this.findQuantity.sole = this.dataSole.find(sole => {
-        return sole.id == soleID;
-      }
-    );
-    this.finQuantityBySC();
-  }
 }

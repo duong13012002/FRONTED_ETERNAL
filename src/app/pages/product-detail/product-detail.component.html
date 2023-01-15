@@ -86,23 +86,23 @@
         </div>
       </div>
 
-      <div class="row"></div>
-      <label class="col-md-2 mt-3">Đế giày: </label>
-      <br>
-      <div class="btn-group">
-        <div *ngFor="let item3 of dataSole " class="mx-2">
-          <input
-            mdbRadio
-            type="radio"
-            class="btn-check"
-            name="options2"
-            id="{{item3.name}}"
-            autocomplete="off"
+<!--      <div class="row"></div>-->
+<!--      <label class="col-md-2 mt-3">Đế giày: </label>-->
+<!--      <br>-->
+<!--      <div class="btn-group">-->
+<!--        <div *ngFor="let item3 of dataSole " class="mx-2">-->
+<!--          <input-->
+<!--            mdbRadio-->
+<!--            type="radio"-->
+<!--            class="btn-check"-->
+<!--            name="options2"-->
+<!--            id="{{item3.name}}"-->
+<!--            autocomplete="off"-->
 
-          />
-          <label class="btn btn-outline-primary" for="{{item3.name}}" (click)="sole(item3.id)">{{item3.name}}</label>
-        </div>
-      </div>
+<!--          />-->
+<!--          <label class="btn btn-outline-primary" for="{{item3.name}}" (click)="sole(item3.id)">{{item3.name}}</label>-->
+<!--        </div>-->
+<!--      </div>-->
 
 
 
@@ -131,9 +131,9 @@
       <div class="footer">
         <div>
           <button type="button" class="btn btn-dark" type="submit" (click)="checklogin()"
-                  [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">THÊM VÀO GIỎ</button>
-          <button type="button" class="btn btn-dark ml-2" type="submit" (click)="buyNow()"
-                  [disabled]="(!formAdd.valid || !checkChange(selectquantity.value))">MUA NGAY</button>
+                  [disabled]="!formAdd.valid">THÊM VÀO GIỎ</button>
+<!--          <button type="button" class="btn btn-dark ml-2" type="submit" (click)="buyNow()"-->
+<!--                  [disabled]="!formAdd.valid">MUA NGAY</button>-->
         </div>
       </div>
     </form>
