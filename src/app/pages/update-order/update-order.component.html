@@ -19,8 +19,7 @@
     </div>
   </div>
 </div>
-<h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Cập nhật đơn hàng!</h1>
-<ng-container *ngIf="dataOrder">
+<ng-container *ngIf="dataOrderDetails">
   <div class="container row">
     <div class=" tbl-order text-center col-10 shadow">
       <div class="cart-product">
@@ -39,17 +38,15 @@
           </tr>
           </thead>
           <tbody>
-
-
           <tr *ngFor="let item of dataOrderDetails; let i = index">
             <td>{{i + 1}}</td>
-            <td>{{item.product!.name}}</td>
+            <td>{{item.saimau!.product!.name}}</td>
             <td><img style="width: 120px;"
                      src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.product!.photo}}" alt=""></td>
-            <td>{{item.product!.hang!.name}}</td>
-            <td>{{}}</td>
-            <td>{{}}</td>
-            <th style="width: 12%;">{{item.product!.outputprice}}</th>
+            <td>{{item.saimau!.product!.hang!.name}}</td>
+            <td>{{item.saimau!.size!.value}}</td>
+            <td>{{item.saimau!.mau!.name}}</td>
+            <th style="width: 12%;">{{item.saimau!.product!.outputprice}}</th>
             <th style="width: 12%;">{{item.quantity}}</th>
             <td *ngIf="item.product!.outputprice && item!.quantity"
                 style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND
@@ -62,93 +59,23 @@
   </div>
 </ng-container>
 
-
 <div class="order-payment shadow row">
   <h5 style="font-family: Arial, Helvetica, sans-serif;font-weight: bold; margin-top: 10px;">ĐỊA CHỈ NHẬN HÀNG</h5>
   <div style="width: 1084px;">
     <hr>
   </div>
   <div class="col-8">
-    <form *ngIf="hienthi==0">
+    <form >
       <label>Địa chỉ của bạn: </label>
-      <span *ngIf="hienthi==0" class="badge badge-danger ml-2">Mặc định</span>
-      <p>Người nhận: {{custommerToanCuc.name}}</p>
-      <p>Số điện thoại: {{custommerToanCuc.sdt}}</p>
-      <p>Địa chỉ: {{custommerToanCuc.address}}</p>
+      <p>Người nhận: {{customerConfirm.name}}</p>
+      <p>Số điện thoại: {{customerConfirm.sdt}}</p>
+      <p>Địa chỉ: {{customerConfirm.address}}</p>
       <!-- btn them moi -->
       <button class='btn d-block mt-3 mb-3' (click)="openLg(content)"
               style="border: solid 1px gray;color: rgb(229, 72, 60);font-weight: bold;">
         Thay đổi
       </button>
     </form>
-
-    <form *ngIf="hienthi==1" >
-      <label>Địa chỉ của bạn: </label>
-      <p>Người nhận: {{custommerdefault.name}}</p>
-      <p>Số điện thoại: {{custommerdefault.sdt}}</p>
-      <p>Địa chỉ: {{custommerdefault.address}}</p>
-      <!-- btn them moi -->
-      <button class='btn d-block mt-3 mb-3' (click)="openLg(content)"
-              style="border: solid 1px gray;color: rgb(229, 72, 60);font-weight: bold;">
-        Thay đổi
-      </button>
-    </form>
-
-    <!--    <form [formGroup]="formAdd">-->
-    <!--      <div class="row">-->
-    <!--        <div class="col-12">-->
-    <!--          <div class="form-group row">-->
-    <!--            <label class="col-md-5 col-form-label">Tên người nhận: </label>-->
-    <!--            <div class="col-md-10">-->
-    <!--              <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">-->
-    <!--              <small class="col alert text-danger" role="alert"-->
-    <!--                     *ngIf="formAdd.get('name')?.errors?.required && formAdd.get('name')?.touched">-->
-    <!--                Tên người nhận không được để trống !-->
-    <!--              </small>-->
-    <!--            </div>-->
-    <!--          </div>-->
-
-
-    <!--          <div class="form-group row">-->
-    <!--            <label class="col-md-4 col-form-label">Số điện thoại: </label>-->
-    <!--            <div class="col-md-10">-->
-    <!--              <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">-->
-    <!--              <small class="col alert text-danger" role="alert"-->
-    <!--                     *ngIf="formAdd.get('sdt')?.errors?.required && formAdd.get('sdt')?.touched">-->
-    <!--                Số điện thoại không được để trống !-->
-    <!--              </small>-->
-
-    <!--              <small class="col alert text-danger" role="alert"-->
-    <!--                     *ngIf="formAdd.get('sdt')?.errors?.pattern && formAdd.get('sdt')?.touched">-->
-    <!--                Định dạng số điện thoại chưa đúng !-->
-    <!--              </small>-->
-    <!--            </div>-->
-    <!--          </div>-->
-
-    <!--          <div class="form-group row">-->
-    <!--            <label class="col-md-4 col-form-label">Địa chỉ: </label>-->
-    <!--            <div class="col-md-10">-->
-    <!--              <input class="form-control" type="text" formControlName="address" style="border: solid 1px gray;">-->
-    <!--              <small class="col alert text-danger" role="alert"-->
-    <!--                     *ngIf="formAdd.get('address')?.errors?.required && formAdd.get('address')?.touched">-->
-    <!--                Địa chỉ không được để trống !-->
-    <!--              </small>-->
-    <!--            </div>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="footer d-flex">-->
-    <!--        <div>-->
-    <!--          <button [hidden]="hidden" type="button" class="btn me-5" type="submit" (click)="create()"-->
-    <!--                  [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(217, 83, 73);font-weight: bold;">-->
-    <!--            Thêm mới-->
-    <!--          </button>-->
-    <!--        </div>-->
-    <!--        &lt;!&ndash;              <div >&ndash;&gt;-->
-    <!--        &lt;!&ndash;                <button [hidden]="hidden" type="button" class="btn" type="submit" (click)="create()" [disabled]="!formAdd.valid" style="border: solid 1px gray;color: rgb(239, 222, 62);font-weight: bold;"> Cập nhật</button>&ndash;&gt;-->
-    <!--        &lt;!&ndash;              </div>&ndash;&gt;-->
-    <!--      </div>-->
-    <!--    </form>-->
   </div>
   <div class="col-4">
     <div class="d-flex">
@@ -188,8 +115,11 @@
       </div>
     </div>
     <div class="mb-5">
-      <button (click)="checkout()"
-              style="background-color: black; color: white;" class="btn">XÁC NHẬN MUA HÀNG
+      <button [hidden]="trangthai !==0" (click)="checkout()"
+              style="background-color: black; color: white;" class="btn">CẬP NHẬT
+      </button>
+      <button [hidden]="trangthai !==0" (click)="huydon(content1)"
+              style="background-color: black; color: white; margin-left: 3px " class="btn">HỦY ĐƠN
       </button>
     </div>
   </div>
@@ -296,6 +226,36 @@
     </div>
   </ng-template>
 </form>
+
+<form novalidate  [formGroup]="formHuy">
+  <ng-template #content1 let-modal>
+    <div class="modal-header">
+      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
+          <div class="col-md-10">
+            <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
+            <small class="col alert text-danger" role="alert"
+                   *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
+              Lí do dủy đơn không được để trống !
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="xacNhanHuyDon()"  >Xác nhận </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</form>
+
+
 
 
 

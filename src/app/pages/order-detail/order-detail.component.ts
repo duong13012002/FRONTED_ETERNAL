@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { OrderDetailService } from 'src/app/share/service/order-detail.service';
 import {TokenStorageService} from "../../share/service/token-storage.service";
 import {Order, OrderDetails} from "../../@core/models/Order";
@@ -27,8 +27,8 @@ export class OrderDetailComponent implements OnInit {
 
   constructor(private orderDetailService: OrderDetailService,
               private fb: FormBuilder,
-              private router: ActivatedRoute,
               private tokenService:TokenStorageService,
+              private router: Router,
               private modalServie:NgbModal,
               private toastService: ToastrService) { }
 
@@ -65,17 +65,21 @@ export class OrderDetailComponent implements OnInit {
     )
   }
 
-  info(id:any ,content:any){
-    this.hidden=true;
-    this.id=id;
-    this.showChiTiet();
-    const orderId = this.listOrdderDetails.find(value => {
-      return value.id ==this.id;
-    })
-    if(orderId!.status==0){
-      this.hidden=false;
-    }
-    this.modalServie.open(content, {size: 'lg', centered: true, scrollable: true});
+  info(id:any){
+    // this.hidden=true;
+    // this.id=id;
+    // this.showChiTiet();
+    // const orderId = this.listOrdderDetails.find(value => {
+    //   return value.id ==this.id;
+    // })
+    // if(orderId!.status==0){
+    //   this.hidden=false;
+    // }
+    // this.modalServie.open(content, {size: 'lg', centered: true, scrollable: true});
+
+    const url = "updateOder/" + id;
+    this.router.navigate([url]);
+
   }
 
   huydon(conten1:any) {
