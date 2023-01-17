@@ -24,7 +24,16 @@ export class OrderDetailService {
     return this.http.get<any>(`${this.APIUrl}/orderDeails/`+id);
   }
 
-  huydon(id:number, note:string){
+  huydon(id:any, note:string){
     return this.http.post<any>(`${this.APIUrl}/huyDon/`+id,note);
   }
+
+  getOrderById(id:any){
+    return this.http.get<any>(`${this.APIUrl}/`+id);
+  }
+
+  updateOrder(idOrder:any, idCustommer:any):Observable<any>{
+    return this.http.get<any>(`${this.APIUrl}/updateOrder?idOrder=`+idOrder +"&idCustommer="+idCustommer);
+  }
+
 }

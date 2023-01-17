@@ -6,51 +6,25 @@
     <div class="container">
       <div class="card-table text-center">
         <div class="cart-product">
-
-          <!-- <table *ngIf="listChoXacNhan.length!=0"  class="table table-striped table-responsive p-3">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Mã đơn</th>
-              <th>Ngày mua</th>
-              <th>Tổng tiền</th>
-              <th>Trạng thái</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <tr *ngFor="let item of listChoXacNhan; let i = index;" (click)="info(item.id!,content)">
-              <td>{{i+1}}</td>
-              <td>{{item.id}}</td>
-              <td>{{item.create_date}}</td>
-              <th style="width: 12%;">{{item.price}}đ</th>
-              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
-              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
-              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
-              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
-            </tbody>
-          </table> -->
-
           <div *ngIf="listChoXacNhan.length!=0">
             <div class="row my-3 ms-1" style="background-color: orange;height: 30px;width: 100%; border-radius: 5px;">
-              <label for="" class="col-2">Sr.No</label>
-              <label for="" class="col-3">Ngày mua</label>
-              <label for="" class="col-3">Tổng tiền</label>
-              <label for="" class="col-2">Trạng thái</label>
+              <label class="col-2">Sr.No</label>
+              <label class="col-3">Ngày mua</label>
+              <label class="col-3">Tổng tiền</label>
+              <label class="col-2">Trạng thái</label>
             </div>
             <div class="">
-              <div class="card bg-secondary text-white" style="height: 40px;margin-bottom:10px ;padding-top: 5px;" *ngFor="let item of listChoXacNhan; let i = index;" (click)="info(item.id!,content)">
+              <div class="card bg-secondary text-white" style="height: 40px;margin-bottom:10px ;padding-top: 5px;"
+                   *ngFor="let item of listChoXacNhan; let i = index;" (click)="info(item.id)">
                 <div class="row">
-                <label for="" class="col-2">{{i+1}}</label>
+                  <label class="col-2">{{i + 1}}</label>
 
-                <label for="" class="col-3">{{item.create_date}}</label>
-                <label for="" class="col-3">{{item.price}} đ</label>
-                <label for="" class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
-                <label for="" class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
-                <label for="" class="col-2" *ngIf="item.status==2">Hoàn thành</label>
-                <label for="" class="col-2" *ngIf="item.status==4">Đã Hủy</label>
+                  <label class="col-3">{{item.create_date}}</label>
+                  <label class="col-3">{{item.price}} đ</label>
+                  <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
+                  <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
+                  <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
+                  <label class="col-2" *ngIf="item.status==4">Đã Hủy</label>
                 </div>
               </div>
             </div>
@@ -63,135 +37,38 @@
     <ng-container *ngIf="listChoXacNhan.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
+          <img
+            src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+            alt="" class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
         </div>
       </div>
     </ng-container>
-
-
-    <ng-template #content let-modal>
-      <div class="modal-header">
-        <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Chi tiết đơn hàng</h2>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-
-          <table class="table table-hover table-responsive table-bordered">
-            <thead>
-            <tr>
-              <th>STT</th>
-              <th class="text-center" scope="col">Tên sản phẩm</th>
-              <th class="text-center" scope="col">Danh mục</th>
-              <th class="text-center" scope="col">Hãng</th>
-              <th class="text-center" scope="col">Giá</th>
-              <th class="text-center" scope="col">Số lượng</th>
-              <th class="text-center" scope="col">Tổng tiền</th>
-              <th class="text-center" scope="col">Ảnh</th>
-            </tr>
-            </thead>
-            <tbody *ngIf="listChiTiet">
-            <tr  *ngFor="let item of listChiTiet; let i = index;">
-              <td>{{i+1}}</td>
-              <td>{{item.product!.name}}</td>
-              <td>{{item.product!.category!.name}}</td>
-              <td>{{item.product!.hang!.name}}</td>
-              <td>{{item.price}}</td>
-              <td>{{item.quantity}}</td>
-              <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
-              <td><img class="img-fluid img"  src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.product!.photo}}"></td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div>
-          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
-        </div>
-      </div>
-    </ng-template>
-
-    <form novalidate  [formGroup]="formHuy">
-      <ng-template #content1 let-modal>
-        <div class="modal-header">
-          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
-              <div class="col-md-10">
-                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
-                  Lí do dủy đơn không được để trống !
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div>
-              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </form>
-
-
   </mat-tab>
+<!-- Đang giao -->
   <mat-tab label="Đang giao">
 
     <div class="container">
       <div class="card-table">
         <div class="cart-product">
-
-          <!-- <table *ngIf="listDangGiao.length!=0"  class="table table-striped table-responsive p-3">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Mã đơn</th>
-              <th>Ngày mua</th>
-              <th>Tổng tiền</th>
-              <th>Trạng thái</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <tr *ngFor="let item of listDangGiao; let i = index;" (click)="info(item.id!,content)">
-              <td>{{i+1}}</td>
-              <td>{{item.id}}</td>
-              <td>{{item.create_date}}</td>
-              <th style="width: 12%;">{{item.price}}</th>
-              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
-              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
-              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
-              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
-            </tbody>
-          </table> -->
           <div *ngIf="listDangGiao.length!=0">
             <div class="row" style="background-color: orange;height: 30px;width: 100%; border-radius: 5px;">
-              <label for="" class="col-2">Sr.No</label>
-              <label for="" class="col-3">Ngày mua</label>
-              <label for="" class="col-3">Tổng tiền</label>
-              <label for="" class="col-2">Trạng thái</label>
+              <label class="col-2">Sr.No</label>
+              <label class="col-3">Ngày mua</label>
+              <label class="col-3">Tổng tiền</label>
+              <label class="col-2">Trạng thái</label>
             </div>
             <div>
-              <div class="card" *ngFor="let item of listDangGiao; let i = index;" (click)="info(item.id!,content)">
-                <label for="" class="col-2">{{i+1}}</label>
-                <label for="" class="col-3">{{item.create_date}}</label>
-                <label for="" class="col-3">{{item.price}}</label>
-                <label for="" class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
-                <label for="" class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
-                <label for="" class="col-2" *ngIf="item.status==2">Hoàn thành</label>
-                <label for="" class="col-2" *ngIf="item.status==4">Đã Hủy</label>
+              <div class="card" *ngFor="let item of listDangGiao; let i = index;" (click)="info(item!.id)">
+                <label class="col-2">{{i + 1}}</label>
+                <label class="col-3">{{item.create_date}}</label>
+                <label class="col-3">{{item.price}}</label>
+                <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
+                <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
+                <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
+                <label class="col-2" *ngIf="item.status==4">Đã Hủy</label>
               </div>
             </div>
           </div>
@@ -201,7 +78,9 @@
     <ng-container *ngIf="listDangGiao.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
+          <img
+            src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+            alt="" class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -231,8 +110,8 @@
             </tr>
             </thead>
             <tbody *ngIf="listChiTiet">
-            <tr  *ngFor="let item of listChiTiet; let i = index;">
-              <td>{{i+1}}</td>
+            <tr *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i + 1}}</td>
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
@@ -246,88 +125,34 @@
       </div>
       <div class="modal-footer">
         <div>
-          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden">
+            Hủy đơn
+          </button>
         </div>
       </div>
     </ng-template>
-
-    <form novalidate  [formGroup]="formHuy">
-      <ng-template #content1 let-modal>
-        <div class="modal-header">
-          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
-              <div class="col-md-10">
-                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
-                  Lí do dủy đơn không được để trống !
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div>
-              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </form>
-
-
   </mat-tab>
   <mat-tab label="Đã giao hàng">
 
     <div class="container">
       <div class="card-table">
         <div class="cart-product">
-
-          <!-- <table *ngIf="listHoanThanh.length!=0"  class="table table-striped table-responsive p-3">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Mã đơn</th>
-              <th>Ngày mua</th>
-              <th>Tổng tiền</th>
-              <th>Trạng thái</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <tr *ngFor="let item of listHoanThanh; let i = index;" (click)="info(item.id!,content)">
-              <td>{{i+1}}</td>
-              <td>{{item.id}}</td>
-              <td>{{item.create_date}}</td>
-              <th style="width: 12%;">{{item.price}}</th>
-              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
-              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
-              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
-              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
-            </tbody>
-          </table> -->
           <div *ngIf="listHoanThanh.length!=0">
             <div class="row" style="background-color: orange;height: 30px;width: 100%; border-radius: 5px;">
-              <label for="" class="col-2">Sr.No</label>
-              <label for="" class="col-3">Ngày mua</label>
-              <label for="" class="col-3">Tổng tiền</label>
-              <label for="" class="col-2">Trạng thái</label>
+              <label class="col-2">Sr.No</label>
+              <label class="col-3">Ngày mua</label>
+              <label class="col-3">Tổng tiền</label>
+              <label class="col-2">Trạng thái</label>
             </div>
             <div>
-              <div class="card" *ngFor="let item of listHoanThanh; let i = index;" (click)="info(item.id!,content)">
-                <label for="" class="col-2">{{i+1}}</label>
-                <label for="" class="col-3">{{item.create_date}}</label>
-                <label for="" class="col-3">{{item.price}}</label>
-                <label for="" class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
-                <label for="" class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
-                <label for="" class="col-2" *ngIf="item.status==2">Hoàn thành</label>
-                <label for="" class="col-2" *ngIf="item.status==4">Đã Hủy</label>
+              <div class="card" *ngFor="let item of listHoanThanh; let i = index;" (click)="info(item.id!)">
+                <label class="col-2">{{i + 1}}</label>
+                <label class="col-3">{{item.create_date}}</label>
+                <label class="col-3">{{item.price}}</label>
+                <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
+                <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
+                <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
+                <label class="col-2" *ngIf="item.status==4">Đã Hủy</label>
               </div>
             </div>
           </div>
@@ -337,7 +162,9 @@
     <ng-container *ngIf="listHoanThanh.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
+          <img
+            src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+            alt="" class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -367,8 +194,8 @@
             </tr>
             </thead>
             <tbody *ngIf="listChiTiet">
-            <tr  *ngFor="let item of listChiTiet; let i = index;">
-              <td>{{i+1}}</td>
+            <tr *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i + 1}}</td>
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
@@ -382,97 +209,51 @@
       </div>
       <div class="modal-footer">
         <div>
-          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden">
+            Hủy đơn
+          </button>
         </div>
       </div>
     </ng-template>
-
-    <form novalidate  [formGroup]="formHuy">
-      <ng-template #content1 let-modal>
-        <div class="modal-header">
-          <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
-          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group row">
-              <label class="col-md-2 col-form-label">Lí do hủy đơn: </label>
-              <div class="col-md-10">
-                <input class="form-control" type="text" formControlName="lido" style="border: solid 1px gray;">
-                <small class="col alert text-danger" role="alert"
-                       *ngIf="formHuy.get('name')?.errors?.required && formHuy.get('lido')?.touched">
-                  Lí do dủy đơn không được để trống !
-                </small>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div>
-              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </form>
-
-
   </mat-tab>
   <mat-tab label="Đã hủy">
     <div class="container">
-      <div class="card-table">
+      <div class="card-table text-center">
         <div class="cart-product">
-
-          <!-- <table *ngIf="listDaHuy.length!=0"  class="table table-striped table-responsive p-3">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Mã đơn</th>
-              <th>Ngày mua</th>
-              <th>Tổng tiền</th>
-              <th>Trạng thái</th>
-
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <tr *ngFor="let item of listDaHuy ; let i = index;" (click)="info(item.id!,content)">
-              <td>{{i+1}}</td>
-              <td>{{item.id}}</td>
-              <td>{{item.create_date}}</td>
-              <th style="width: 12%;">{{item.price}}</th>
-              <td *ngIf="item.status==0" style="width: 12%;">Chờ xác nhận</td>
-              <td *ngIf="item.status==1" style="width: 12%;">Đang giao hàng</td>
-              <td *ngIf="item.status==2" style="width: 12%;">Hoàn thành</td>
-              <td *ngIf="item.status==3" style="width: 12%;">Đã hủy</td>
-            </tbody>
-          </table> -->
           <div *ngIf="listDaHuy.length!=0">
-            <div class="row" style="background-color: orange;height: 30px;width: 100%; border-radius: 5px;">
-              <label for="" class="col-2">Sr.No</label>
-              <label for="" class="col-3">Ngày mua</label>
-              <label for="" class="col-3">Tổng tiền</label>
-              <label for="" class="col-2">Trạng thái</label>
+            <div class="row my-3 ms-1" style="background-color: orange;height: 30px;width: 100%; border-radius: 5px;">
+              <label class="col-2">Sr.No</label>
+              <label class="col-3">Ngày mua</label>
+              <label class="col-3">Tổng tiền</label>
+              <label class="col-2">Trạng thái</label>
             </div>
-            <div>
-              <div class="card" *ngFor="let item of listDaHuy ; let i = index;" (click)="info(item.id!,content)">
-                <label for="" class="col-2">{{i+1}}</label>
-                <label for="" class="col-3">{{item.create_date}}</label>
-                <label for="" class="col-3">{{item.price}}</label>
-                <label for="" class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
-                <label for="" class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
-                <label for="" class="col-2" *ngIf="item.status==2">Hoàn thành</label>
-                <label for="" class="col-2" *ngIf="item.status==4">Đã Hủy</label>
+            <div class="">
+              <div class="card bg-secondary text-white" style="height: 40px;margin-bottom:10px ;padding-top: 5px;"
+                   *ngFor="let item of listDaHuy; let i = index;" (click)="info(item.id)">
+                <div class="row">
+                  <label class="col-2">{{i + 1}}</label>
+
+                  <label class="col-3">{{item.create_date}}</label>
+                  <label class="col-3">{{item.price}} đ</label>
+                  <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
+                  <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
+                  <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
+                  <label class="col-2" *ngIf="item.status==4">Đã Hủy</label>
+                </div>
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
     </div>
     <ng-container *ngIf="listDaHuy.length==0">
       <div class="container">
         <div class="center" style="text-align: center;">
-          <img src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt=""  class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
+          <img
+            src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+            alt="" class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
           <h4 style="font-family: 'Times New Roman', Times, serif;">Bạn chưa có đơn hàng nào!</h4>
           <h5 style="font-family: 'Times New Roman', Times, serif;">Hãy mua sản phẩm ngay nào!</h5>
           <a routerLink="/pages" class="btn btn-primary">Trang chủ</a>
@@ -502,8 +283,8 @@
             </tr>
             </thead>
             <tbody *ngIf="listChiTiet">
-            <tr  *ngFor="let item of listChiTiet; let i = index;">
-              <td>{{i+1}}</td>
+            <tr *ngFor="let item of listChiTiet; let i = index;">
+              <td>{{i + 1}}</td>
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
@@ -517,12 +298,14 @@
       </div>
       <div class="modal-footer">
         <div>
-          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden" >Hủy đơn </button>
+          <button type="button" class="btn btn-danger ml-1" type="submit" (click)="openlg(content1)" [hidden]="hidden">
+            Hủy đơn
+          </button>
         </div>
       </div>
     </ng-template>
 
-    <form novalidate  [formGroup]="formHuy">
+    <form novalidate [formGroup]="formHuy">
       <ng-template #content1 let-modal>
         <div class="modal-header">
           <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">Xác nhận hủy đơn</h2>
@@ -543,7 +326,9 @@
           </div>
           <div class="modal-footer">
             <div>
-              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid" (click)="huydon(content1)"  >Xác nhận </button>
+              <button type="button" class="btn btn-danger ml-1" type="submit" [disabled]="!formHuy.valid"
+                      (click)="huydon(content1)">Xác nhận
+              </button>
             </div>
           </div>
         </div>

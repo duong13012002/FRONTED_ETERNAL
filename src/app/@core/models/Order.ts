@@ -1,4 +1,6 @@
 import {Product} from "./Cart";
+import {S_C_Details} from "./S_C_Details";
+import {CustommerInfo} from "./CustommIn4";
 
 export interface OrderDetails{
   id?:number;
@@ -7,7 +9,7 @@ export interface OrderDetails{
   createDate?:Date;
   product?:Product;
   order?:Order;
-
+  saimau?: S_C_Details;
 }
 
 export interface Order{
@@ -20,5 +22,5 @@ export interface Order{
   vanChuyen?:any;
   thanhToan?:any;
   giamgia?:any;
-  diaChi?:any;
+  diaChi?:CustommerInfo;
 }

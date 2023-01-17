@@ -3,13 +3,15 @@ import {Cart} from "../../@core/models/Cart";
 import {CustommerInfo} from "../../@core/models/CustommIn4";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CartService} from "../../share/service/cart.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {TokenStorageService} from "../../share/service/token-storage.service";
 import {ToastrService} from "ngx-toastr";
 import {CustommerInfoService} from "../../share/service/custommerInfo.service";
 import Swal from "sweetalert2";
 import {Order, OrderDetails} from "../../@core/models/Order";
+import {OrderDetailService} from "../../share/service/order-detail.service";
+import {ProductService} from "../../share/service/product.service";
 
 @Component({
   selector: 'app-update-order',
@@ -18,21 +20,22 @@ import {Order, OrderDetails} from "../../@core/models/Order";
 })
 export class UpdateOrderComponent implements OnInit {
 
-  dataOrderDetails: OrderDetails[] = [];
+  dataOrderDetails!: OrderDetails[];
   dataOrder: Order ={};
   grandTotal!: number;
   dataCusI4: CustommerInfo[] = [];
-  formI4!: FormGroup;
+  formHuy!: FormGroup;
   formAdd!: FormGroup;
   loading!: boolean;
   hidden!: boolean;
   message!: String;
   customemerInfo: CustommerInfo = {};
   user!: any;
-  custommerdefault: CustommerInfo = {}
   custommerId:any;
   hienthi!:number;
   custommerToanCuc: CustommerInfo = {};
+  customerConfirm: CustommerInfo = {};
+  trangthai!: number;
 
 
   constructor(private cartService: CartService,
@@ -43,34 +46,50 @@ export class UpdateOrderComponent implements OnInit {
               private toastr: ToastrService,
               private custommerService: CustommerInfoService,
               private tokenService: TokenStorageService,
+              private orderDetailService: OrderDetailService,
+              private activceRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
-    this.getItembyUser();
+    this.movingOrder();
     this.initFormAdd();
+    this.initFormHuy();
     this.loading = false;
     this.hidden = false;
     this.getUserLogin();
     this.findCustommerDefault()
     this.findCustommerByUserName();
     this.message = "Thêm mới ";
-    this.hienthi=0;
+  }
+
+  movingOrder() {
+    this.activceRoute.paramMap.subscribe(
+      params => {
+        const idOrder = params.get('id');
+        if (idOrder) {
+          this.orderDetailService.chiTiet(idOrder).subscribe(
+            res => {
+              this.dataOrderDetails = res.object;
+              this.getTotalPrice();
+            }
+          )
+
+          this.orderDetailService.getOrderById(idOrder).subscribe(
+            res => {
+              this.dataOrder = res;
+              this.customerConfirm = res.diaChi;
+              this.trangthai = res.status;
+              console.log(this.customerConfirm)
+            }
+          )
+        }
+      }
+    )
   }
 
   getUserLogin() {
     this.user = localStorage.getItem('auth-user');
-  }
-
-  getItembyUser() {
-    if (this.tokenStorageService.getUser() != null && this.tokenStorageService.getToken() != null) {
-      this.cartService.findAllByUserName(this.tokenStorageService.getUser()).subscribe(
-        res => {
-          this.data = res.object;
-          this.getTotalPrice();
-        }
-      )
-    }
   }
 
   initFormAdd() {
@@ -81,13 +100,18 @@ export class UpdateOrderComponent implements OnInit {
     })
   }
 
-
+  initFormHuy() {
+    this.formHuy = this.fb.group({
+      lido: ['', [Validators.required]]
+    });
+  }
 
   getTotalPrice() {
     this.grandTotal = 0;
-    this.data.map((a: Cart) => {
+    this.dataOrderDetails.map((a: OrderDetails) => {
       console.log(a.product?.outputprice, a.quantity)
       this.grandTotal += (a.product?.outputprice! * a.quantity!);
+      console.log(this.grandTotal)
     })
   }
 
@@ -103,7 +127,6 @@ export class UpdateOrderComponent implements OnInit {
         this.message = "Thêm mới";
         this.modalService.dismissAll();
         this.findCustommerByUserName();
-        this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
         this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
       }, error => {
         this.toastr.error(error.error.message);
@@ -126,7 +149,7 @@ export class UpdateOrderComponent implements OnInit {
 
   checkout() {
     Swal.fire({
-      title: 'Xác nhận đặt hàng?',
+      title: 'Xác nhận cập nhật?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -134,7 +157,7 @@ export class UpdateOrderComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.cartService.checkOut(this.custommerId, this.tokenStorageService.getUser()).subscribe(
+        this.orderDetailService.updateOrder(this.dataOrder.id, this.customerConfirm.id).subscribe(
           res => {
             this.toastr.success(res.message)
             this.router.navigate(['/order-detail'])
@@ -151,7 +174,6 @@ export class UpdateOrderComponent implements OnInit {
   findCustommerDefault() {
     this.custommerService.findCustommerDefault(this.tokenService.getUser()).subscribe(
       res => {
-        this.custommerdefault = res;
         this.custommerToanCuc = res;
         this.custommerId = this.custommerToanCuc.id;
       }
@@ -174,8 +196,8 @@ export class UpdateOrderComponent implements OnInit {
     // this.hienthi=1;
     this.custommerService.findCustommerById(this.custommerId).subscribe(
       res =>{
-        this.custommerdefault = res;
-        if(this.custommerdefault.id == this.custommerToanCuc.id){
+        this.customerConfirm = res;
+        if(this.customerConfirm.id == this.custommerToanCuc.id){
           this.hienthi=0;
         }else {
           this.hienthi =1;
@@ -208,6 +230,19 @@ export class UpdateOrderComponent implements OnInit {
     })
   }
 
+  huydon(content:any){
+    this.modalService.open(content, {size: 'lg', centered: true, scrollable: true});
+  }
 
-
+  xacNhanHuyDon(){
+    this.orderDetailService.huydon(this.dataOrder.id,this.formHuy.value.lido).subscribe(
+      res =>{
+        this.modalService.dismissAll();
+        this.toastr.success(res.message)
+        this.router.navigate(['/order-detail'])
+      },error => {
+        this.toastr.error("Hủy đơn thất bại")
+      }
+    );
+  }
 }
