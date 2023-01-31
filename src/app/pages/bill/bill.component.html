@@ -165,14 +165,14 @@
           <label class="form-check-label" for="{{item.id}}">
             {{item.name   }} | {{   item.sdt}}
           </label>
-          <a style="float: right;margin-right: 10px" (click)="capnhat(contentThem,item.id)">Cập nhật</a>
+          <a style="float: right;margin-right: 10px" (click)="capnhat(contentDiaChi,item.id)">Cập nhật</a>
           <br>
           <label class="form-check-label" for="{{item.id}}">
             {{item.address}}
           </label>
           <hr>
         </div>
-        <button (click)="openLg(contentThem)">Thêm mới địa chỉ</button>
+        <button (click)="showAddressDetail(contentDiaChi)">Thêm mới địa chỉ </button>
       </div>
     </div>
     <div class="modal-footer">
@@ -183,63 +183,88 @@
   </ng-template>
 </form>
 
-<form [formGroup]="formAdd" >
-  <ng-template #contentThem let-modal>
-    <div class="modal-header">
-      <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">{{message}} địa chỉ </h2>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+<form [formGroup]="formAddress" >
+<ng-template #contentDiaChi let-modal>
+  <div class="modal-header">
+    <h2 class="container-fluid text-center lead fw-normal" style="color: #3c763d">{{message}} địa chỉ </h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <h5>Tên người nhận</h5>
+      <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('name')?.errors?.required && formAddress.get('name')?.touched">
+        Tên người nhận không được để trống !
+      </small>
     </div>
-    <div class="modal-body">
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group row">
-            <label class="col-md-5 col-form-label">Tên người nhận: </label>
-            <div class="col-md-10">
-              <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
-              <small class="col alert text-danger" role="alert"
-                     *ngIf="formAdd.get('name')?.errors?.required && formAdd.get('name')?.touched">
-                Tên người nhận không được để trống !
-              </small>
-            </div>
-          </div>
 
+    <div>
+      <h5>Số điện thoại</h5>
+      <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('sdt')?.errors?.required && formAddress.get('sdt')?.touched">
+        Số điện thoại không được để trống !
+      </small>
 
-          <div class="form-group row">
-            <label class="col-md-4 col-form-label">Số điện thoại: </label>
-            <div class="col-md-10">
-              <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">
-              <small class="col alert text-danger" role="alert"
-                     *ngIf="formAdd.get('sdt')?.errors?.required && formAdd.get('sdt')?.touched">
-                Số điện thoại không được để trống !
-              </small>
-
-              <small class="col alert text-danger" role="alert"
-                     *ngIf="formAdd.get('sdt')?.errors?.pattern && formAdd.get('sdt')?.touched">
-                Định dạng số điện thoại chưa đúng !
-              </small>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-md-4 col-form-label">Địa chỉ: </label>
-            <div class="col-md-10">
-              <input class="form-control" type="text" formControlName="address" style="border: solid 1px gray;">
-              <small class="col alert text-danger" role="alert"
-                     *ngIf="formAdd.get('address')?.errors?.required && formAdd.get('address')?.touched">
-                Địa chỉ không được để trống !
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('sdt')?.errors?.pattern && formAddress.get('sdt')?.touched">
+        Định dạng số điện thoại chưa đúng !
+      </small>
     </div>
-    <div class="modal-footer">
-      <div>
-        <button [disabled]="!formAdd.valid"   type="button" class="btn btn-success" type="submit" (click)="create(content)"  >{{message}} địa chỉ</button>
-      </div>
+
+    <div>
+      <h5>Tỉnh / Thành Phố</h5>
+      <select #selectPrvince (change)="changeProvince1(selectPrvince.value)" class="form-control" formControlName="city">
+        <option *ngFor="let item of provinces"  [value]="item.code">{{item.name}}
+        </option>
+      </select>
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('city')?.errors?.required && formAddress.get('city')?.touched">
+        Tỉnh / Thành Phố không được để trống !
+      </small>
     </div>
-  </ng-template>
+
+    <div>
+      <h5>Quận / Huyện</h5>
+      <select #selectDistrictSelected (change)="changeDistrict1(selectDistrictSelected.value)" class="form-control"
+              formControlName="district">
+        <option *ngFor="let item of districts" [value]="item.code">{{item.name}}
+        </option>
+      </select>
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('district')?.errors?.required && formAddress.get('district')?.touched">
+        Quận / Huyện không được để trống !
+      </small>
+    </div>
+    <div>
+      <h5>Xã / Phường</h5>
+      <select  class="form-control" formControlName="ward">
+        <option *ngFor="let item of warts" [value]="item.code">{{item.name}}
+        </option>
+      </select>
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('ward')?.errors?.required && formAddress.get('ward')?.touched">
+        Xã / Phường không được để trống !
+      </small>
+    </div>
+    <div>
+      <h5>Địa chỉ chi tiết</h5>
+      <input class="form-control" type="text" formControlName="detailAddress">
+      <small class="col alert text-danger" role="alert"
+             *ngIf="formAddress.get('detailAddress')?.errors?.required && formAddress.get('detailAddress')?.touched">
+        Địa chỉ không được để trống !
+      </small>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div>
+      <button [disabled]="!formAddress.valid"  type="button" class="btn btn-success" type="submit" (click)="addAddress(content)"  >Xác nhận</button>
+    </div>
+  </div>
+</ng-template>
 </form>
+
 
 
 

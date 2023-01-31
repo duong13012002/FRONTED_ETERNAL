@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {ProductDTO} from "../../@core/models/ProductSortDTO";
 import {Observable} from "rxjs";
-import {CustommerInfo} from "../../@core/models/CustommIn4";
+import {CustomersAddress, CustommerInfo} from "../../@core/models/CustommIn4";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +37,8 @@ export class CustommerInfoService{
     return this.http.get<any>(this.APIUrl+"findById?id="+id);
   }
 
+  createCustomerInfo(userName:any,custommerInfo:CustomersAddress): Observable<any>{
+    return this.http.post<any>(this.APIUrl +userName,custommerInfo) ;
+  }
 
 }

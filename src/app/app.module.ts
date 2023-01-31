@@ -24,6 +24,13 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FindNewProductComponent } from './pages/find-new-product/find-new-product.component';
 import { UpdateOrderComponent } from './pages/update-order/update-order.component';
 
+const configToast: any = {
+  timeOut: 2000,
+  positionClass: 'toast-top-right',
+  preventDuplicates: true,
+  progressBar: true,
+  progressAnimation: 'increasing',
+};
 
 
 
@@ -49,7 +56,7 @@ import { UpdateOrderComponent } from './pages/update-order/update-order.componen
     FormsModule,
     NgbModule,
     CookieModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(configToast),
     MatTabsModule,
     BrowserAnimationsModule,
   ],
