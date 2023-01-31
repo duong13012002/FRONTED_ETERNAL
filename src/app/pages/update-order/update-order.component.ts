@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Cart} from "../../@core/models/Cart";
-import {CustommerInfo} from "../../@core/models/CustommIn4";
+import {CustomersAddress, CustommerInfo} from "../../@core/models/CustommIn4";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CartService} from "../../share/service/cart.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -36,6 +36,9 @@ export class UpdateOrderComponent implements OnInit {
   custommerToanCuc: CustommerInfo = {};
   customerConfirm: CustommerInfo = {};
   trangthai!: number;
+  i_address: number = -1;
+  isShowDetailAddress = false;
+  addresses: CustomersAddress[] = [];
 
 
   constructor(private cartService: CartService,
@@ -245,4 +248,5 @@ export class UpdateOrderComponent implements OnInit {
       }
     );
   }
+
 }
