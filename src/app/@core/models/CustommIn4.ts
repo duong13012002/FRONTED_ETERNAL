@@ -11,7 +11,9 @@ export interface CustomersAddress {
   sdt?:string;
   name?:string;
   city?: string;
+  nameCity?: string;
   district?: string;
+  nameDistrict?: string;
   ward?: string;
   detailAddress?: string;
   address?: string;

@@ -112,7 +112,7 @@
         <p>Phí vận chuyển: </p>
       </div>
       <div class="col-6">
-        30.000đ
+        {{shippingFee}}
       </div>
     </div>
     <div class="row">
@@ -128,7 +128,7 @@
         <h5>Tổng tiền</h5>
       </div>
       <div class="col-6">
-        <h5 style="color: red;">{{grandTotal + 30000}}đ</h5>
+        <h5 style="color: red;">{{grandTotal + shippingFee}}đ</h5>
       </div>
     </div>
     <div class="mb-5">
