@@ -26,6 +26,7 @@ export class Cart2Component implements OnInit {
   loading!: boolean;
   findQuantity: FindQuantity = {};
   message!: any;
+  shippingFee!: number;
   constructor(private cartService: CartService,
               private fb: FormBuilder,
               private router: Router,
@@ -151,7 +152,7 @@ export class Cart2Component implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
 
-        this.cartService.checkOut(this.formI4.value.cusI4, this.tokenStorageService.getUser()).subscribe(
+        this.cartService.checkOut(this.formI4.value.cusI4, this.tokenStorageService.getUser(),this.shippingFee).subscribe(
           res => {
             this.toastr.success(res.message)
             this.modalService.dismissAll();
@@ -185,6 +186,7 @@ export class Cart2Component implements OnInit {
     );
     console.log(quantity,item)
     if (quantity <= 0) {
+      this.toastr.error("Số lượng sản phẩm phải hơn 0")
       item.quantity = 1;
       this.cartService.update(item).subscribe(
         res => {
@@ -194,6 +196,7 @@ export class Cart2Component implements OnInit {
     }
 
     if(quantity>this.message) {
+      this.toastr.error("Số lượng sản phẩm trong kho không đủ")
       item.quantity = this.message;
       this.cartService.update(item).subscribe(
         res => {

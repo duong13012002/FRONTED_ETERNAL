@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {HttpClient} from "@angular/common/http";
+import {BehaviorSubject, catchError,map, Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ProductAdd} from "../../@core/models/FindQuantity";
 import {BuyNow, Cart} from "../../@core/models/Cart";
 import {CustommerInfo} from "../../@core/models/CustommIn4";
+import {environment} from "../../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import {CustommerInfo} from "../../@core/models/CustommIn4";
 export class CartService {
   readonly APIUrl = "http://localhost:8080/api/order/dathang";
   public cartItemList : any[] =[]
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient) {
   }
 
   findAllByUserName(userName:string):Observable<any>{
@@ -38,8 +40,8 @@ export class CartService {
     return this.http.get<any>("http://localhost:8080/api/public/cusI4/active/"+userName);
   }
 
-  checkOut(idCustommer:number,userName:any):Observable<any>{
-    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?userName="+userName+"&idCustommer="+idCustommer,null);
+  checkOut(idCustommer:number,userName:any, shippingFee: number):Observable<any>{
+    return this.http.post<any>("http://localhost:8080/api/public/order/saveAll?userName="+userName+"&idCustommer="+idCustommer+"&shippingFee="+shippingFee,null);
   }
 
   buyNow(idCustommer:number,userName:any,cart:Cart):Observable<any>{
@@ -89,5 +91,37 @@ export class CartService {
 
   getCartData(): any {
     return JSON.parse(localStorage.getItem('cart') as any) || [];
+  }
+
+  getFeeShip(address: string, province: string, district: string) {
+    console.log(address);
+    console.log(province);
+    console.log(district);
+    let data = {
+      package_type: 'express',
+      pick_province: 'Hà Nội',
+      pick_district: 'Quận Từ Liêm',
+      province,
+      district,
+      address,
+      weight: 500,
+      value: 0,
+      tags: [14],
+      transport: 'road',
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${environment.token_ghtk}`,
+    });
+    return this.http
+      .post(`${environment.apiGHTK}`, data, { headers })
+      .pipe(
+        map((res: any) => {
+          if (res.success) {
+            return res.fee.ship_fee_only;
+          }
+          return 0;
+        })
+      );
   }
 }

@@ -9,8 +9,6 @@ import {TokenStorageService} from "../../share/service/token-storage.service";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 import {CustommerInfoService} from "../../share/service/custommerInfo.service";
-import {Account} from "../../@core/models/Account";
-import {Subscription} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 export interface Address {
@@ -49,6 +47,7 @@ export class BillComponent implements OnInit {
   provinceTemp: AddressTemp ={};
   districtTemp: AddressTemp={};
   wartTemp: AddressTemp={};
+  shippingFee!: number;
 
 
 
@@ -68,12 +67,16 @@ export class BillComponent implements OnInit {
     this.getItembyUser();
     this.initFormAddress();
     this.loading = false;
-    this.hidden = false;
     this.getUserLogin();
     this.findCustommerDefault()
     this.findCustommerByUserName();
+    this.getcity();
+    this.hidden = false;
     this.message = "Thêm mới ";
     this.hienthi = 0;
+  }
+
+  getcity(){
     this.http.get(`${this.baseUrl}/p`).subscribe((res: any) => {
       this.provinces = res.map((r: any) => ({code: r.code, name: r.name}));
     });
@@ -129,7 +132,7 @@ export class BillComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.cartService.checkOut(this.custommerId, this.tokenStorageService.getUser()).subscribe(
+        this.cartService.checkOut(this.custommerId, this.tokenStorageService.getUser(),this.shippingFee).subscribe(
           res => {
             this.toastr.success(res.message)
             this.router.navigate(['/order-detail'])
@@ -149,6 +152,7 @@ export class BillComponent implements OnInit {
         this.custommerdefault = res;
         this.custommerToanCuc = res;
         this.custommerId = this.custommerToanCuc.id;
+        this.getFeeShip(res);
       }
     )
   }
@@ -176,6 +180,7 @@ export class BillComponent implements OnInit {
         } else {
           this.hienthi = 1;
         }
+        this.getFeeShip(res);
         this.toastr.success("Thay đổi địa chỉ thành công");
         this.modalService.dismissAll();
       }
@@ -215,7 +220,7 @@ export class BillComponent implements OnInit {
 
   changeProvince1(provinceSelected1: any) {
     this.provinceSelected = provinceSelected1;
-    console.log(provinceSelected1)
+    console.log(provinceSelected1);
     this.districts = [];
     this.warts = [];
     if (provinceSelected1) {
@@ -252,12 +257,14 @@ export class BillComponent implements OnInit {
       return city.code == cityId;
     });
     this.customemerInfo.city = this.provinceTemp.code
+    this.customemerInfo.nameCity = this.provinceTemp.name
     let districtId = this.formAddress.value.district;
     // @ts-ignore
     this.districtTemp = this.districts.find(district => {
       return district.code == districtId;
     });
     this.customemerInfo.district = this.districtTemp.code
+    this.customemerInfo.nameDistrict = this.districtTemp.name
     let wardId = this.formAddress.value.ward;
     // @ts-ignore
     this.wartTemp = this.warts.find(ward => {
@@ -284,5 +291,18 @@ export class BillComponent implements OnInit {
     );
     this.hidden = true;
   };
+
+  getFeeShip(addResscustommerdefault: any) {
+    console.log(addResscustommerdefault);
+      this.cartService
+        .getFeeShip(
+          addResscustommerdefault.address,addResscustommerdefault.nameCity,addResscustommerdefault.nameDistrict
+        )
+        .subscribe((res) => {
+         this.shippingFee = res;
+        },error => {
+          this.toastr.error("Lỗi tính phí ship");
+        });
+    };
 
 }

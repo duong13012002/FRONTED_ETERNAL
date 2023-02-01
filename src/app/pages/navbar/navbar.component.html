@@ -13,21 +13,22 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
-            <li class="nav-item active"><a class="nav-link" routerLink="/pages">Home</a></li>
-            <li class="nav-item submenu dropdown">
-              <a  class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Shop</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item"><a class="nav-link" routerLink="/product">Shop Category</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/pages/home">Product Details</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Shopping Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" routerLink="/order-detail">Order</a></li>
+            <li class="nav-item active"><a class="nav-link" routerLink="/pages">Trang chủ</a></li>
+            <li class="nav-item active"><a class="nav-link" routerLink="/product">Sản phẩm</a></li>
+<!--            <li class="nav-item submenu dropdown">-->
+<!--              <a  class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
+<!--                aria-expanded="false">Shop</a>-->
+<!--              <ul class="dropdown-menu">-->
+<!--                <li class="nav-item"><a class="nav-link" routerLink="/product">Shop Category</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" routerLink="/pages/home">Product Details</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#">Product Checkout</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#">Shopping Cart</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#">Confirmation</a></li>-->
+<!--              </ul>-->
+<!--            </li>-->
+            <li class="nav-item"><a class="nav-link" routerLink="/order-detail">Đơn hàng</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" > Xin Chào <p class="text-primary d-inline">{{user}}</p></a>
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"  *ngIf="user"> Xin Chào <p class="text-primary d-inline">{{user}}</p></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-item" role="button">Your info</li>
                 <li class="dropdown-item" role="button" (click)="logOut">Log out</li>
