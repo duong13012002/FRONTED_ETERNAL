@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
     private tokenStorageService: TokenStorageService
   ) { }
   ngOnInit(): void {
-    this.getUserLogin();
+   this.getUserLogin();
     this.getItembyUser();
   }
 

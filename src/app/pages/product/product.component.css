@@ -5,9 +5,11 @@
   box-shadow: 3px 3px 20px gray;
   overflow: hidden;
   padding: 10px;
+
 }
 .img {
   border-radius: 5px;
+  height: 200px;
 }
 .product-name{
   margin: 10px;
@@ -22,4 +24,7 @@
 .cate-brand{
   font-size: 17px;
   font-family: 'Times New Roman', Times, serif;
+}
+.brand-name{
+  margin-bottom: 30px;
 }
