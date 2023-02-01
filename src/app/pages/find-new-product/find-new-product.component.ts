@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
 export class FindNewProductComponent implements OnInit {
 
    productList!: Product[];
-   index: number =3;
+   index: number =5;
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
