@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 export class FindNewProductComponent implements OnInit {
 
    productList!: Product[];
+  productTop!: any;
    index: number =5;
   constructor(
     private fb: FormBuilder,
@@ -20,15 +21,17 @@ export class FindNewProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProduct();
+    this.getNewProduct();
+    this.getTopSellingProduct();
   }
 
   infoProducts(id: any) {
+    console.log(id);
     const url = "productDetails/" + id;
     this.router.navigate([url]);
   }
 
-  getProduct(){
+  getNewProduct(){
     this.productService.findNewProductTop(this.index).subscribe(
       res =>{
         this.productList = res
@@ -37,9 +40,17 @@ export class FindNewProductComponent implements OnInit {
     )
   }
 
+  getTopSellingProduct(){
+    this.productService.findTopSelling().subscribe(
+      res =>{
+        this.productTop = res
+        console.log(this.productTop)
+      }
+    )
+  }
+
   pageItem(selectSize:any){
   this.index = selectSize;
-    console.log('kk')
-  this.getProduct();
+  this.getNewProduct();
   }
 }

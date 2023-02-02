@@ -38,3 +38,45 @@
   </div>
 
 </div>
+
+<div class="row justify-content-center m-2 ms-5" >
+  <h1 style="font-family: 'Times New Roman', Times, serif;text-align: center;margin-bottom: 30px;">Top 5 sản phẩm bán chạy</h1>
+  <div class="col-lg-2 col-md-6 product" style="padding-left: 10px;margin-left: 10px;" *ngFor="let data1 of productTop">
+    <div class="single-product card" (click)=infoProducts(data1[0].id)>
+      <img class="img-fluid img" src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{data1[0]!.photo}}">
+      <div class="product-details">
+        <h1 class="text-center product-name">{{data1[0]!.name}}</h1>
+        <p class="cate-brand">Loại: {{data1![0].category!.name}}</p>
+        <p class="cate-brand">Hãng: {{data1![0].hang!.name}}</p>
+        <div class="price">
+          <h5 class="text-danger">{{data1[0]!.outputprice}} VND</h5>
+          <h5 class="text-danger">Đã bán: {{data1[1]}} sản phẩm</h5>
+        </div>
+        <div class="prd-bottom card-footer">
+          <a class="social-info" (click)=infoProducts(data1[0].id)>
+            <span class="ti-bag"></span>
+            <p class="hover-text">Add to Cart</p>
+          </a>
+          <a href="" class="social-info">
+            <span class="lnr lnr-heart"></span>
+            <p class="hover-text">Wishlist</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--    <div>-->
+    <!--      <h6 style="margin-left: 1100px;">Top sản phẩm mới nhất muốn tìm</h6>-->
+    <!--    </div>-->
+    <br>
+    <div style="float: right;">
+      <!--    <select #selectSize (change)="pageItem(selectSize.value)" class="page-items mr-1 me-3">-->
+      <!--      <option>1</option>-->
+      <!--      <option>3</option>-->
+      <!--      <option>5</option>-->
+      <!--    </select>-->
+    </div>
+  </div>
+
+</div>

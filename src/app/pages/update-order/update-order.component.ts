@@ -249,4 +249,29 @@ export class UpdateOrderComponent implements OnInit {
     );
   }
 
+  removeItem(id: any) {
+
+    Swal.fire({
+      title: 'Bạn muốn xóa sản phẩm khỏi đơn hàng?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.cartService.delete(id).subscribe(
+          res => {
+            this.toastr.success("Xóa thành công")
+            this.ngOnInit();
+          }, error => {
+            this.toastr.error("Xóa thất bại")
+          }
+        )
+      } else if (result.isDenied) {
+        Swal.close();
+      }
+    })
+  }
+
 }
