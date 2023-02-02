@@ -58,5 +58,8 @@ export class ProductService{
     return this.http.get<any>(`${environment.apiUrl}public/products/top/`+top);
   }
 
+  findTopSelling():Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}public/products/topbanchay`);
+  }
 
 }

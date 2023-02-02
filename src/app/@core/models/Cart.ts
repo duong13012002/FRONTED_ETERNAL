@@ -26,6 +26,8 @@ export interface Product{
   delete?:boolean;
   category?:Category;
   hang?:Brand;
+  sole?:Sole;
+  shoeLine?: ShoeLine;
 }
 
 export interface Brand {
@@ -55,6 +57,12 @@ export interface Sole{
   id?:number;
   name?:string;
 }
+
+export interface ShoeLine {
+  id?:number;
+  name?:string;
+}
+
 
 
 
