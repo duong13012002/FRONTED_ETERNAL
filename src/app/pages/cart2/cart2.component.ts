@@ -193,9 +193,7 @@ export class Cart2Component implements OnInit {
           this.getItembyUser();
         }
       )
-    }
-
-    if(quantity>this.message) {
+    } else if(quantity>this.message) {
       this.toastr.error("Số lượng sản phẩm trong kho không đủ")
       item.quantity = this.message;
       this.cartService.update(item).subscribe(
@@ -203,9 +201,7 @@ export class Cart2Component implements OnInit {
           this.getItembyUser();
         }
       )
-    }
-
-    if(quantity <=this.message) {
+    } else if(quantity <=this.message) {
       item.quantity = quantity;
       this.cartService.update(item).subscribe(
         res => {

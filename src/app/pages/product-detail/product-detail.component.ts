@@ -100,11 +100,13 @@ export class ProductDetailComponent implements OnInit {
 
   checkChange(quantity: any) {
     if(quantity <=0){
+      this.toastr.error("Số lượng sản phẩm phải lớn hơn 0");
       this.formAdd.patchValue({
         quantity: 1,
       })
     }
     if(quantity >this.message){
+      this.toastr.error("Số lượng sản phẩm trong kho không đủ");
       this.formAdd.patchValue({
         quantity: this.message,
       })
