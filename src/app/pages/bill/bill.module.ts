@@ -6,17 +6,18 @@ import {Cart2RoutingModule} from "../cart2/cart2-routing.module";
 import {BillComponent} from "./bill.component";
 import {BillRoutingModule} from "./bill-routing.module";
 import {DropdownModule} from "primeng/dropdown";
+import {AppModule} from "../../app.module";
 
 @NgModule({
   declarations: [
     BillComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BillRoutingModule,
-    DropdownModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BillRoutingModule,
+        DropdownModule,
+    ]
 })
 export class BillModule { }
