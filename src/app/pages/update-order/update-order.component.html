@@ -87,7 +87,7 @@
       <p>Số điện thoại: {{customerConfirm.sdt}}</p>
       <p>Địa chỉ: {{customerConfirm.address}}</p>
       <!-- btn them moi -->
-      <button class='btn d-block mt-3 mb-3' (click)="openLg(content)"
+      <button *ngIf="trangthai == 0 " class='btn d-block mt-3 mb-3' (click)="openLg(content)"
               style="border: solid 1px gray;color: rgb(229, 72, 60);font-weight: bold;">
         Thay đổi
       </button>

@@ -104,31 +104,31 @@
         <p>Tiền hàng: </p>
       </div>
       <div class="col-6">
-        {{grandTotal}}đ
-      </div>
+        {{grandTotal | currency:'VND':' VND '}}      </div>
     </div>
     <div class="row">
       <div class="col-6">
         <p>Phí vận chuyển: </p>
       </div>
-      <div class="col-6">
-        {{shippingFee}}
+      <div class="col-6 d-flex">
+        {{shippingFee | currency:'VND':' VND '}}  <img src="assets/img/%5BGHTK%5D_Logo_RGB.png" style="width: 50px;height: 50px;margin-bottom: 10px">
       </div>
     </div>
-    <div class="row">
-      <div class="col-6">
-        <p>Giảm giá: </p>
-      </div>
-      <div class="col-6">
-        -0đ
-      </div>
-    </div>
+<!--    <div class="row">-->
+<!--      <div class="col-6">-->
+<!--        <p>Giảm giá: </p>-->
+<!--      </div>-->
+<!--      <div class="col-6">-->
+<!--        -0đ-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="row mb-3">
       <div class="col-6">
         <h5>Tổng tiền</h5>
       </div>
       <div class="col-6">
-        <h5 style="color: red;">{{grandTotal + shippingFee}}đ</h5>
+        <h5 style="color: red;">{{grandTotal + shippingFee | currency:'VND':' VND '}}</h5>
+
       </div>
     </div>
     <div class="mb-5">

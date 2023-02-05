@@ -10,6 +10,7 @@ import {UserLoginComponent} from "./pages/user-login/user-login.component";
 import { Cart2Component } from './pages/cart2/cart2.component';
 import {FindNewProductComponent} from "./pages/find-new-product/find-new-product.component";
 import {UserGuard} from "./auth/user.guard";
+import {PersonalPageComponent} from "./pages/personal-page/personal-page.component";
 
 
 
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: UserLoginComponent,
+  },
+  {
+    path: 'personalPage',
+    component: PersonalPageComponent,
   },
   // {
   //   path:'cart',

@@ -30,4 +30,8 @@ export class UserService{
   public login(LoginVM: any): Observable<any> {
     return this.http.post(`${this.baseUrl}login`, LoginVM);
   }
+
+  getAccountByUserName(userName:string):Observable<any>{
+    return this.http.get<any>("http://localhost:8080/api/public/cart/byUserName/"+userName);
+  }
 }
