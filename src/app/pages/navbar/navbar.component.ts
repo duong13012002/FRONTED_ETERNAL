@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
     this.user =localStorage.getItem('auth-user');
   }
   logOut(){
-    localStorage.clear();
+   this.tokenService.logout();
     this.toastService.success("Đăng xuất thành công");
     this.ngOnInit();
   }

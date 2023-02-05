@@ -33,6 +33,11 @@ export class UserLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    if(this.tokenService.getUser()!==null){
+      this.tokenService.logout();
+      this.toastr.success("Đăng  xuất thành công");
+      this.ngOnInit();
+    }
   }
 
   initForm() {

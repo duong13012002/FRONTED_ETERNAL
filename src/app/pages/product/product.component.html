@@ -216,34 +216,57 @@
               style="border: solid 1px gray;height: 42px; width: 300px; margin-left: 35px;">
           </div>
           <div class="col-3">
-            <input class="form-control " type="text" formControlName="outputprice" placeholder="Nhập giá sản phẩm"
+            <input class="form-control " type="text" formControlName="priceStart" placeholder="Khoảng giá bắt đầu"
               style="border: solid 1px gray;height: 42px;">
           </div>
           <div class="col-3">
+            <input class="form-control " type="text" formControlName="priceEnd" placeholder="Khoảng giá kết thúc"
+                   style="border: solid 1px gray;height: 42px;">
+          </div>
+          <div class="col-3">
             <select *ngIf="dataCate" class="form-control" formControlName="category" style="border: solid 1px gray;height: 42px;">
-              <option value="">Nhập danh mục</option>
+              <option value="">--Tất cả Danh Mục--</option>
               <option *ngFor="let item of dataCate" [value]="item.id">{{item.name}}
               </option>
 
             </select>
           </div>
           <div class="col-3">
-            <select *ngIf="dataBrand" class="form-control " formControlName="hang" style="border: solid 1px gray;width: 330px; height: 42px;">
-              <option value="">Nhập hãng</option>
+            <select *ngIf="dataBrand" class="form-control " formControlName="hang" style="border: solid 1px gray;width: 300px; height: 42px;margin-left: 35px;margin-top: 20px">
+              <option value="">--Tất cả Hãng--</option>
               <option *ngFor="let item of dataBrand" [value]="item.id">{{item.name}}
               </option>
 
             </select>
           </div>
+          <div class="col-3">
+            <select *ngIf="dataSole" class="form-control " formControlName="sole" style="border: solid 1px gray;width: 350px; height: 42px;margin-top: 20px">
+              <option value="">--Tất cả đế giày--</option>
+              <option *ngFor="let item of dataSole" [value]="item.id">{{item.name}}
+              </option>
+
+            </select>
+          </div>
+          <div class="col-3">
+            <select *ngIf="dataShoeLine" class="form-control " formControlName="shoeLine" style="border: solid 1px gray;width: 350px; height: 42px;margin-top: 20px">
+              <option value="">--Tất cả dòng giày--</option>
+              <option *ngFor="let item of dataShoeLine" [value]="item.id">{{item.name}}
+              </option>
+
+            </select>
+          </div>
+          <div class="col-3" style="margin-top: 20px">
+            <button type="button" class="btn btn-success me-2" type="submit"> Tìm kiếm</button>
+          </div>
 
         </div>
       </div>
 
-      <div class="row ml-3 mt-3 mb-2 me-3" style="float: right;">
-        <div>
-          <button type="button" class="btn btn-success me-2" type="submit"> Tìm kiếm</button>
-        </div>
-      </div>
+<!--      <div class="row ml-3 mt-3 mb-2 me-3" style="float: right;">-->
+<!--        <div>-->
+<!--          <button type="button" class="btn btn-success me-2" type="submit"> Tìm kiếm</button>-->
+<!--        </div>-->
+<!--      </div>-->
       <!--      </ng-template>-->
 
     </form>
@@ -259,7 +282,7 @@
           <p class="cate-brand">Loại: {{data!.category!.name}}</p>
           <p class="cate-brand">Hãng: {{data!.hang!.name}}</p>
           <div class="price">
-            <h5 class="text-danger">{{data.outputprice}} VND</h5>
+            <h5 class="text-danger">{{data.outputprice | currency:'VND':' VND '}}</h5>
           </div>
             <div class="prd-bottom card-footer">
               <a class="social-info" (click)=infoProducts(data.id)>

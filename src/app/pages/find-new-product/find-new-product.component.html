@@ -8,7 +8,7 @@
         <p class="cate-brand">Loại: {{data!.category!.name}}</p>
         <p class="cate-brand">Hãng: {{data!.hang!.name}}</p>
         <div class="price">
-          <h5 class="text-danger">{{data.outputprice}} VND</h5>
+          <h5 class="text-danger">{{data.outputprice | currency:'VND':' VND '}}</h5>
         </div>
         <div class="prd-bottom card-footer">
           <a class="social-info" (click)=infoProducts(data.id)>
@@ -49,7 +49,7 @@
         <p class="cate-brand">Loại: {{data1![0].category!.name}}</p>
         <p class="cate-brand">Hãng: {{data1![0].hang!.name}}</p>
         <div class="price">
-          <h5 class="text-danger">{{data1[0]!.outputprice}} VND</h5>
+          <h5 class="text-danger">{{data1[0]!.outputprice | currency:'VND':' VND '}}</h5>
           <h5 class="text-danger">Đã bán: {{data1[1]}} sản phẩm</h5>
         </div>
         <div class="prd-bottom card-footer">

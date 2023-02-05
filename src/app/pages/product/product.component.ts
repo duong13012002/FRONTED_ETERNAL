@@ -10,7 +10,7 @@ import {FindQuantity, ProductAdd} from "../../@core/models/FindQuantity";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {TokenStorageService} from "../../share/service/token-storage.service";
-import {Brand, Cart, Category, Product} from "../../@core/models/Cart";
+import {Brand, Cart, Category, Product, ShoeLine, Sole} from "../../@core/models/Cart";
 import {ProductDTO} from "../../@core/models/ProductSortDTO";
 
 @Component({
@@ -25,6 +25,8 @@ export class ProductComponent implements OnInit {
   dataColor: Color[] = [];
   dataCate!: Category[];
   dataBrand!: Brand[];
+  dataSole!: Sole[];
+  dataShoeLine!: ShoeLine[];
   product: Product ={};
   productDTO: ProductDTO = {};
   public productList: Product[] = [];
@@ -54,15 +56,24 @@ export class ProductComponent implements OnInit {
     this.initFormSearch();
     this.getAllBrand();
     this.getAllCategory();
+    this.getAllSize();
+    this.getAllColor();
+    this.getAllSole();
+    this.getAllShoeLine();
   }
 
 
   initFormSearch() {
     this.formSearch = this.fb.group({
       name: '',
-      outputprice: '',
+      priceStart: '',
+      priceEnd: '',
       category: '',
       hang: '',
+      size:'',
+      mau:'',
+      sole:'',
+      shoeLine:'',
     });
   }
 
@@ -92,6 +103,22 @@ export class ProductComponent implements OnInit {
     this.productService.getAllColor().subscribe(
       (res: any) => {
         this.dataColor = res;
+      }
+    )
+  }
+
+  getAllSole() {
+    this.productService.getAllSole().subscribe(
+      (res: any) => {
+        this.dataSole = res;
+      }
+    )
+  }
+
+  getAllShoeLine() {
+    this.productService.getAllShoeLine().subscribe(
+      (res: any) => {
+        this.dataShoeLine = res;
       }
     )
   }
@@ -192,7 +219,8 @@ this.productAdd.userName = this.tokenService.getUser();
   fillValueSearch() {
     const formSearchValue = this.formSearch.value;
     this.productDTO.name = formSearchValue.name;
-    this.productDTO.outputprice = formSearchValue.outputprice;
+    this.productDTO.priceStart = formSearchValue.priceStart;
+    this.productDTO.priceEnd = formSearchValue.priceEnd;
     let categoryId = formSearchValue.category;
     this.productDTO.category = this.dataCate.find(category => {
       return category.id == categoryId;
@@ -201,6 +229,17 @@ this.productAdd.userName = this.tokenService.getUser();
     this.productDTO.hang = this.dataBrand.find(brand => {
       return brand.id == brandId;
     });
+
+    let soleId = formSearchValue.sole;
+    this.productDTO.sole = this.dataSole.find(sole => {
+      return sole.id == soleId;
+    });
+
+    let shoeLineId = formSearchValue.shoeLine;
+    this.productDTO.shoeLine = this.dataShoeLine.find(shoeLine => {
+      return shoeLine.id == shoeLineId;
+    });
+
 
   }
 
@@ -266,7 +305,6 @@ this.productAdd.userName = this.tokenService.getUser();
     this.fillValueSearch();
     console.log(this.productDTO)
     this.pagination();
-    this.initFormSearch();
   }
 
   infoProducts(id: any) {
