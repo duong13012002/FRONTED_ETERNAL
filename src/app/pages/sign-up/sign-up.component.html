@@ -1,0 +1,90 @@
+<div *ngIf="loading">
+  <div class="loader">
+    <div class="loader-inner">
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="vh-400" style="background-color: #508bfc;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-400">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong " style="border-radius: 1rem; margin-top: 100px;">
+          <div class="card-body p-5">
+            <form novalidate [formGroup]="formSignUp">
+              <h3 class="mb-5">Đăng ký</h3>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="name">Họ và tên</label>
+                <input type="text" id="name" class="form-control form-control-lg" formControlName="name" />
+                <small class="col alert text-danger col-12" role="alert"
+                  *ngIf="formSignUp.get('name')?.errors?.required && formSignUp.get('name')?.touched">
+                  Họ tên không được để trống !
+                </small>
+                <small class="col alert text-danger col-12r" role="alert"
+                  *ngIf="formSignUp.get('name')?.errors?.pattern && formSignUp.get('name')?.touched">
+                  Họ tên có độ dài từ 5 -25 ký tự, không chứa ký tự đặc biệt!
+                </small>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typeEmailX-2">Tài khoản</label>
+                <input type="text" id="typeEmailX-2" class="form-control form-control-lg" formControlName="userName" />
+                <small class="col alert text-danger col-12" role="alert"
+                  *ngIf="formSignUp.get('userName')?.errors?.required && formSignUp.get('userName')?.touched">
+                  Tên đăng nhập không được để trống !
+                </small>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typePasswordX-2">Mật khẩu</label>
+                <input formControlName="password" type="password" id="typePasswordX-2"
+                  class="form-control form-control-lg" />
+                <small class="col alert text-danger col-12" role="alert"
+                  *ngIf="formSignUp.get('password')?.errors?.required && formSignUp.get('password')?.touched">
+                  Mật khẩu không được để trống !
+                </small>
+                <small class="col alert text-danger col-12r" role="alert"
+                  *ngIf="formSignUp.get('password')?.errors?.pattern && formSignUp.get('password')?.touched">
+                  Mật khẩu phải có 8 ký tự trở lên, bao gồm cả chữ, cả số và cả kí tự đặc biệt !
+                </small>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="typePasswordX-3">Nhập lại mật khẩu</label>
+                <input  formControlName="repassword" type="password" id="typePasswordX-3" class="form-control form-control-lg" />
+                <small class="col alert text-danger col-12r" role="alert"
+                       *ngIf="formSignUp.get('repassword')?.errors?.pattern && formSignUp.get('repassword')?.touched || formSignUp.get('repassword')?.value != formSignUp.get('password')?.value">
+                  Mật khẩu không khớp!
+                </small>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label" for="sdt">Số điện thoại</label>
+                <input type="text" id="sdt" class="form-control form-control-lg" formControlName = "phoneNumber" />
+                <small class="col alert text-danger col-12" role="alert"
+                  *ngIf="formSignUp.get('phoneNumber')?.errors?.required && formSignUp.get('phoneNumber')?.touched">
+                  Số điện thoại không được để trống!
+                </small>
+                <small class="col alert text-danger col-12r" role="alert"
+                  *ngIf="formSignUp.get('phoneNumber')?.errors?.pattern && formSignUp.get('phoneNumber')?.touched">
+                  Số điện thoại không đúng định dạng!
+                </small>
+              </div>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Đăng ký</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,10 +24,7 @@ const routes: Routes = [
     path:'404',
     component: NotFoundPageComponent
   },
-  // {
-  //   path:'***',
-  //   redirectTo: '/404'
-  // },
+
   {
     path: 'pages',
     component: Home2Component,
@@ -67,13 +64,17 @@ const routes: Routes = [
   { path: 'order-detail', loadChildren: () => import('./pages/order-detail/order-detail.module').then(m => m.OrderDetailModule),
   canActivate:[UserGuard]},
   { path: 'login', loadChildren: () => import('./pages/user-login/user-login.module').then(m => m.LoginModule)},
-  { path: 'forgot-pass', loadChildren: () => import('./pages/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)},
+  { path: 'sign-up', loadChildren: () => import('./pages/sign-up/sign-up.module').then(m => m.SignUpModule)},
   { path: 'new-pass', loadChildren: () => import('./pages/new-password/new-password.module').then(m => m.NewPasswordModule)},
   { path: 'cusI4', loadChildren: () => import('./pages/custommer-in4/custommer-in4.module').then(m => m.CustommerIn4Module)},
   // { path: 'productDetails/:id', loadChildren: () => import('./pages/product-detail/product-detail.module').then(m => m.ProductModule)},
   { path: 'order', loadChildren: () => import('./pages/bill/bill.module').then(m => m.BillModule),canActivate:[UserGuard]},
   {path: 'home', loadChildren:() => import('./pages/find-new-product/findNewProduct.module').then(m => m.FindNewProductModule)},
-  {path: 'updateOder/:id', loadChildren:() => import('./pages/update-order/updateOder.module').then(m => m.UpdateOderModule),canActivate:[UserGuard]}
+  {path: 'updateOder/:id', loadChildren:() => import('./pages/update-order/updateOder.module').then(m => m.UpdateOderModule),canActivate:[UserGuard]},
+  {
+    path:'**',
+    redirectTo: '/404'
+  },
 ];
 
 
