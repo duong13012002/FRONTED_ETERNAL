@@ -28,9 +28,9 @@
           <thead>
           <tr>
             <th>STT</th>
-            <th>Tên sản phẩm</th>
+            <th class="col-3">Tên sản phẩm</th>
             <th>Ảnh</th>
-            <th>Hãng</th>
+            <th class="col-2">Hãng</th>
             <th>Size</th>
             <th>Màu</th>
             <th>Giá</th>
@@ -43,16 +43,16 @@
 
           <tr *ngFor="let item of data; let i = index">
             <td>{{i + 1}}</td>
-            <td>{{item.product!.name}}</td>
+            <td class="col-3">{{item.product!.name}}</td>
             <td><img style="width: 120px;"
                      src="https://enternalproduct.s3.ap-southeast-1.amazonaws.com/{{item.product!.photo}}" alt=""></td>
-            <td>{{item.product!.hang!.name}}</td>
+            <td class="col-2">{{item.product!.hang!.name}}</td>
             <td>{{item.size!.value}}</td>
             <td>{{item.mau!.name}}</td>
             <th style="width: 12%;">{{item.product!.outputprice}}</th>
             <th style="width: 12%;">{{item.quantity}}</th>
             <td *ngIf="item.product!.outputprice && item!.quantity"
-                style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND
+                style="width: 12%;">{{item.product!.outputprice * item.quantity | currency: 'VND'}}
             </td>
           </tr>
           </tbody>
@@ -98,6 +98,7 @@
     <div class="d-flex">
       <i class="bi bi-bag-check-fill"></i>
       <h5 style="margin-top: 3px; margin-left:10px ;">THÔNG TIN THANH TOÁN</h5>
+      <img src="assets/img/%5BGHTK%5D_Logo_RGB.png" style="width: 50px;height: 50px;padding-bottom: 10px">
     </div>
     <div class="row">
       <div class="col-6">
@@ -111,7 +112,7 @@
         <p>Phí vận chuyển: </p>
       </div>
       <div class="col-6 d-flex">
-        {{shippingFee | currency:'VND':' VND '}}  <img src="assets/img/%5BGHTK%5D_Logo_RGB.png" style="width: 50px;height: 50px;margin-bottom: 10px">
+        {{shippingFee | currency:'VND':' VND '}}
       </div>
     </div>
 <!--    <div class="row">-->
@@ -191,7 +192,7 @@
   </div>
   <div class="modal-body">
     <div>
-      <h5>Tên người nhận</h5>
+      <h6 class="mt-2">Tên người nhận</h6>
       <input class="form-control" type="text" formControlName="name" style="border: solid 1px gray;">
       <small class="col alert text-danger" role="alert"
              *ngIf="formAddress.get('name')?.errors?.required && formAddress.get('name')?.touched">
@@ -200,7 +201,7 @@
     </div>
 
     <div>
-      <h5>Số điện thoại</h5>
+      <h6 class="mt-2">Số điện thoại</h6>
       <input class="form-control" type="text" formControlName="sdt" style="border: solid 1px gray;">
       <small class="col alert text-danger" role="alert"
              *ngIf="formAddress.get('sdt')?.errors?.required && formAddress.get('sdt')?.touched">
@@ -214,7 +215,7 @@
     </div>
 
     <div>
-      <h5>Tỉnh / Thành Phố</h5>
+      <h6 class="mt-2">Tỉnh / Thành Phố</h6>
       <select #selectPrvince (change)="changeProvince1(selectPrvince.value)" class="form-control" formControlName="city">
         <option *ngFor="let item of provinces"  [value]="item.code">{{item.name}}
         </option>
@@ -226,7 +227,7 @@
     </div>
 
     <div>
-      <h5>Quận / Huyện</h5>
+      <h6 class="mt-2">Quận / Huyện</h6>
       <select #selectDistrictSelected (change)="changeDistrict1(selectDistrictSelected.value)" class="form-control"
               formControlName="district">
         <option *ngFor="let item of districts" [value]="item.code">{{item.name}}
@@ -238,7 +239,7 @@
       </small>
     </div>
     <div>
-      <h5>Xã / Phường</h5>
+      <h6 class="mt-2">Xã / Phường</h6>
       <select  class="form-control" formControlName="ward">
         <option *ngFor="let item of warts" [value]="item.code">{{item.name}}
         </option>
@@ -249,7 +250,7 @@
       </small>
     </div>
     <div>
-      <h5>Địa chỉ chi tiết</h5>
+      <h6 class="mt-2" >Địa chỉ chi tiết</h6>
       <input class="form-control" type="text" formControlName="detailAddress">
       <small class="col alert text-danger" role="alert"
              *ngIf="formAddress.get('detailAddress')?.errors?.required && formAddress.get('detailAddress')?.touched">
