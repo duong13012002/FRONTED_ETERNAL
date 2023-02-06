@@ -23,6 +23,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FindNewProductComponent } from './pages/find-new-product/find-new-product.component';
 import { UpdateOrderComponent } from './pages/update-order/update-order.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 const configToast: any = {
   timeOut: 2000,
@@ -47,6 +48,7 @@ const configToast: any = {
         BuyNowComponent,
         NavbarComponent,
         UpdateOrderComponent,
+        SignUpComponent,
     ],
   imports: [
     BrowserModule,
