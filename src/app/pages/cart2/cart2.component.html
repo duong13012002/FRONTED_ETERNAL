@@ -49,7 +49,7 @@
               <td>{{item.product!.hang!.name}}</td>
               <td>{{item.size!.value}}</td>
               <td>{{item.mau!.name}}</td>
-              <th style="width: 6%;">{{item.product!.outputprice}}</th>
+              <th style="width: 6%;">{{item.product!.outputprice | currency :'VND'}}</th>
 
               <td style="width: 6%;">
                 <input #selectquantity (change)="changeQuantity(selectquantity.value,item)" class="form-control"
@@ -57,7 +57,7 @@
               </td>
 
               <td *ngIf="item.product!.outputprice && item!.quantity" style="width: 12%;">{{item.product!.outputprice *
-                item.quantity}} VND</td>
+                item.quantity | currency: 'VND'}}</td>
               <td>
                 <button (click)="removeItem(item.id)" class="btn btn-danger">Xóa<i
                     class="fas fa-trash-alt"></i></button>
@@ -71,7 +71,7 @@
           <button (click)="emptycart()" class="btn btn-danger me-3">Làm mới giỏ hàng</button>
           <button routerLink="/pages" class="btn btn-primary me-3">Mua thêm</button>
           <button (click)="checkout()" class="btn btn-success me-3">Mua hàng</button>
-          <strong class="me-3">Tổng tiền : <strong style="color: red;">{{grandTotal}}</strong> <p style="text-decoration: underline; display: inline;color: red;margin-left: 5px; ">đ</p></strong>
+          <strong class="me-3">Tổng tiền : <strong style="color: red;">{{grandTotal | currency :'VND'}}</strong> <p style="text-decoration: underline; display: inline;color: red;margin-left: 5px; "></p></strong>
         </div>
       </div>
     </div>
