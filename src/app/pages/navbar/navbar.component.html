@@ -27,12 +27,13 @@
 <!--              </ul>-->
 <!--            </li>-->
             <li class="nav-item"><a class="nav-link" routerLink="/order-detail">Đơn hàng</a></li>
+            <li *ngIf="!user" class="nav-item"><a class="nav-link" routerLink="/login">Đăng nhập</a></li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"  *ngIf="user"> Xin Chào <p class="text-primary d-inline">{{user}}</p></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item" role="button">Your info</li>
-                <li class="dropdown-item" role="button" (click)="logOut">Log out</li>
-                <li class="dropdown-item" role="button" routerLink="/login">Login</li>
+                <li class="dropdown-item" role="button">Trang cá nhân</li>
+<!--                <li class="dropdown-item" role="button" (click)="logOut">Log out</li>-->
+                <li class="dropdown-item" role="button" routerLink="/login">Đăng xuất</li>
               </ul>
             </li>
           </ul>

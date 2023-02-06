@@ -1,10 +1,16 @@
+import {Color, ShoeLine, size, Sole} from "./Cart";
+
 export interface ProductDTO {
   id?: number;
   name?: string;
   outputprice?: number,
+  priceStart?: number,
+  priceEnd?: number,
   // status?:number;
   category?:Category;
   hang?:Brand;
+  sole?:Sole;
+  shoeLine?:ShoeLine;
   sortByValues?:SortByValue[]
 }
 

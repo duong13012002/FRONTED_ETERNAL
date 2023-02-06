@@ -26,8 +26,8 @@ export class ProductDetailComponent implements OnInit {
   productAdd: Cart = {};
   loading!: boolean;
   sizeid!: number;
-  colorid!: number
-  soleid!: number;
+  colorid!: number;
+  listHotTrend!: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -43,11 +43,10 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.initFormAdd();
     this.movingProduct();
-    this.getAllColor();
-    this.getAllSize();
     this.getAllSole();
     this.loading = false;
   }
+
 
   movingProduct() {
     this.activceRoute.paramMap.subscribe(
@@ -60,11 +59,31 @@ export class ProductDetailComponent implements OnInit {
               this.findQuantity.product = this.item;
               this.finQuantityBySC();
             }
-          )
+          );
+
+          this.productService.findHotTrend(idProduct).subscribe(
+            res => {
+              this.listHotTrend = res;
+            }
+          );
+
+          this.productService.sizeAvailable(idProduct).subscribe(
+            (res: any) => {
+              this.dataSize = res
+            }
+          );
+
+          this.productService.colorAvailable(idProduct).subscribe(
+            (res: any) => {
+              this.dataColor = res
+            }
+          );
+
         }
       }
     )
   }
+
 
   initFormAdd() {
     this.formAdd = this.fb.group({
@@ -170,21 +189,6 @@ export class ProductDetailComponent implements OnInit {
     this.productAdd.userName = this.tokenService.getUser();
   }
 
-  getAllSize() {
-    this.productService.getAllSize().subscribe(
-      (res: any) => {
-        this.dataSize = res
-      }
-    )
-  }
-
-  getAllColor() {
-    this.productService.getAllColor().subscribe(
-      (res: any) => {
-        this.dataColor = res;
-      }
-    )
-  }
 
   getAllSole() {
     this.productService.getAllSole().subscribe(

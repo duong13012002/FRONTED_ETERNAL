@@ -40,5 +40,4 @@ export class OrderDetailService {
   xoaDonHang(idOrderDetail:number):Observable<any>{
     return this.http.delete<any>(`${environment.apiUrl}public/order-detail/delete/`+idOrderDetail);
   }
-
 }

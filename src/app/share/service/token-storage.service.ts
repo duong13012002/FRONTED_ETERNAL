@@ -66,6 +66,10 @@ export class TokenStorageService {
     localStorage.setItem("CART_KEY","")
   }
 
+  logout() {
+    localStorage.clear();
+  }
+
 
 }
 

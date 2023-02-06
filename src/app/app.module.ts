@@ -24,6 +24,8 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FindNewProductComponent } from './pages/find-new-product/find-new-product.component';
 import { UpdateOrderComponent } from './pages/update-order/update-order.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { PersonalPageComponent } from './pages/personal-page/personal-page.component';
+
 
 const configToast: any = {
   timeOut: 2000,
