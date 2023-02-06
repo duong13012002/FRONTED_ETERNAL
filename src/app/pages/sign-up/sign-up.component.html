@@ -29,14 +29,14 @@
               <h3 class="mb-5">Đăng ký</h3>
               <div class="form-outline mb-4">
                 <label class="form-label" for="name">Họ và tên</label>
-                <input type="text" id="name" class="form-control form-control-lg" formControlName="name" />
+                <input type="text" id="name" class="form-control form-control-lg" formControlName="fullname" />
                 <small class="col alert text-danger col-12" role="alert"
-                  *ngIf="formSignUp.get('name')?.errors?.required && formSignUp.get('name')?.touched">
+                  *ngIf="formSignUp.get('fullname')?.errors?.required && formSignUp.get('fullname')?.touched">
                   Họ tên không được để trống !
                 </small>
                 <small class="col alert text-danger col-12r" role="alert"
-                  *ngIf="formSignUp.get('name')?.errors?.pattern && formSignUp.get('name')?.touched">
-                  Họ tên có độ dài từ 5 -25 ký tự, không chứa ký tự đặc biệt!
+                  *ngIf="formSignUp.get('fullname')?.errors?.pattern && formSignUp.get('name')?.touched">
+                  Họ tên có độ dài không quá 20 ký tự!
                 </small>
               </div>
               <div class="form-outline mb-4">
@@ -60,27 +60,74 @@
                   Mật khẩu phải có 8 ký tự trở lên, bao gồm cả chữ, cả số và cả kí tự đặc biệt !
                 </small>
               </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="typePasswordX-3">Nhập lại mật khẩu</label>
-                <input  formControlName="repassword" type="password" id="typePasswordX-3" class="form-control form-control-lg" />
-                <small class="col alert text-danger col-12r" role="alert"
-                       *ngIf="formSignUp.get('repassword')?.errors?.pattern && formSignUp.get('repassword')?.touched || formSignUp.get('repassword')?.value != formSignUp.get('password')?.value">
-                  Mật khẩu không khớp!
-                </small>
-              </div>
+<!--              <div class="form-outline mb-4">-->
+<!--                <label class="form-label" for="typePasswordX-3">Nhập lại mật khẩu</label>-->
+<!--                <input  formControlName="repassword" type="password" id="typePasswordX-3" class="form-control form-control-lg" />-->
+<!--                <small class="col alert text-danger col-12r" role="alert"-->
+<!--                       *ngIf="formSignUp.get('repassword')?.errors?.pattern && formSignUp.get('repassword')?.touched || formSignUp.get('repassword')?.value != formSignUp.get('password')?.value">-->
+<!--                  Mật khẩu không khớp!-->
+<!--                </small>-->
+<!--              </div>-->
               <div class="form-outline mb-4">
                 <label class="form-label" for="sdt">Số điện thoại</label>
-                <input type="text" id="sdt" class="form-control form-control-lg" formControlName = "phoneNumber" />
+                <input type="text" id="sdt" class="form-control form-control-lg" formControlName = "sdt" />
                 <small class="col alert text-danger col-12" role="alert"
-                  *ngIf="formSignUp.get('phoneNumber')?.errors?.required && formSignUp.get('phoneNumber')?.touched">
+                  *ngIf="formSignUp.get('sdt')?.errors?.required && formSignUp.get('sdt')?.touched">
                   Số điện thoại không được để trống!
                 </small>
                 <small class="col alert text-danger col-12r" role="alert"
-                  *ngIf="formSignUp.get('phoneNumber')?.errors?.pattern && formSignUp.get('phoneNumber')?.touched">
+                  *ngIf="formSignUp.get('sdt')?.errors?.pattern && formSignUp.get('sdt')?.touched">
                   Số điện thoại không đúng định dạng!
                 </small>
               </div>
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Đăng ký</button>
+
+
+              <div class="form-outline mb-4">
+                <div>
+                  <h6 class="mt-1">Tỉnh / Thành Phố</h6>
+                  <select #selectPrvince (change)="changeProvince1(selectPrvince.value)" class="form-control" formControlName="city">
+                    <option *ngFor="let item of provinces"  [value]="item.code">{{item.name}}
+                    </option>
+                  </select>
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formSignUp.get('city')?.errors?.required && formSignUp.get('city')?.touched">
+                    Tỉnh / Thành Phố không được để trống !
+                  </small>
+                </div>
+
+                <div>
+                  <h6 class="mt-1">Quận / Huyện</h6>
+                  <select #selectDistrictSelected (change)="changeDistrict1(selectDistrictSelected.value)" class="form-control"
+                          formControlName="district">
+                    <option *ngFor="let item of districts" [value]="item.code">{{item.name}}
+                    </option>
+                  </select>
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formSignUp.get('district')?.errors?.required && formSignUp.get('district')?.touched">
+                    Quận / Huyện không được để trống !
+                  </small>
+                </div>
+                <div>
+                  <h6 class="mt-1">Xã / Phường</h6>
+                  <select  class="form-control" formControlName="ward">
+                    <option *ngFor="let item of warts" [value]="item.code">{{item.name}}
+                    </option>
+                  </select>
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formSignUp.get('ward')?.errors?.required && formSignUp.get('ward')?.touched">
+                    Xã / Phường không được để trống !
+                  </small>
+                </div>
+                <div>
+                  <h6 class="mt-1">Địa chỉ chi tiết</h6>
+                  <input class="form-control" type="text" formControlName="detailAddress">
+                  <small class="col alert text-danger" role="alert"
+                         *ngIf="formSignUp.get('detailAddress')?.errors?.required && formSignUp.get('detailAddress')?.touched">
+                    Địa chỉ không được để trống !
+                  </small>
+                </div>
+              </div>
+              <button [disabled]="!formSignUp.valid" class="btn btn-primary btn-lg btn-block" (click)="signUp()">Đăng ký</button>
             </form>
           </div>
         </div>
