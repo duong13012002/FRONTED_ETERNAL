@@ -43,7 +43,7 @@
             <th>Giá</th>
             <th>Số lượng</th>
             <th>Tổng tiền</th>
-            <th [hidden]="trangthai !== 0">Thao tác</th>
+<!--            <th [hidden]="trangthai !== 0">Thao tác</th>-->
           </tr>
           </thead>
           <tbody>
@@ -63,10 +63,10 @@
             <td *ngIf="item.product!.outputprice && item!.quantity"
                 style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND
             </td>
-            <td [hidden]="trangthai !== 0">
-              <button (click)="removeItem(item.id)" class="btn btn-danger">Xóa<i
-                class="fas fa-trash-alt"></i></button>
-            </td>
+<!--            <td [hidden]="trangthai !== 0">-->
+<!--              <button (click)="removeItem(item.id)" class="btn btn-danger">Xóa<i-->
+<!--                class="fas fa-trash-alt"></i></button>-->
+<!--            </td>-->
           </tr>
           </tbody>
         </table>
