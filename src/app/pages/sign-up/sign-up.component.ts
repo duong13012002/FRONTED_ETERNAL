@@ -6,6 +6,10 @@ import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../share/service/UserService";
+import {ToastrService} from "ngx-toastr";
+import {toJSDate} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -29,6 +33,9 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
+    private accountService: UserService,
+    private toasrtService: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +94,7 @@ export class SignUpComponent implements OnInit {
 
   addValueForm() {
     this.account.fullname = this.formSignUp.value.fullname;
+    this.account.username = this.formSignUp.value.userName;
     this.account.sdt = this.formSignUp.value.sdt;
     this.account.password = this.formSignUp.value.password;
     let cityId = this.formSignUp.value.city;
@@ -115,7 +123,15 @@ export class SignUpComponent implements OnInit {
 
   signUp(){
     this.addValueForm();
-    console.log(this.account);
+    console.log(this.account)
+    this.accountService.signUp(this.account).subscribe(
+      res => {
+        this.toasrtService.success(res.message);
+        this.router.navigate(['/login']);
+      }, error => {
+        this.toasrtService.error(error.error.message)
+      }
+    )
   }
 
 
