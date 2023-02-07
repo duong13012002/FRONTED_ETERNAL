@@ -71,10 +71,10 @@ const routes: Routes = [
   { path: 'order', loadChildren: () => import('./pages/bill/bill.module').then(m => m.BillModule),canActivate:[UserGuard]},
   {path: 'home', loadChildren:() => import('./pages/find-new-product/findNewProduct.module').then(m => m.FindNewProductModule)},
   {path: 'updateOder/:id', loadChildren:() => import('./pages/update-order/updateOder.module').then(m => m.UpdateOderModule),canActivate:[UserGuard]},
-  {
-    path:'**',
-    redirectTo: '/404'
-  },
+  // {
+  //   path:'**',
+  //   redirectTo: '/404'
+  // },
 ];
 
 
