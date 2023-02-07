@@ -33,18 +33,17 @@
       <div class="cart-product">
         <table class="table table-striped table-responsive text-center px-2">
           <thead>
-          <tr>
-            <th>STT</th>
-            <th>Tên sản phẩm</th>
-            <th>Ảnh</th>
-            <th>Hãng</th>
-            <th>Size</th>
-            <th>Màu</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Tổng tiền</th>
-<!--            <th [hidden]="trangthai !== 0">Thao tác</th>-->
-          </tr>
+            <tr>
+              <th>STT</th>
+              <th class="col-3">Tên sản phẩm</th>
+              <th>Ảnh</th>
+              <th class="col-2">Hãng</th>
+              <th>Size</th>
+              <th>Màu</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Tổng tiền</th>
+            </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of dataOrderDetailsTemp; let i = index">
@@ -55,13 +54,13 @@
             <td>{{item.saimau!.product!.hang!.name}}</td>
             <td>{{item.saimau!.size!.value}}</td>
             <td>{{item.saimau!.mau!.name}}</td>
-            <th style="width: 12%;">{{item.saimau!.product!.outputprice}}</th>
+            <th style="width: 12%;">{{item.saimau!.product!.outputprice | currency: "VND"}}</th>
 <!--            <td style="width: 12%;">-->
 <!--              <input #selectquantity (change)="changeQuantity(selectquantity.value,item)" class="form-control" type="number" min="1" value="{{item.quantity}}">-->
 <!--            </td>-->
             <td>{{item.quantity}}</td>
             <td *ngIf="item.product!.outputprice && item!.quantity"
-                style="width: 12%;">{{item.product!.outputprice * item.quantity}} VND
+                style="width: 12%;">{{item.product!.outputprice * item.quantity | currency:"VND"}}
             </td>
 <!--            <td [hidden]="trangthai !== 0">-->
 <!--              <button (click)="removeItem(item.id)" class="btn btn-danger">Xóa<i-->
@@ -103,7 +102,7 @@
         <p>Tiền hàng: </p>
       </div>
       <div class="col-6">
-        {{grandTotal}}đ
+        {{grandTotal | currency: "VND"}}
       </div>
     </div>
     <div class="row">
@@ -111,7 +110,7 @@
         <p>Phí vận chuyển: </p>
       </div>
       <div class="col-6">
-        {{shippingFee}}
+        {{shippingFee | currency: "VND"}}
       </div>
     </div>
     <div class="row">
@@ -127,7 +126,7 @@
         <h5>Tổng tiền</h5>
       </div>
       <div class="col-6">
-        <h5 style="color: red;">{{grandTotal + shippingFee}}đ</h5>
+        <h5 style="color: red;">{{grandTotal + shippingFee | currency: "VND"}}</h5>
       </div>
     </div>
     <div class="mb-5">
