@@ -1,7 +1,7 @@
 <h1 class="text-center" style="margin-top: 150px;font-family: 'Times New Roman', Times, serif;">Đơn hàng của bạn</h1>
 
-<mat-tab-group style="margin-bottom: 200px;">
-  <mat-tab label="Chờ xác nhận">
+<mat-tab-group style="margin-bottom: 200px;margin-left: 400px;">
+  <mat-tab label="Chờ xác nhận" >
 
     <div class="container">
       <div class="card-table text-center">
@@ -20,7 +20,7 @@
                   <label class="col-2">{{i + 1}}</label>
 
                   <label class="col-3">{{item.create_date}}</label>
-                  <label class="col-3">{{item.price}} đ</label>
+                  <label class="col-3">{{item.price | currency:"VND"}}</label>
                   <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
                   <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
                   <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
@@ -36,7 +36,7 @@
     </div>
     <ng-container *ngIf="listChoXacNhan.length==0">
       <div class="container">
-        <div class="center" style="text-align: center;">
+        <div class="center" style="text-align: center;margin-right: 380px;">
           <img
             src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
             alt="" class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
@@ -64,7 +64,7 @@
               <div class="card" *ngFor="let item of listDangGiao; let i = index;" (click)="info(item!.id)">
                 <label class="col-2">{{i + 1}}</label>
                 <label class="col-3">{{item.create_date}}</label>
-                <label class="col-3">{{item.price}}</label>
+                <label class="col-3">{{item.price | currency:"VND"}}</label>
                 <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
                 <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
                 <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
@@ -77,7 +77,7 @@
     </div>
     <ng-container *ngIf="listDangGiao.length==0">
       <div class="container">
-        <div class="center" style="text-align: center;">
+        <div class="center" style="text-align: center;margin-right: 380px;">
           <img
             src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
             alt="" class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
@@ -115,7 +115,7 @@
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.price | currency:"VND"}}</td>
               <td>{{item.quantity}}</td>
               <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
             </tr>
@@ -148,7 +148,7 @@
               <div class="card" *ngFor="let item of listHoanThanh; let i = index;" (click)="info(item.id!)">
                 <label class="col-2">{{i + 1}}</label>
                 <label class="col-3">{{item.create_date}}</label>
-                <label class="col-3">{{item.price}}</label>
+                <label class="col-3">{{item.price | currency:"VND"}}</label>
                 <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
                 <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
                 <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
@@ -161,7 +161,7 @@
     </div>
     <ng-container *ngIf="listHoanThanh.length==0">
       <div class="container">
-        <div class="center" style="text-align: center;">
+        <div class="center" style="text-align: center;margin-right: 380px;">
           <img
             src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
             alt="" class="img-fluid" style="width: 30%;height: auto;margin-top: 30px;">
@@ -199,7 +199,7 @@
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.price | currency:"VND"}}</td>
               <td>{{item.quantity}}</td>
               <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
             </tr>
@@ -234,7 +234,7 @@
                   <label class="col-2">{{i + 1}}</label>
 
                   <label class="col-3">{{item.create_date}}</label>
-                  <label class="col-3">{{item.price}} đ</label>
+                  <label class="col-3">{{item.price | currency:"VND"}}</label>
                   <label class="col-2" *ngIf="item.status==0">Chờ xác nhận</label>
                   <label class="col-2" *ngIf="item.status==1">Đang giao hàng</label>
                   <label class="col-2" *ngIf="item.status==2">Hoàn thành</label>
@@ -250,7 +250,7 @@
     </div>
     <ng-container *ngIf="listDaHuy.length==0">
       <div class="container">
-        <div class="center" style="text-align: center;">
+        <div class="center" style="text-align: center;margin-right: 380px;">
           <img
             src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
             alt="" class="img-fluid" style="width: 30%;height: auto; margin-top: 30px;">
@@ -288,7 +288,7 @@
               <td>{{item.product!.name}}</td>
               <td>{{item.product!.category!.name}}</td>
               <td>{{item.product!.hang!.name}}</td>
-              <td>{{item.price}}</td>
+              <td>{{item.price | currency:"VND"}}</td>
               <td>{{item.quantity}}</td>
               <td *ngIf="item.price && item.quantity">{{item.price * item.quantity}}</td>
             </tr>
